@@ -33,4 +33,3 @@ test_that("plotly_duane includes hover text for data points", {
   hover_data <- plot$x$data[[1]]$text
   expect_true(all(grepl("MTBF: \\(", hover_data)))
 })
-

@@ -42,8 +42,8 @@ includes options to customize the appearance, such as colors and grid visibility
 }
 \examples{
 library(ReliaGrowR)
-times<-c(100, 200, 300, 400, 500)
-failures<-c(1, 2, 1, 3, 2)
-fit<-duane(times, failures)
+times <- c(100, 200, 300, 400, 500)
+failures <- c(1, 2, 1, 3, 2)
+fit <- duane(times, failures)
 plotly_duane(fit)
 }

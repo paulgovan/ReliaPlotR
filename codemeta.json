@@ -1,26 +1,20 @@
 {
   "@context": "https://doi.org/10.5063/schema/codemeta-2.0",
   "@type": "SoftwareSourceCode",
-  "identifier": "WeibullR.plotly",
+  "identifier": "ReliaPlotR",
   "description": "Build interactive Weibull Probability Plots with 'WeibullR' by David Silkworth and Jurgen Symynck (2022) <https://CRAN.R-project.org/package=WeibullR>, an R package for Weibull analysis, and 'plotly' by Carson Sievert (2020) <https://plotly-r.com>, an interactive web-based graphing library.",
-  "name": "WeibullR.plotly: Interactive Weibull Probability Plots",
-  "relatedLink": ["https://paulgovan.github.io/WeibullR.plotly/", "https://CRAN.R-project.org/package=WeibullR.plotly"],
-  "codeRepository": "https://github.com/paulgovan/WeibullR.plotly",
-  "issueTracker": "https://github.com/paulgovan/WeibullR.plotly/issues",
+  "name": "ReliaPlotR: Interactive Reliability Probability Plots",
+  "relatedLink": "https://paulgovan.github.io/ReliaPlotR/",
+  "codeRepository": "https://github.com/paulgovan/ReliaPlotR",
+  "issueTracker": "https://github.com/paulgovan/ReliaPlotR/issues",
   "license": "Apache License",
-  "version": "0.3.1",
+  "version": "0.3.2",
   "programmingLanguage": {
     "@type": "ComputerLanguage",
     "name": "R",
     "url": "https://r-project.org"
   },
   "runtimePlatform": "R version 4.4.2 (2024-10-31)",
-  "provider": {
-    "@id": "https://cran.r-project.org",
-    "@type": "Organization",
-    "name": "Comprehensive R Archive Network (CRAN)",
-    "url": "https://cran.r-project.org"
-  },
   "author": [
     {
       "@type": "Person",
@@ -100,15 +94,8 @@
     },
     {
       "@type": "SoftwareApplication",
-      "identifier": "WeibullR.learnr",
-      "name": "WeibullR.learnr",
-      "provider": {
-        "@id": "https://cran.r-project.org",
-        "@type": "Organization",
-        "name": "Comprehensive R Archive Network (CRAN)",
-        "url": "https://cran.r-project.org"
-      },
-      "sameAs": "https://CRAN.R-project.org/package=WeibullR.learnr"
+      "identifier": "ReliaLearnR",
+      "name": "ReliaLearnR"
     },
     {
       "@type": "SoftwareApplication",
@@ -162,7 +149,7 @@
     },
     "SystemRequirements": null
   },
-  "fileSize": "1619.597KB",
+  "fileSize": "906.643KB",
   "citation": [
     {
       "@type": "SoftwareSourceCode",
@@ -182,8 +169,9 @@
       "sameAs": "https://doi.org/10.32614/CRAN.package.WeibullR.plotly"
     }
   ],
-  "releaseNotes": "https://github.com/paulgovan/WeibullR.plotly/blob/main/NEWS.md",
-  "readme": "https://github.com/paulgovan/WeibullR.plotly/blob/main/ReadMe.md",
-  "developmentStatus": "https://lifecycle.r-lib.org/articles/stages.html#experimental",
+  "releaseNotes": "https://github.com/paulgovan/ReliaPlotR/blob/main/NEWS.md",
+  "readme": "https://github.com/paulgovan/ReliaPlotR/blob/main/ReadMe.md",
+  "contIntegration": ["https://github.com/paulgovan/ReliaPlotR/actions/workflows/R-CMD-check.yaml", "https://app.codecov.io/gh/paulgovan/ReliaPlotR"],
+  "developmentStatus": "https://www.repostatus.org/#active",
   "keywords": ["life-data-analysis", "plotly", "r", "weibull-analysis"]
 }

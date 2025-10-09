@@ -52,9 +52,9 @@ Vertical lines indicate change points if breakpoints are specified in the rga ob
 }
 \examples{
 library(ReliaGrowR)
-times<-c(100, 200, 300, 400, 500)
-failures<-c(1, 2, 1, 3, 2)
-rga<-rga(times, failures)
+times <- c(100, 200, 300, 400, 500)
+failures <- c(1, 2, 1, 3, 2)
+rga <- rga(times, failures)
 plotly_rga(rga)
 
 times <- c(100, 200, 300, 400, 500, 600, 700, 800, 900, 1000)

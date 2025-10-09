@@ -65,27 +65,33 @@ It can include confidence bounds, suspension data, and a results table.
 \examples{
 library(WeibullR)
 library(ReliaPlotR)
-failures<-c(30, 49, 82, 90, 96)
-obj<-wblr.conf(wblr.fit(wblr(failures)))
+failures <- c(30, 49, 82, 90, 96)
+obj <- wblr.conf(wblr.fit(wblr(failures)))
 plotly_wblr(obj)
 
-suspensions<-c(100, 45, 10)
-obj<-wblr.conf(wblr.fit(wblr(failures, suspensions)))
-plotly_wblr(obj, suspensions, fitCol = 'blue', confCol
-= 'blue')
-inspection_data <- data.frame(left=c(0, 6.12, 19.92, 29.64, 35.4, 39.72, 45.32, 52.32),
-                           right=c(6.12, 19.92, 29.64, 35.4, 39.72, 45.32, 52.32, 63.48),
-                           qty=c(5, 16, 12, 18, 18, 2, 6, 17))
+suspensions <- c(100, 45, 10)
+obj <- wblr.conf(wblr.fit(wblr(failures, suspensions)))
+plotly_wblr(obj, suspensions,
+  fitCol = "blue",
+  confCol = "blue"
+)
+inspection_data <- data.frame(
+  left = c(0, 6.12, 19.92, 29.64, 35.4, 39.72, 45.32, 52.32),
+  right = c(6.12, 19.92, 29.64, 35.4, 39.72, 45.32, 52.32, 63.48),
+  qty = c(5, 16, 12, 18, 18, 2, 6, 17)
+)
 suspensions <- data.frame(time = 63.48, event = 0, qty = 73)
 obj <- wblr(suspensions, interval = inspection_data)
 obj <- wblr.fit(obj, method.fit = "mle")
 obj <- wblr.conf(obj, method.conf = "fm", lty = 2)
 suspensions <- as.vector(suspensions$time)
-plotly_wblr(obj, susp = suspensions, fitCol = 'red', confCol = 'red', intCol = 'blue',
-        main = 'Parts Cracking Inspection Interval Analysis',
-        ylab =  'Cumulative \% Cracked', xlab='Inspection Time')
+plotly_wblr(obj,
+  susp = suspensions, fitCol = "red", confCol = "red", intCol = "blue",
+  main = "Parts Cracking Inspection Interval Analysis",
+  ylab = "Cumulative \% Cracked", xlab = "Inspection Time"
+)
 failures <- c(25, 30, 42, 49, 55, 67, 73, 82, 90, 96, 101, 110, 120, 132, 145)
 fit <- wblr.conf(wblr.fit(wblr(failures), dist = "weibull3p"))
-plotly_wblr(fit, fitCol='darkgreen', confCol = 'darkgreen')
+plotly_wblr(fit, fitCol = "darkgreen", confCol = "darkgreen")
 
 }

@@ -6,7 +6,7 @@
 \alias{ReliaPlotR-package}
 \title{ReliaPlotR: Interactive Reliability Probability Plots}
 \description{
-Build interactive Weibull Probability Plots with 'WeibullR' by David Silkworth and Jurgen Symynck (2022) \url{https://CRAN.R-project.org/package=WeibullR}, an R package for Weibull analysis, and 'plotly' by Carson Sievert (2020) \url{https://plotly-r.com}, an interactive web-based graphing library.
+Build interactive Reliability Probability Plots with 'plotly' by Carson Sievert (2020) \url{https://plotly-r.com}, an interactive web-based graphing library.
 }
 \seealso{
 Useful links:

@@ -49,4 +49,3 @@ test_that("plotly_rga includes hover text for data points", {
   hover_data <- plot$x$data[[1]]$text
   expect_true(all(grepl("Failures: \\(", hover_data)))
 })
-

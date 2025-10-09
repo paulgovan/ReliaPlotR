@@ -49,7 +49,7 @@ breaks <- 500
 
 Then run the rga and plot the results:
 ```{r}
-result <- rga(times, failures, model_type = 'Piecewise NHPP', breaks = breaks)
+result <- rga(times, failures, model_type = "Piecewise NHPP", breaks = breaks)
 plotly_rga(result, fitCol = "blue", confCol = "blue", breakCol = "red")
 ```
 

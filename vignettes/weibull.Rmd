@@ -46,7 +46,7 @@ Let's add right censored data to the previous example. In addition to the 5 mach
 ```{r echo=TRUE}
 suspensions <- c(100, 45, 10)
 obj <- wblr.conf(wblr.fit(wblr(failures, suspensions)))
-plotly_wblr(obj, suspensions, fitCol = 'blue', confCol = 'blue')
+plotly_wblr(obj, suspensions, fitCol = "blue", confCol = "blue")
 ```
 
 ## Interval Censored Model
@@ -54,9 +54,11 @@ plotly_wblr(obj, suspensions, fitCol = 'blue', confCol = 'blue')
 To create an interval censored model, let's use the inspection data from Silkworth, 2020.
 
 ```{r echo=TRUE}
-inspection_data <- data.frame(left=c(0, 6.12, 19.92, 29.64, 35.4, 39.72, 45.32, 52.32),
-                            right=c(6.12, 19.92, 29.64, 35.4, 39.72, 45.32, 52.32, 63.48),
-                            qty=c(5, 16, 12, 18, 18, 2, 6, 17))
+inspection_data <- data.frame(
+  left = c(0, 6.12, 19.92, 29.64, 35.4, 39.72, 45.32, 52.32),
+  right = c(6.12, 19.92, 29.64, 35.4, 39.72, 45.32, 52.32, 63.48),
+  qty = c(5, 16, 12, 18, 18, 2, 6, 17)
+)
 ```
 
 Then add suspension data for units surviving until the last inspection date.
@@ -69,12 +71,14 @@ Finally, add a fit and plot the results.
 
 ```{r echo=TRUE, warning=FALSE}
 obj <- wblr(suspensions, interval = inspection_data)
-obj <- wblr.fit(obj, method.fit = "mle") 
+obj <- wblr.fit(obj, method.fit = "mle")
 obj <- wblr.conf(obj, method.conf = "fm", lty = 2)
 suspensions <- as.vector(suspensions$time)
-plotly_wblr(obj, susp = suspensions, fitCol = 'red', confCol = 'red', intCol = 'blue', 
-            main = 'Parts Cracking Inspection Interval Analysis', 
-            ylab =  'Cumulative % Cracked', xlab='Inspection Time')
+plotly_wblr(obj,
+  susp = suspensions, fitCol = "red", confCol = "red", intCol = "blue",
+  main = "Parts Cracking Inspection Interval Analysis",
+  ylab = "Cumulative % Cracked", xlab = "Inspection Time"
+)
 ```
 
 ## 3-Parameter Weibull Model
@@ -84,7 +88,7 @@ To fit a 3P Weibull, let's create some new failure data and plot the results.
 ```{r echo=TRUE}
 failures <- c(25, 30, 42, 49, 55, 67, 73, 82, 90, 96, 101, 110, 120, 132, 145)
 fit <- wblr.conf(wblr.fit(wblr(failures), dist = "weibull3p"))
-plotly_wblr(fit, fitCol='darkgreen', confCol = 'darkgreen')
+plotly_wblr(fit, fitCol = "darkgreen", confCol = "darkgreen")
 ```
 
 ## Contour Plots
@@ -93,6 +97,6 @@ To build a contour plot, let's rerun the first example and use the `plotly_conto
 
 ```{r echo=TRUE}
 failures <- c(30, 49, 82, 90, 96)
-obj <- wblr.conf(wblr.fit(wblr(failures), method.fit = 'mle'), method.conf = 'lrb')
+obj <- wblr.conf(wblr.fit(wblr(failures), method.fit = "mle"), method.conf = "lrb")
 plotly_contour(obj, col = "blue")
 ```

@@ -50,8 +50,8 @@ library(ReliaPlotR)
 
 failures1 <- c(30, 49, 82, 90, 96)
 failures2 <- c(20, 40, 60, 80, 100)
-obj1 <- wblr.conf(wblr.fit(wblr(failures1), method.fit = 'mle'), method.conf = 'lrb')
-obj2 <- wblr.conf(wblr.fit(wblr(failures2), method.fit = 'mle'), method.conf = 'lrb')
+obj1 <- wblr.conf(wblr.fit(wblr(failures1), method.fit = "mle"), method.conf = "lrb")
+obj2 <- wblr.conf(wblr.fit(wblr(failures2), method.fit = "mle"), method.conf = "lrb")
 plotly_contour(list(obj1, obj2), main = "Overlayed Contours")
 
 }

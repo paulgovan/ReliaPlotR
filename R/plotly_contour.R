@@ -1,4 +1,3 @@
-
 #' Interactive Contour Plot
 #'
 #' This function creates an interactive contour plot for one or more
@@ -25,21 +24,20 @@
 #'
 #' failures1 <- c(30, 49, 82, 90, 96)
 #' failures2 <- c(20, 40, 60, 80, 100)
-#' obj1 <- wblr.conf(wblr.fit(wblr(failures1), method.fit = 'mle'), method.conf = 'lrb')
-#' obj2 <- wblr.conf(wblr.fit(wblr(failures2), method.fit = 'mle'), method.conf = 'lrb')
+#' obj1 <- wblr.conf(wblr.fit(wblr(failures1), method.fit = "mle"), method.conf = "lrb")
+#' obj2 <- wblr.conf(wblr.fit(wblr(failures2), method.fit = "mle"), method.conf = "lrb")
 #' plotly_contour(list(obj1, obj2), main = "Overlayed Contours")
 #'
 #' @importFrom plotly plot_ly add_trace layout toRGB
 #' @export
 plotly_contour <- function(wblr_obj,
-                           main = 'Contour Plot',
-                           xlab = 'Eta',
-                           ylab = 'Beta',
+                           main = "Contour Plot",
+                           xlab = "Eta",
+                           ylab = "Beta",
                            showGrid = TRUE,
                            cols = NULL,
-                           gridCol = 'lightgray',
+                           gridCol = "lightgray",
                            signif = 3) {
-
   # Handle input as a list if not already
   if (!is.list(wblr_obj) || inherits(wblr_obj, "wblr")) {
     wblr_obj <- list(wblr_obj)
@@ -77,11 +75,15 @@ plotly_contour <- function(wblr_obj,
     contour <- obj$fit[[1]]$conf[[1]]$contour
 
     if (dist_type %in% c("weibull", "weibull3p")) {
-      param1 <- 'Beta'; param2 <- 'Eta'
-      val1 <- round(fit_vec[2], signif); val2 <- round(fit_vec[1], signif)
+      param1 <- "Beta"
+      param2 <- "Eta"
+      val1 <- round(fit_vec[2], signif)
+      val2 <- round(fit_vec[1], signif)
     } else if (dist_type == "lognormal") {
-      param1 <- 'Mulog'; param2 <- 'Sigmalog'
-      val1 <- round(fit_vec[1], signif); val2 <- round(fit_vec[2], signif)
+      param1 <- "Mulog"
+      param2 <- "Sigmalog"
+      val1 <- round(fit_vec[1], signif)
+      val2 <- round(fit_vec[2], signif)
     } else {
       next
     }
@@ -93,24 +95,24 @@ plotly_contour <- function(wblr_obj,
       add_trace(
         x = round(contour[[1]], signif),
         y = round(contour[[2]], signif),
-        type = 'scatter',
-        mode = 'lines',
-        fill = 'toself',
+        type = "scatter",
+        mode = "lines",
+        fill = "toself",
         fillcolor = fillcolor,
         line = list(color = col),
         name = paste("Contour", i),
-        hoverinfo = 'text',
-        text = ~paste0("Contour (", round(contour[[1]], signif), ", ", round(contour[[2]], signif), ")")
+        hoverinfo = "text",
+        text = ~ paste0("Contour (", round(contour[[1]], signif), ", ", round(contour[[2]], signif), ")")
       ) %>%
       add_trace(
         x = val2,
         y = val1,
-        type = 'scatter',
-        mode = 'markers',
+        type = "scatter",
+        mode = "markers",
         marker = list(color = col, size = 10, symbol = "x"),
         name = paste("Estimate", i),
-        hoverinfo = 'text',
-        text = ~paste0("Estimate: (", val2, ", ", val1, ")")
+        hoverinfo = "text",
+        text = ~ paste0("Estimate: (", val2, ", ", val1, ")")
       )
   }
 

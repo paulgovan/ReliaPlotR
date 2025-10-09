@@ -1,10 +1,10 @@
+## ReliaPlotR (formerly WeibullR.plotly)
+
+* The package has been renamed from `WeibullR.plotly` to `ReliaPlotR` to better 
+reflect its broader focus on reliability engineering topics beyond just Weibull analysis.
+
 ## R CMD check results
-There were no ERRORs, WARNINGs, or NOTEs.
 
-## revdepcheck results
+0 errors | 0 warnings | 1 note
 
-We checked 2 reverse dependencies, comparing R CMD check results across CRAN and dev versions of this package.
-
- * We saw 0 new problems
- * We failed to check 0 packages
-
+* New submission
