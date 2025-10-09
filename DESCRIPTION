@@ -1,6 +1,6 @@
-Package: WeibullR.plotly
+Package: ReliaPlotR
 Type: Package
-Title: Interactive Weibull Probability Plots
+Title: Interactive Reliability Probability Plots
 Version: 0.3.2
 Authors@R: person("Paul", "Govan", email = "paul.govan2@gmail.com", role = c("aut", "cre", "cph"), comment = c(ORCID = "0000-0002-1821-8492"))
 Description: Build interactive Weibull Probability 
@@ -8,8 +8,8 @@ Description: Build interactive Weibull Probability
   <https://CRAN.R-project.org/package=WeibullR>, an R package for 
   Weibull analysis, and 'plotly' by Carson Sievert (2020) <https://plotly-r.com>, 
   an interactive web-based graphing library.
-URL: https://paulgovan.github.io/WeibullR.plotly/, https://github.com/paulgovan/WeibullR.plotly
-BugReports: https://github.com/paulgovan/WeibullR.plotly/issues
+URL: https://paulgovan.github.io/ReliaPlotR/, https://github.com/paulgovan/ReliaPlotR
+BugReports: https://github.com/paulgovan/ReliaPlotR/issues
 License: Apache License 
 Imports:
   plotly,
@@ -20,7 +20,7 @@ Suggests:
     rmarkdown,
     spelling,
     testthat (>= 3.0.0),
-    WeibullR.learnr,
+    ReliaLearnR,
     WeibullR.shiny
 Encoding: UTF-8
 RoxygenNote: 7.3.3

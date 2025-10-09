@@ -46,7 +46,7 @@ their respective MLE point estimates.
 }
 \examples{
 library(WeibullR)
-library(WeibullR.plotly)
+library(ReliaPlotR)
 
 failures1 <- c(30, 49, 82, 90, 96)
 failures2 <- c(20, 40, 60, 80, 100)

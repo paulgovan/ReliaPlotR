@@ -17,11 +17,11 @@ knitr::opts_chunk$set(
 )
 ```
 
-To run a Weibull Analysis, start by loading `WeibullR` and `WeibullR.plotly`
+To run a Weibull Analysis, start by loading `WeibullR` and `ReliaPlotR`
 
 ```{r setup}
 library(WeibullR)
-library(WeibullR.plotly)
+library(ReliaPlotR)
 ```
 
 ## A Basic Example

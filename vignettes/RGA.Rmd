@@ -17,11 +17,11 @@ knitr::opts_chunk$set(
 )
 ```
 
-To run a Reliability Growth Analysis, start by loading `ReliaGrowR` and `WeibullR.plotly`
+To run a Reliability Growth Analysis, start by loading `ReliaGrowR` and `ReliaPlotR`
 
 ```{r setup, warning=FALSE}
 library(ReliaGrowR)
-library(WeibullR.plotly)
+library(ReliaPlotR)
 ```
 
 ## Crow-AMSAA Model

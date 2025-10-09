@@ -1,9 +1,11 @@
 AMSAA
+CMD
+Codecov
 Jurgen
-Lifecycle
 MTBF
 Mulog
 NHPP
+ORCID
 ReliaGrowR
 ReliaLearnR
 Sievert
@@ -13,7 +15,6 @@ Symynck
 WeibullR
 conf
 duane
-learnr
 lightgray
 lrb
 plotly

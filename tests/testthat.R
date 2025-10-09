@@ -7,6 +7,6 @@
 # * https://testthat.r-lib.org/articles/special-files.html
 
 library(testthat)
-library(WeibullR.plotly)
+library(ReliaPlotR)
 
-test_check("WeibullR.plotly")
+test_check("ReliaPlotR")

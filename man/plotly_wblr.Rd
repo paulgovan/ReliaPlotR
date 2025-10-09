@@ -64,7 +64,7 @@ It can include confidence bounds, suspension data, and a results table.
 }
 \examples{
 library(WeibullR)
-library(WeibullR.plotly)
+library(ReliaPlotR)
 failures<-c(30, 49, 82, 90, 96)
 obj<-wblr.conf(wblr.fit(wblr(failures)))
 plotly_wblr(obj)
