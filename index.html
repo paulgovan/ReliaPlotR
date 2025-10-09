@@ -5,14 +5,14 @@
 <meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-<title>Interactive Weibull Probability Plots • WeibullR.plotly</title>
+<title>Interactive Reliability Probability Plots • ReliaPlotR</title>
 <script src="deps/jquery-3.6.0/jquery-3.6.0.min.js"></script><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <link href="deps/bootstrap-5.3.1/bootstrap.min.css" rel="stylesheet">
 <script src="deps/bootstrap-5.3.1/bootstrap.bundle.min.js"></script><link href="deps/font-awesome-6.5.2/css/all.min.css" rel="stylesheet">
 <link href="deps/font-awesome-6.5.2/css/v4-shims.min.css" rel="stylesheet">
-<script src="deps/headroom-0.11.0/headroom.min.js"></script><script src="deps/headroom-0.11.0/jQuery.headroom.min.js"></script><script src="deps/bootstrap-toc-1.0.1/bootstrap-toc.min.js"></script><script src="deps/clipboard.js-2.0.11/clipboard.min.js"></script><script src="deps/search-1.0.0/autocomplete.jquery.min.js"></script><script src="deps/search-1.0.0/fuse.min.js"></script><script src="deps/search-1.0.0/mark.min.js"></script><!-- pkgdown --><script src="pkgdown.js"></script><meta property="og:title" content="Interactive Weibull Probability Plots">
-<meta name="description" content="Build interactive Weibull Probability Plots with WeibullR by David Silkworth and Jurgen Symynck (2022) &lt;https://CRAN.R-project.org/package=WeibullR&gt;, an R package for Weibull analysis, and plotly by Carson Sievert (2020) &lt;https://plotly-r.com&gt;, an interactive web-based graphing library.">
-<meta property="og:description" content="Build interactive Weibull Probability Plots with WeibullR by David Silkworth and Jurgen Symynck (2022) &lt;https://CRAN.R-project.org/package=WeibullR&gt;, an R package for Weibull analysis, and plotly by Carson Sievert (2020) &lt;https://plotly-r.com&gt;, an interactive web-based graphing library.">
+<script src="deps/headroom-0.11.0/headroom.min.js"></script><script src="deps/headroom-0.11.0/jQuery.headroom.min.js"></script><script src="deps/bootstrap-toc-1.0.1/bootstrap-toc.min.js"></script><script src="deps/clipboard.js-2.0.11/clipboard.min.js"></script><script src="deps/search-1.0.0/autocomplete.jquery.min.js"></script><script src="deps/search-1.0.0/fuse.min.js"></script><script src="deps/search-1.0.0/mark.min.js"></script><!-- pkgdown --><script src="pkgdown.js"></script><meta property="og:title" content="Interactive Reliability Probability Plots">
+<meta name="description" content="Build interactive Reliability Probability Plots with plotly by Carson Sievert (2020) &lt;https://plotly-r.com&gt;, an interactive web-based graphing library.">
+<meta property="og:description" content="Build interactive Reliability Probability Plots with plotly by Carson Sievert (2020) &lt;https://plotly-r.com&gt;, an interactive web-based graphing library.">
 </head>
 <body>
     <a href="#main" class="visually-hidden-focusable">Skip to contents</a>
@@ -20,9 +20,9 @@
 
     <nav class="navbar navbar-expand-lg fixed-top bg-light" data-bs-theme="light" aria-label="Site navigation"><div class="container">
 
-    <a class="navbar-brand me-2" href="index.html">WeibullR.plotly</a>
+    <a class="navbar-brand me-2" href="index.html">ReliaPlotR</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.3.2</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.4</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -44,7 +44,7 @@
 <li class="nav-item"><form class="form-inline" role="search">
  <input class="form-control" type="search" name="search-input" id="search-input" autocomplete="off" aria-label="Search site" placeholder="Search for" data-search-index="search.json">
 </form></li>
-<li class="nav-item"><a class="external-link nav-link" href="https://github.com/paulgovan/WeibullR.plotly/" aria-label="GitHub"><span class="fa fab fa-github fa-lg"></span></a></li>
+<li class="nav-item"><a class="external-link nav-link" href="https://github.com/paulgovan/ReliaPlotR/" aria-label="GitHub"><span class="fa fab fa-github fa-lg"></span></a></li>
       </ul>
 </div>
 
@@ -53,13 +53,12 @@
 </nav><div class="container template-home">
 <div class="row">
   <main id="main" class="col-md-9">
-Build interactive Weibull Probability Plots with 'WeibullR' by David Silkworth and Jurgen Symynck (2022) &lt;<a href="https://CRAN.R-project.org/package=WeibullR" class="external-link">https://CRAN.R-project.org/package=WeibullR</a>&gt;, an R package for Weibull analysis, and 'plotly' by Carson Sievert (2020) &lt;<a href="https://plotly-r.com" class="external-link">https://plotly-r.com</a>&gt;, an interactive web-based graphing library.
+Build interactive Reliability Probability Plots with 'plotly' by Carson Sievert (2020) &lt;<a href="https://plotly-r.com" class="external-link">https://plotly-r.com</a>&gt;, an interactive web-based graphing library.
   </main><aside class="col-md-3"><div class="links">
 <h2 data-toc-skip>Links</h2>
 <ul class="list-unstyled">
-<li><a href="https://cloud.r-project.org/package=WeibullR.plotly" class="external-link">View on CRAN</a></li>
-<li><a href="https://github.com/paulgovan/WeibullR.plotly/" class="external-link">Browse source code</a></li>
-<li><a href="https://github.com/paulgovan/WeibullR.plotly/issues" class="external-link">Report a bug</a></li>
+<li><a href="https://github.com/paulgovan/ReliaPlotR/" class="external-link">Browse source code</a></li>
+<li><a href="https://github.com/paulgovan/ReliaPlotR/issues" class="external-link">Report a bug</a></li>
 </ul>
 </div>
 
@@ -81,7 +80,7 @@ Build interactive Weibull Probability Plots with 'WeibullR' by David Silkworth a
 <div class="citation">
 <h2 data-toc-skip>Citation</h2>
 <ul class="list-unstyled">
-<li><a href="authors.html#citation">Citing WeibullR.plotly</a></li>
+<li><a href="authors.html#citation">Citing ReliaPlotR</a></li>
 </ul>
 </div>
 
