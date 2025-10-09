@@ -1,3 +1,9 @@
+# ReliaPlotR 0.4 (formerly WeibullR.plotly)
+* The package has been renamed from `WeibullR.plotly` to `ReliaPlotR` to better 
+reflect its broader focus on reliability engineering topics beyond just Weibull analysis.
+* Updated DESCRIPTION and documentation to reflect the new package name.
+* Other minor improvements and bug fixes.
+
 # WeibullR.plotly 0.3.2
 
 ## Bug fix
