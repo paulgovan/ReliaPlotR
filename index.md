@@ -14,8 +14,7 @@ coverage](https://codecov.io/gh/paulgovan/ReliaPlotR/graph/badge.svg)](https://a
 [![](http://cranlogs.r-pkg.org/badges/grand-total/ReliaPlotR)](https://cran.r-project.org/package=ReliaPlotR)
 <!-- badges: end -->
 
-Build interactive Weibull Probability Plots with `WeibullR`, an R
-package for Weibull analysis, and `plotly`, an interactive web-based
+Build interactive Reliability Probability Plots with `plotly`, an interactive web-based
 graphing library.
 
 # Getting Started
@@ -39,7 +38,7 @@ To build a probability plot, first fit a `wblr` object using the
 
 ``` r
 library(WeibullR)
-library(WeibullR.plotly)
+library(ReliaPlotR)
 failures <- c(30, 49, 82, 90, 96)
 obj <- wblr.conf(wblr.fit(wblr(failures)))
 plotly_wblr(obj)

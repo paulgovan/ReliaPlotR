@@ -1,5 +1,5 @@
 ---
-title: "Weibull Analysis"
+title: "Life Data Analysis"
 output: 
   rmarkdown::html_vignette:
     fig_width: 7
