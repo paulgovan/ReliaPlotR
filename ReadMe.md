@@ -81,4 +81,3 @@ Please note that the ReliaPlotR project is released with a [Contributor
 Code of
 Conduct](https://github.com/paulgovan/ReliaPlotR/blob/f919aeb72a1d4dd3a64e55221eb1ae214b3480f5/CODE_OF_CONDUCT.md).
 By contributing to this project, you agree to abide by its terms.
-
