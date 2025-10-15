@@ -64,6 +64,6 @@ failures <- c(1, 2, 1, 3, 2)
 Then plot the results:
 ```{r}
 fit <- duane(times, failures)
-plotly_duane(fit, fitCol = "darkgreen")
+plotly_duane(fit, fitCol = "darkgreen", confCol = "darkgreen")
 ```
 

@@ -2,6 +2,7 @@
 # ReliaPlotR
 
 <!-- badges: start -->
+
 [![Project Status: Active – The project has reached a stable, usable
 state and is being actively
 developed.](https://www.repostatus.org/badges/latest/active.svg)](https://www.repostatus.org/#active)
@@ -12,10 +13,11 @@ status](https://www.r-pkg.org/badges/version/ReliaPlotR)](https://CRAN.R-project
 coverage](https://codecov.io/gh/paulgovan/ReliaPlotR/graph/badge.svg)](https://app.codecov.io/gh/paulgovan/ReliaPlotR)
 [![](http://cranlogs.r-pkg.org/badges/last-month/ReliaPlotR)](https://cran.r-project.org/package=ReliaPlotR)
 [![](http://cranlogs.r-pkg.org/badges/grand-total/ReliaPlotR)](https://cran.r-project.org/package=ReliaPlotR)
+
 <!-- badges: end -->
 
-Build interactive Reliability Probability Plots with `plotly`, an interactive web-based
-graphing library.
+Build interactive Reliability Probability Plots with `plotly`, an
+interactive web-based graphing library.
 
 # Getting Started
 

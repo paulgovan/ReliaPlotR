@@ -121,8 +121,7 @@ plotly_contour <- function(wblr_obj,
     layout(
       title = main,
       xaxis = list(title = xlab, showgrid = showGrid, gridcolor = gridCol),
-      yaxis = list(title = ylab, showgrid = showGrid, gridcolor = gridCol),
-      showlegend = TRUE
+      yaxis = list(title = ylab, showgrid = showGrid, gridcolor = gridCol)
     )
 
   return(p)
