@@ -71,13 +71,14 @@ plotly_rga <- function(rga_obj,
   }
 
   # Create the  plot
-  plotGrowth <- function() {
+  plot_growth <- function() {
+
     # Set up the plot layout
     fillcolor <- plotly::toRGB(confCol, 0.2)
     xgrid <- ifelse(is.null(showGrid) || isTRUE(showGrid), TRUE, FALSE)
     ygrid <- xgrid
 
-    growthPlot <- plot_ly(
+    growth_plot <- plot_ly(
       x = times, y = cum_failures, type = "scatter", mode = "markers",
       marker = list(color = pointCol), showlegend = FALSE,
       name = "", text = ~ paste0("Failures: (", times, ", ", cum_failures, ")"), hoverinfo = "text"
@@ -103,7 +104,7 @@ plotly_rga <- function(rga_obj,
       # Add lower confidence bound
       add_trace(
         x = times, y = rga_obj$lower_bounds, mode = "markers+lines",
-        marker = list(color = "transparent"), line = list(color = "transparent"),
+        marker = list(color = "transparent"), line = list(color = confCol),
         text = ~ paste0("Lower: ", times, ", ", rga_obj$lower_bounds, ")"), hoverinfo = "text"
       ) %>%
       # Add upper confidence bound
@@ -111,7 +112,7 @@ plotly_rga <- function(rga_obj,
         x = times, y = rga_obj$upper_bounds, mode = "markers+lines",
         fill = "tonexty",
         fillcolor = fillcolor,
-        marker = list(color = "transparent"), line = list(color = "transparent"),
+        marker = list(color = "transparent"), line = list(color = confCol),
         text = ~ paste0("Upper: ", times, ", ", rga_obj$upper_bounds, ")"), hoverinfo = "text"
       ) %>%
       # Add vertical lines at the change points
@@ -119,9 +120,9 @@ plotly_rga <- function(rga_obj,
         vline(exp(as.numeric(rga_obj$breakpoints)))
       ))
 
-    return(growthPlot)
+    return(growth_plot)
   }
-  final_plot <- plotGrowth()
+  final_plot <- plot_growth()
 
   return(final_plot)
 }

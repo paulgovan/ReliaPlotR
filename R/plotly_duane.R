@@ -1,8 +1,8 @@
+
 #' Interactive Duane Plot.
 #'
 #' This function creates an interactive Duane plot for a duane object. The plot
 #' includes options to customize the appearance, such as colors and grid visibility.
-#'
 #'
 #' @param duane_obj An object of class 'duane'. This object is created
 #' using the `duane` function from the ReliaGrowR package.
@@ -12,6 +12,7 @@
 #' @param ylab Y-axis label. Default is "Cumulative MTBF".
 #' @param pointCol Color of the point values. Default is "black".
 #' @param fitCol Color of the model fit. Default is "black".
+#' @param confCol Color of the confidence bounds. Default is "black".
 #' @param gridCol Color of the grid. Default is "lightgray".
 #' @return The function returns no value. It generates an interactive Duane plot.
 #' @examples
@@ -32,6 +33,7 @@ plotly_duane <- function(duane_obj,
                          ylab = "Cumulative MTBF",
                          pointCol = "black",
                          fitCol = "black",
+                         confCol = "black",
                          gridCol = "lightgray") {
   # Validate inputs
   validate_inputs <- function() {
@@ -41,18 +43,20 @@ plotly_duane <- function(duane_obj,
   }
   validate_inputs()
 
+  # Extract data from the duane_obj
+  times <- duane_obj$Cumulative_Time
+  mtbf <- duane_obj$Cumulative_MTBF
+  fitted <- duane_obj$Fitted_Values
+
   # Create the  plot
-  plotDuane <- function() {
+  plot_duane <- function() {
+
     # Set up the plot layout
+    fillcolor <- plotly::toRGB(confCol, 0.2)
     xgrid <- ifelse(is.null(showGrid) || isTRUE(showGrid), TRUE, FALSE)
     ygrid <- xgrid
 
-    # Extract data from duane_obj
-    times <- duane_obj$Cumulative_Time
-    mtbf <- duane_obj$Cumulative_MTBF
-    fitted <- duane_obj$Fitted_Values
-
-    duanePlot <- plot_ly(
+    duane_plot <- plot_ly(
       x = times, y = mtbf, type = "scatter", mode = "markers",
       marker = list(color = pointCol), showlegend = FALSE, name = "",
       text = ~ paste0("MTBF: (", times, ", ", mtbf, ")"), hoverinfo = "text"
@@ -75,10 +79,25 @@ plotly_duane <- function(duane_obj,
         marker = list(color = "transparent"), line = list(color = fitCol),
         text = ~ paste0("Fit: ", times, ", ", fitted, ")"), hoverinfo = "text"
       )
+      # %>%
+      # # Add lower confidence bound
+      # add_trace(
+      #   x = times, y = duane_obj$lower_bounds, mode = "markers+lines",
+      #   marker = list(color = "transparent"), line = list(color = confCol),
+      #   text = ~ paste0("Lower: ", times, ", ", duane_obj$lower_bounds, ")"), hoverinfo = "text"
+      # ) %>%
+      # # Add upper confidence bound
+      # add_trace(
+      #   x = times, y = duane_obj$upper_bounds, mode = "markers+lines",
+      #   fill = "tonexty",
+      #   fillcolor = fillcolor,
+      #   marker = list(color = "transparent"), line = list(color = confCol),
+      #   text = ~ paste0("Upper: ", times, ", ", duane_obj$upper_bounds, ")"), hoverinfo = "text"
+      # )
 
-    return(duanePlot)
+    return(duane_plot)
   }
-  final_plot <- plotDuane()
+  final_plot <- plot_duane()
 
   return(final_plot)
 }

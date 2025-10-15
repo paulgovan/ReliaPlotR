@@ -63,15 +63,9 @@ test_that("plotly_wblr handles subLayouts correctly", {
   suspensions <- c(100, 150)
   obj <- wblr.conf(wblr.fit(wblr(failures), method.fit = "mle"), method.conf = "lrb")
 
-  p1 <- plotly_wblr(obj, showSusp = TRUE, showRes = TRUE)
+  p1 <- plotly_wblr(obj, showSusp = TRUE)
   expect_s3_class(p1, "plotly")
 
-  p2 <- plotly_wblr(obj, showSusp = TRUE, showRes = FALSE)
+  p2 <- plotly_wblr(obj, showSusp = FALSE)
   expect_s3_class(p2, "plotly")
-
-  p3 <- plotly_wblr(obj, showSusp = FALSE, showRes = TRUE)
-  expect_s3_class(p3, "plotly")
-
-  p4 <- plotly_wblr(obj, showSusp = FALSE, showRes = FALSE)
-  expect_s3_class(p4, "plotly")
 })

@@ -9,7 +9,6 @@
 #' confidence bounds are available in the wblr object.
 #' @param showSusp Show the suspensions plot (TRUE) or not (FALSE). Default is TRUE
 #' if susp is provided.
-#' @param showRes Show the results table (TRUE) or not (FALSE). Default is TRUE.
 #' @param showGrid Show grid (TRUE) or hide grid (FALSE). Default is TRUE.
 #' @param main Main title. Default is 'Probability Plot'.
 #' @param xlab X-axis label. Default is 'Time to Failure'.
@@ -63,7 +62,6 @@ plotly_wblr <- function(wblr_obj,
                         susp = NULL,
                         showConf = TRUE,
                         showSusp = TRUE,
-                        showRes = TRUE,
                         showGrid = TRUE,
                         main = "Probability Plot",
                         xlab = "Time to Failure",
@@ -291,7 +289,7 @@ plotly_wblr <- function(wblr_obj,
       add_trace(
         x = data$lower, y = data$unrel_trans, mode = "markers+lines",
         marker = list(color = "transparent"),
-        line = list(color = "transparent"),
+        line = list(color = confCol),
         text = ~ paste0("Upper: ", data$lower_sd, ", ", data$unrel_sd, ")"),
         hoverinfo = "text"
       ) %>%
@@ -300,7 +298,7 @@ plotly_wblr <- function(wblr_obj,
         x = data$upper, y = data$unrel_trans, mode = "markers+lines",
         fill = "tonexty", fillcolor = fillcolor,
         marker = list(color = "transparent"),
-        line = list(color = "transparent"),
+        line = list(color = confCol),
         text = ~ paste0("Lower: ", data$upper_sd, ", ", data$unrel_sd, ")"),
         hoverinfo = "text"
       )
@@ -340,50 +338,8 @@ plotly_wblr <- function(wblr_obj,
       )
   }
 
-  # Build results table
-  build_table <- function(data) {
-    if (!showRes) {
-      return(NULL)
-    }
-
-    # Define parameter names and their corresponding values
-    params <- c(
-      "Ranks", "n", "Failures", "Intervals", "Suspensions", "Distribution",
-      "Method", data$param1, data$param2, data$param3, data$methlab, "CI", "Type"
-    )
-
-    values <- c(
-      wblr_obj$options$pp, wblr_obj$n, wblr_obj$fail, wblr_obj$interval,
-      wblr_obj$cens, wblr_obj$options$dist, wblr_obj$options$method.fit,
-      data$paramval1, data$paramval2, data$paramval3, data$methval, wblr_obj$options$ci,
-      wblr_obj$options$method.conf
-    )
-
-    # Create data frame for table
-    res <- data.frame(Params = params, Values = values, stringsAsFactors = FALSE)
-
-    # Generate Plotly table
-    plot_ly(
-      type = "table",
-      domain = list(x = c(0.775, 1)),
-      header = list(
-        values = c("Params", "Values"),
-        align = "center",
-        line = list(width = 1, color = "black"),
-        fill = list(color = "grey"),
-        font = list(family = "Arial", color = "white")
-      ),
-      cells = list(
-        values = rbind(res$Params, res$Values),
-        align = "center",
-        line = list(color = "black", width = 1),
-        font = list(family = "Arial", color = "black")
-      )
-    )
-  }
-
-  # Combine all plots
-  combine_plots <- function(prob_plot, susp_plot, results_table) {
+  # Combine plots
+  combine_plots <- function(prob_plot, susp_plot) {
     # Helper: Remove problematic plotly layout warnings
     clean_subplot <- function(...) {
       plot <- subplot(...)
@@ -392,12 +348,12 @@ plotly_wblr <- function(wblr_obj,
     }
 
     # Case 1: Only prob_plot available
-    if (is.null(results_table) && is.null(susp_plot)) {
+    if (is.null(susp_plot)) {
       return(prob_plot)
     }
 
-    # Case 2: prob_plot + susp_plot only
-    if (is.null(results_table) && !is.null(susp_plot)) {
+    # Case 2: prob_plot + susp_plot
+    if (!is.null(susp_plot)) {
       return(
         clean_subplot(prob_plot, susp_plot, nrows = 2, titleX = TRUE, titleY = TRUE) %>%
           layout(
@@ -408,30 +364,6 @@ plotly_wblr <- function(wblr_obj,
           )
       )
     }
-
-    # Case 3: prob_plot + results_table only
-    if (!is.null(results_table) && is.null(susp_plot)) {
-      return(
-        clean_subplot(prob_plot, results_table, titleX = TRUE, titleY = TRUE) %>%
-          layout(
-            xaxis = list(domain = c(0, 0.75)),
-            xaxis2 = list(domain = c(0.775, 1)),
-            yaxis = list(domain = c(0, 1)),
-            yaxis2 = list(domain = c(0, 1))
-          )
-      )
-    }
-
-    # Case 4: all three plots
-    clean_subplot(prob_plot, susp_plot, results_table, nrows = 2, titleX = TRUE, titleY = TRUE) %>%
-      layout(
-        xaxis = list(domain = c(0, 0.75)),
-        xaxis2 = list(domain = c(0, 0.75)),
-        xaxis3 = list(domain = c(0.775, 1)),
-        yaxis = list(domain = c(0, 0.875)),
-        yaxis2 = list(domain = c(0.9, 1)),
-        yaxis3 = list(domain = c(0, 0.85))
-      )
   }
 
   # Main function calls
@@ -439,6 +371,5 @@ plotly_wblr <- function(wblr_obj,
   data <- extract_data(wblr_obj, signif, showConf)
   p1 <- plot_prob(data)
   p2 <- plot_susp()
-  t1 <- build_table(data)
-  combine_plots(p1, p2, t1)
+  combine_plots(p1, p2)
 }

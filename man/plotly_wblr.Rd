@@ -9,7 +9,6 @@ plotly_wblr(
   susp = NULL,
   showConf = TRUE,
   showSusp = TRUE,
-  showRes = TRUE,
   showGrid = TRUE,
   main = "Probability Plot",
   xlab = "Time to Failure",
@@ -32,8 +31,6 @@ confidence bounds are available in the wblr object.}
 
 \item{showSusp}{Show the suspensions plot (TRUE) or not (FALSE). Default is TRUE
 if susp is provided.}
-
-\item{showRes}{Show the results table (TRUE) or not (FALSE). Default is TRUE.}
 
 \item{showGrid}{Show grid (TRUE) or hide grid (FALSE). Default is TRUE.}
 

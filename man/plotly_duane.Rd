@@ -12,6 +12,7 @@ plotly_duane(
   ylab = "Cumulative MTBF",
   pointCol = "black",
   fitCol = "black",
+  confCol = "black",
   gridCol = "lightgray"
 )
 }
@@ -30,6 +31,8 @@ using the `duane` function from the ReliaGrowR package.}
 \item{pointCol}{Color of the point values. Default is "black".}
 
 \item{fitCol}{Color of the model fit. Default is "black".}
+
+\item{confCol}{Color of the confidence bounds. Default is "black".}
 
 \item{gridCol}{Color of the grid. Default is "lightgray".}
 }
