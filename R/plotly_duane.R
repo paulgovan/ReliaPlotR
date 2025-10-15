@@ -78,22 +78,21 @@ plotly_duane <- function(duane_obj,
         x = times, y = fitted, mode = "markers+lines",
         marker = list(color = "transparent"), line = list(color = fitCol),
         text = ~ paste0("Fit: ", times, ", ", fitted, ")"), hoverinfo = "text"
+      ) %>%
+      # Add lower confidence bound
+      add_trace(
+        x = times, y = duane_obj$lower_bounds, mode = "markers+lines",
+        marker = list(color = "transparent"), line = list(color = confCol),
+        text = ~ paste0("Lower: ", times, ", ", duane_obj$lower_bounds, ")"), hoverinfo = "text"
+      ) %>%
+      # Add upper confidence bound
+      add_trace(
+        x = times, y = duane_obj$upper_bounds, mode = "markers+lines",
+        fill = "tonexty",
+        fillcolor = fillcolor,
+        marker = list(color = "transparent"), line = list(color = confCol),
+        text = ~ paste0("Upper: ", times, ", ", duane_obj$upper_bounds, ")"), hoverinfo = "text"
       )
-      # %>%
-      # # Add lower confidence bound
-      # add_trace(
-      #   x = times, y = duane_obj$lower_bounds, mode = "markers+lines",
-      #   marker = list(color = "transparent"), line = list(color = confCol),
-      #   text = ~ paste0("Lower: ", times, ", ", duane_obj$lower_bounds, ")"), hoverinfo = "text"
-      # ) %>%
-      # # Add upper confidence bound
-      # add_trace(
-      #   x = times, y = duane_obj$upper_bounds, mode = "markers+lines",
-      #   fill = "tonexty",
-      #   fillcolor = fillcolor,
-      #   marker = list(color = "transparent"), line = list(color = confCol),
-      #   text = ~ paste0("Upper: ", times, ", ", duane_obj$upper_bounds, ")"), hoverinfo = "text"
-      # )
 
     return(duane_plot)
   }
