@@ -19,7 +19,7 @@ coverage](https://codecov.io/gh/paulgovan/ReliaPlotR/graph/badge.svg)](https://a
 Build interactive Reliability Probability Plots with `plotly`, an
 interactive web-based graphing library.
 
-# Getting Started
+## Getting Started
 
 To install `ReliaPlotR` in R:
 
@@ -33,7 +33,7 @@ Or install the development version:
 devtools::install_github("paulgovan/ReliaPlotR")
 ```
 
-# Basic Examples
+## Basic Examples
 
 To build a probability plot, first fit a `wblr` object using the
 `WeibullR` package and then use `plotly_wblr` to build the plot.
@@ -59,9 +59,9 @@ plotly_contour(obj)
 
 ![](https://github.com/paulgovan/ReliaPlotR/blob/main/ReadMe_files/figure-gfm/unnamed-chunk-4-1.png?raw=true)<!-- -->
 
-# Customization
+## Customization
 
-ReliaPlotR has several customization options.
+`ReliaPlotR` has several customization options.
 
 ``` r
 plotly_wblr(obj, main = "Weibull Probability Plot", xlab = "Years", ylab = "Failure Probability", confCol = "blue", signif = 4, grid = FALSE)
