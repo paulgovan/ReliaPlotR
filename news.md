@@ -1,3 +1,10 @@
+# ReliaPlotR 0.4.1 
+
+## Minor improvements
+* New confidence bounds option for the Duane plot in `plotly_duane`.
+* Results table is removed from `plotly_wblr` to reduce clutter.
+* Other minor improvements and bug fixes.
+
 # ReliaPlotR 0.4 (formerly WeibullR.plotly)
 * The package has been renamed from `WeibullR.plotly` to `ReliaPlotR` to better 
 reflect its broader focus on reliability engineering topics beyond just Weibull analysis.

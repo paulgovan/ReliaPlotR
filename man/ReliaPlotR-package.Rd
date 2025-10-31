@@ -6,7 +6,7 @@
 \alias{ReliaPlotR-package}
 \title{ReliaPlotR: Interactive Reliability Probability Plots}
 \description{
-Build interactive Reliability Probability Plots with 'plotly' by Carson Sievert (2020) \url{https://plotly-r.com}, an interactive web-based graphing library.
+Build interactive Reliability Probability Plots with 'plotly' by Carson Sievert (2020) \url{https://plotly.com/r/}, an interactive web-based graphing library.
 }
 \seealso{
 Useful links:
