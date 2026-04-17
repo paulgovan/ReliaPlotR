@@ -6,6 +6,7 @@
 \usage{
 plotly_duane(
   duane_obj,
+  showConf = TRUE,
   showGrid = TRUE,
   main = "Duane Plot",
   xlab = "Cumulative Time",
@@ -13,12 +14,15 @@ plotly_duane(
   pointCol = "black",
   fitCol = "black",
   confCol = "black",
-  gridCol = "lightgray"
+  gridCol = "lightgray",
+  signif = 3
 )
 }
 \arguments{
 \item{duane_obj}{An object of class 'duane'. This object is created
 using the `duane` function from the ReliaGrowR package.}
+
+\item{showConf}{Show the confidence bounds (TRUE) or not (FALSE). Default is TRUE.}
 
 \item{showGrid}{Show grid (TRUE) or hide grid (FALSE). Default is TRUE.}
 
@@ -35,9 +39,11 @@ using the `duane` function from the ReliaGrowR package.}
 \item{confCol}{Color of the confidence bounds. Default is "black".}
 
 \item{gridCol}{Color of the grid. Default is "lightgray".}
+
+\item{signif}{Significant digits of results. Default is 3. Must be a positive integer.}
 }
 \value{
-The function returns no value. It generates an interactive Duane plot.
+A `plotly` object representing the interactive Duane plot.
 }
 \description{
 This function creates an interactive Duane plot for a duane object. The plot

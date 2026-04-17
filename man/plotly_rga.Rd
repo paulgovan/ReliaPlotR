@@ -15,38 +15,52 @@ plotly_rga(
   fitCol = "black",
   confCol = "black",
   gridCol = "lightgray",
-  breakCol = "black"
+  breakCol = "black",
+  signif = 3,
+  cols = NULL
 )
 }
 \arguments{
-\item{rga_obj}{An object of class 'rga'. This object is created using the
-`rga()` function from the `ReliaGrowR` package.}
+\item{rga_obj}{An object of class 'rga', or a list of such objects. Each object
+is created using the `rga()` function from the `ReliaGrowR` package.}
 
-\item{showConf}{Show the confidence bounds (TRUE) or not (FALSE).}
+\item{showConf}{Show the confidence bounds (TRUE) or not (FALSE). Default is TRUE.}
 
-\item{showGrid}{Show grid (TRUE) or hide grid (FALSE).}
+\item{showGrid}{Show grid (TRUE) or hide grid (FALSE). Default is TRUE.}
 
-\item{main}{Main title.}
+\item{main}{Main title. Default is "Reliability Growth Plot".}
 
-\item{xlab}{X-axis label.}
+\item{xlab}{X-axis label. Default is "Cumulative Time".}
 
-\item{ylab}{Y-axis label.}
+\item{ylab}{Y-axis label. Default is "Cumulative Failures".}
 
-\item{pointCol}{Color of the point values.}
+\item{pointCol}{Color of the point values. Default is "black". Used only for a
+single rga object; ignored when `cols` is provided or multiple objects are supplied.}
 
-\item{fitCol}{Color of the model fit.}
+\item{fitCol}{Color of the model fit. Default is "black". Used only for a single
+rga object; ignored when `cols` is provided or multiple objects are supplied.}
 
-\item{confCol}{Color of the confidence bounds.}
+\item{confCol}{Color of the confidence bounds. Default is "black". Used only for a
+single rga object; ignored when `cols` is provided or multiple objects are supplied.}
 
-\item{gridCol}{Color of the grid.}
+\item{gridCol}{Color of the grid. Default is "lightgray".}
 
-\item{breakCol}{Color of the breakpoints.}
+\item{breakCol}{Color of the breakpoints. Default is "black". Used only for a
+single rga object; ignored when `cols` is provided or multiple objects are supplied.}
+
+\item{signif}{Significant digits of results. Default is 3. Must be a positive integer.}
+
+\item{cols}{Optional character vector of colors, one per rga object. When provided,
+each object's points, fit line, confidence bounds, and breakpoints are all drawn in
+the corresponding color. Recycled if shorter than the number of objects.}
 }
 \value{
-The function returns no value. It generates an interactive plotly plot.
+A `plotly` object representing the interactive reliability growth plot.
 }
 \description{
-The function creates an interactive reliability growth plot for an `rga` object.
+The function creates an interactive reliability growth plot for one or more `rga`
+objects. When a list of objects is provided the models are overlaid on the same
+plot, each rendered in a distinct color.
 The plot includes cumulative failures over time, the model fit, and optional confidence bounds.
 Vertical lines indicate change points if breakpoints are specified in the rga object.
 }
@@ -62,4 +76,8 @@ failures <- c(1, 2, 1, 1, 1, 2, 3, 1, 2, 4)
 breakpoints <- 400
 rga2 <- rga(times, failures, model_type = "Piecewise NHPP", breaks = breakpoints)
 plotly_rga(rga2, fitCol = "blue", confCol = "blue", breakCol = "red")
+
+# Overlay two models
+rga3 <- rga(c(50, 150, 250, 350, 450), c(2, 1, 3, 1, 2))
+plotly_rga(list(rga, rga3))
 }

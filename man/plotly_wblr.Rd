@@ -18,13 +18,17 @@ plotly_wblr(
   confCol = "black",
   intCol = "black",
   gridCol = "lightgray",
-  signif = 3
+  signif = 3,
+  cols = NULL
 )
 }
 \arguments{
-\item{wblr_obj}{An object of class 'wblr'. This is a required argument.}
+\item{wblr_obj}{A single object of class 'wblr', or a list of such objects. This is
+a required argument. Each object must use the same distribution (e.g. all Weibull or
+all lognormal). Suspension subplots are only shown when a single object is provided.}
 
-\item{susp}{An optional numeric vector of suspension data. Default is NULL.}
+\item{susp}{An optional numeric vector of suspension data. Default is NULL. Ignored
+when multiple wblr objects are provided.}
 
 \item{showConf}{Show the confidence bounds (TRUE) or not (FALSE). Default is TRUE if
 confidence bounds are available in the wblr object.}
@@ -40,24 +44,33 @@ if susp is provided.}
 
 \item{ylab}{Y-axis label. Default is 'Probability'.}
 
-\item{probCol}{Color of the probability values. Default is 'black'.}
+\item{probCol}{Color of the probability values. Default is 'black'. Used only for a
+single wblr object; ignored when `cols` is provided or multiple objects are supplied.}
 
-\item{fitCol}{Color of the model fit. Default is 'black'.}
+\item{fitCol}{Color of the model fit. Default is 'black'. Used only for a single
+wblr object; ignored when `cols` is provided or multiple objects are supplied.}
 
-\item{confCol}{Color of the confidence bounds. Default is 'black'.}
+\item{confCol}{Color of the confidence bounds. Default is 'black'. Used only for a
+single wblr object; ignored when `cols` is provided or multiple objects are supplied.}
 
 \item{intCol}{Color of the intervals for interval censored models. Default is 'black'.}
 
 \item{gridCol}{Color of the grid. Default is 'lightgray'.}
 
 \item{signif}{Significant digits of results. Default is 3. Must be a positive integer.}
+
+\item{cols}{Optional character vector of colors, one per wblr object. When provided,
+each object's data points, fit line, and confidence bounds are all drawn in the
+corresponding color. Recycled if shorter than the number of objects.}
 }
 \value{
-The function returns no value. It creates an interactive probability plot.
+A `plotly` object representing the interactive probability plot.
 }
 \description{
-This function creates an interactive probability plot for a wblr object.
-It can include confidence bounds, suspension data, and a results table.
+This function creates an interactive probability plot for one or more wblr objects.
+When a list of objects is provided the models are overlaid on the same plot, each
+rendered in a distinct color. All objects must use the same distribution family.
+It can include confidence bounds, suspension data (single object only), and a results table.
 }
 \examples{
 library(WeibullR)
@@ -90,5 +103,12 @@ plotly_wblr(obj,
 failures <- c(25, 30, 42, 49, 55, 67, 73, 82, 90, 96, 101, 110, 120, 132, 145)
 fit <- wblr.conf(wblr.fit(wblr(failures), dist = "weibull3p"))
 plotly_wblr(fit, fitCol = "darkgreen", confCol = "darkgreen")
+
+# Overlay two Weibull models
+obj2 <- wblr.conf(wblr.fit(wblr(c(20, 40, 60, 80, 100)), method.fit = "mle"),
+                  method.conf = "lrb")
+obj3 <- wblr.conf(wblr.fit(wblr(c(10, 30, 50, 70, 90)), method.fit = "mle"),
+                  method.conf = "lrb")
+plotly_wblr(list(obj2, obj3))
 
 }

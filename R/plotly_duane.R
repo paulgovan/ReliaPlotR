@@ -6,6 +6,7 @@
 #'
 #' @param duane_obj An object of class 'duane'. This object is created
 #' using the `duane` function from the ReliaGrowR package.
+#' @param showConf Show the confidence bounds (TRUE) or not (FALSE). Default is TRUE.
 #' @param showGrid Show grid (TRUE) or hide grid (FALSE). Default is TRUE.
 #' @param main Main title. Default is "Duane Plot".
 #' @param xlab X-axis label. Default is "Cumulative Time".
@@ -14,7 +15,8 @@
 #' @param fitCol Color of the model fit. Default is "black".
 #' @param confCol Color of the confidence bounds. Default is "black".
 #' @param gridCol Color of the grid. Default is "lightgray".
-#' @return The function returns no value. It generates an interactive Duane plot.
+#' @param signif Significant digits of results. Default is 3. Must be a positive integer.
+#' @return A `plotly` object representing the interactive Duane plot.
 #' @examples
 #' library(ReliaGrowR)
 #' times <- c(100, 200, 300, 400, 500)
@@ -27,6 +29,7 @@
 #' @export
 
 plotly_duane <- function(duane_obj,
+                         showConf = TRUE,
                          showGrid = TRUE,
                          main = "Duane Plot",
                          xlab = "Cumulative Time",
@@ -34,21 +37,19 @@ plotly_duane <- function(duane_obj,
                          pointCol = "black",
                          fitCol = "black",
                          confCol = "black",
-                         gridCol = "lightgray") {
+                         gridCol = "lightgray",
+                         signif = 3) {
   # Validate inputs
-  validate_inputs <- function() {
-    if (!identical(class(duane_obj), "duane")) {
-      stop("Argument 'duane_obj' is not of class 'duane'.")
-    }
+  if (!inherits(duane_obj, "duane")) {
+    stop("Argument 'duane_obj' is not of class 'duane'.")
   }
-  validate_inputs()
 
   # Extract data from the duane_obj
   times <- duane_obj$Cumulative_Time
   mtbf <- duane_obj$Cumulative_MTBF
   fitted <- duane_obj$Fitted_Values
 
-  # Create the  plot
+  # Create the plot
   plot_duane <- function() {
 
     # Set up the plot layout
@@ -59,40 +60,48 @@ plotly_duane <- function(duane_obj,
     duane_plot <- plot_ly(
       x = times, y = mtbf, type = "scatter", mode = "markers",
       marker = list(color = pointCol), showlegend = FALSE, name = "",
-      text = ~ paste0("MTBF: (", times, ", ", mtbf, ")"), hoverinfo = "text"
+      text = ~ paste0("MTBF: (", round(times, signif), ", ", round(mtbf, signif), ")"),
+      hoverinfo = "text"
     ) %>%
-      # Set up the main probability plot layout
+      # Set up the main plot layout
       layout(
         title = main,
         xaxis = list(
           type = "log", title = xlab, showline = TRUE, mirror = "ticks",
-          showgrid = TRUE, gridcolor = gridCol
+          showgrid = xgrid, gridcolor = gridCol
         ),
         yaxis = list(
           type = "log", title = ylab, showline = TRUE, mirror = "ticks",
-          size = text, showgrid = TRUE, gridcolor = gridCol
+          showgrid = ygrid, gridcolor = gridCol
         )
       ) %>%
       # Add best fit
       add_trace(
         x = times, y = fitted, mode = "markers+lines",
         marker = list(color = "transparent"), line = list(color = fitCol),
-        text = ~ paste0("Fit: ", times, ", ", fitted, ")"), hoverinfo = "text"
-      ) %>%
-      # Add lower confidence bound
-      add_trace(
-        x = times, y = duane_obj$lower_bounds, mode = "markers+lines",
-        marker = list(color = "transparent"), line = list(color = confCol),
-        text = ~ paste0("Lower: ", times, ", ", duane_obj$lower_bounds, ")"), hoverinfo = "text"
-      ) %>%
-      # Add upper confidence bound
-      add_trace(
-        x = times, y = duane_obj$upper_bounds, mode = "markers+lines",
-        fill = "tonexty",
-        fillcolor = fillcolor,
-        marker = list(color = "transparent"), line = list(color = confCol),
-        text = ~ paste0("Upper: ", times, ", ", duane_obj$upper_bounds, ")"), hoverinfo = "text"
+        text = ~ paste0("Fit: (", round(times, signif), ", ", round(fitted, signif), ")"),
+        hoverinfo = "text"
       )
+
+    if (isTRUE(showConf)) {
+      duane_plot <- duane_plot %>%
+        # Add lower confidence bound
+        add_trace(
+          x = times, y = duane_obj$lower_bounds, mode = "markers+lines",
+          marker = list(color = "transparent"), line = list(color = confCol),
+          text = ~ paste0("Lower: (", round(times, signif), ", ", round(duane_obj$lower_bounds, signif), ")"),
+          hoverinfo = "text"
+        ) %>%
+        # Add upper confidence bound
+        add_trace(
+          x = times, y = duane_obj$upper_bounds, mode = "markers+lines",
+          fill = "tonexty",
+          fillcolor = fillcolor,
+          marker = list(color = "transparent"), line = list(color = confCol),
+          text = ~ paste0("Upper: (", round(times, signif), ", ", round(duane_obj$upper_bounds, signif), ")"),
+          hoverinfo = "text"
+        )
+    }
 
     return(duane_plot)
   }

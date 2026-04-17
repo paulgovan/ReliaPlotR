@@ -14,7 +14,7 @@ class(mock_rga_obj) <- "rga"
 # Unit tests
 test_that("plotly_rga throws an error for incorrect input class", {
   incorrect_obj <- list(model = list(model = list()))
-  expect_error(plotly_rga(incorrect_obj), "Argument 'rga_obj' is not of class 'rga'.")
+  expect_error(plotly_rga(incorrect_obj), "All inputs must be of class 'rga'.")
 })
 
 test_that("plotly_rga returns a plotly object", {
@@ -48,4 +48,36 @@ test_that("plotly_rga includes hover text for data points", {
   plot <- plotly_rga(mock_rga_obj)
   hover_data <- plot$x$data[[1]]$text
   expect_true(all(grepl("Failures: \\(", hover_data)))
+})
+
+test_that("plotly_rga respects showConf = FALSE", {
+  plot_with_conf <- plotly_rga(mock_rga_obj, showConf = TRUE)
+  plot_without_conf <- plotly_rga(mock_rga_obj, showConf = FALSE)
+
+  # With confidence: point + fit + lower + upper = 4 traces
+  # Without confidence: point + fit = 2 traces
+  expect_gt(length(plot_with_conf$x$attrs), length(plot_without_conf$x$attrs))
+})
+
+test_that("plotly_rga accepts a list of rga objects and returns a plotly object", {
+  plot <- plotly_rga(list(mock_rga_obj, mock_rga_obj))
+  expect_s3_class(plot, "plotly")
+})
+
+test_that("plotly_rga overlay produces more traces than single object", {
+  single <- plotly_rga(mock_rga_obj)
+  overlay <- plotly_rga(list(mock_rga_obj, mock_rga_obj))
+  expect_gt(length(overlay$x$attrs), length(single$x$attrs))
+})
+
+test_that("plotly_rga overlay respects cols parameter", {
+  plot <- plotly_rga(list(mock_rga_obj, mock_rga_obj), cols = c("red", "blue"))
+  expect_s3_class(plot, "plotly")
+})
+
+test_that("plotly_rga throws error for non-rga input in list", {
+  expect_error(
+    plotly_rga(list(mock_rga_obj, list())),
+    "All inputs must be of class 'rga'."
+  )
 })
