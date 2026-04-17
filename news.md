@@ -1,3 +1,18 @@
+# ReliaPlotR 0.5
+
+## New features
+* New `plotly_alt()` function for Accelerated Life Testing (ALT) probability plots, with one line per stress level.
+* New `plotly_rel()` function for ALT life-stress relationship plots.
+* New `plotly_mcf()` function for Mean Cumulative Function (MCF) plots for repairable systems.
+* New `plotly_nhpp()` function for Non-Homogeneous Poisson Process (NHPP) reliability growth plots.
+* New `plotly_exposure()` function for exposure plots.
+* `plotly_wblr()`, `plotly_rga()`, and `plotly_contour()` now accept a list of model objects for overlaying multiple fits on a single plot.
+* New vignettes on ALT analysis and repairable systems analysis.
+
+## Minor improvements and bug fixes
+* Various improvements to `plotly_wblr()` and `plotly_rga()`.
+* Other minor improvements and bug fixes.
+
 # ReliaPlotR 0.4.1 
 
 ## Minor improvements
