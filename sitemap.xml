@@ -1,19 +1,27 @@
 <urlset xmlns = 'http://www.sitemaps.org/schemas/sitemap/0.9'>
 <url><loc>https://paulgovan.github.io/ReliaPlotR/404.html</loc></url>
+<url><loc>https://paulgovan.github.io/ReliaPlotR/CLAUDE.html</loc></url>
 <url><loc>https://paulgovan.github.io/ReliaPlotR/CODE_OF_CONDUCT.html</loc></url>
 <url><loc>https://paulgovan.github.io/ReliaPlotR/CONTRIBUTING.html</loc></url>
 <url><loc>https://paulgovan.github.io/ReliaPlotR/LICENSE-text.html</loc></url>
 <url><loc>https://paulgovan.github.io/ReliaPlotR/ReadMe.html</loc></url>
 <url><loc>https://paulgovan.github.io/ReliaPlotR/articles/RGA.html</loc></url>
+<url><loc>https://paulgovan.github.io/ReliaPlotR/articles/alt.html</loc></url>
 <url><loc>https://paulgovan.github.io/ReliaPlotR/articles/index.html</loc></url>
+<url><loc>https://paulgovan.github.io/ReliaPlotR/articles/repairable.html</loc></url>
 <url><loc>https://paulgovan.github.io/ReliaPlotR/articles/weibull.html</loc></url>
 <url><loc>https://paulgovan.github.io/ReliaPlotR/authors.html</loc></url>
 <url><loc>https://paulgovan.github.io/ReliaPlotR/index.html</loc></url>
 <url><loc>https://paulgovan.github.io/ReliaPlotR/news.html</loc></url>
 <url><loc>https://paulgovan.github.io/ReliaPlotR/reference/ReliaPlotR-package.html</loc></url>
 <url><loc>https://paulgovan.github.io/ReliaPlotR/reference/index.html</loc></url>
+<url><loc>https://paulgovan.github.io/ReliaPlotR/reference/plotly_alt.html</loc></url>
 <url><loc>https://paulgovan.github.io/ReliaPlotR/reference/plotly_contour.html</loc></url>
 <url><loc>https://paulgovan.github.io/ReliaPlotR/reference/plotly_duane.html</loc></url>
+<url><loc>https://paulgovan.github.io/ReliaPlotR/reference/plotly_exposure.html</loc></url>
+<url><loc>https://paulgovan.github.io/ReliaPlotR/reference/plotly_mcf.html</loc></url>
+<url><loc>https://paulgovan.github.io/ReliaPlotR/reference/plotly_nhpp.html</loc></url>
+<url><loc>https://paulgovan.github.io/ReliaPlotR/reference/plotly_rel.html</loc></url>
 <url><loc>https://paulgovan.github.io/ReliaPlotR/reference/plotly_rga.html</loc></url>
 <url><loc>https://paulgovan.github.io/ReliaPlotR/reference/plotly_wblr.html</loc></url>
 </urlset>

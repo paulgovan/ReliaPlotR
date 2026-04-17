@@ -94,3 +94,18 @@ failures <- c(30, 49, 82, 90, 96)
 obj <- wblr.conf(wblr.fit(wblr(failures), method.fit = "mle"), method.conf = "lrb")
 plotly_contour(obj, col = "blue")
 ```
+
+## Overlay Models
+
+Multiple `wblr` models can be overlaid on the same probability plot by
+passing a list of objects. All objects must use the same distribution
+family. Each model is rendered in a distinct color, and clicking a
+legend entry toggles all traces for that model.
+
+``` r
+failures1 <- c(30, 49, 82, 90, 96)
+failures2 <- c(20, 40, 60, 80, 100)
+obj1 <- wblr.conf(wblr.fit(wblr(failures1), method.fit = "mle"), method.conf = "lrb")
+obj2 <- wblr.conf(wblr.fit(wblr(failures2), method.fit = "mle"), method.conf = "lrb")
+plotly_wblr(list(obj1, obj2), cols = c("steelblue", "tomato"))
+```

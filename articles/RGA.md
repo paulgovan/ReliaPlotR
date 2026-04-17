@@ -23,6 +23,15 @@ Then run the rga and plot the results:
 ``` r
 result <- rga(times, failures)
 plotly_rga(result)
+#> No trace type specified:
+#>   Based on info supplied, a 'scatter' trace seems appropriate.
+#>   Read more about this trace type -> https://plotly.com/r/reference/#scatter
+#> No trace type specified:
+#>   Based on info supplied, a 'scatter' trace seems appropriate.
+#>   Read more about this trace type -> https://plotly.com/r/reference/#scatter
+#> No trace type specified:
+#>   Based on info supplied, a 'scatter' trace seems appropriate.
+#>   Read more about this trace type -> https://plotly.com/r/reference/#scatter
 ```
 
 ## Piecewise NHPP Model
@@ -41,6 +50,15 @@ Then run the rga and plot the results:
 ``` r
 result <- rga(times, failures, model_type = "Piecewise NHPP", breaks = breaks)
 plotly_rga(result, fitCol = "blue", confCol = "blue", breakCol = "red")
+#> No trace type specified:
+#>   Based on info supplied, a 'scatter' trace seems appropriate.
+#>   Read more about this trace type -> https://plotly.com/r/reference/#scatter
+#> No trace type specified:
+#>   Based on info supplied, a 'scatter' trace seems appropriate.
+#>   Read more about this trace type -> https://plotly.com/r/reference/#scatter
+#> No trace type specified:
+#>   Based on info supplied, a 'scatter' trace seems appropriate.
+#>   Read more about this trace type -> https://plotly.com/r/reference/#scatter
 ```
 
 ## Duane Model
@@ -58,4 +76,40 @@ Then plot the results:
 ``` r
 fit <- duane(times, failures)
 plotly_duane(fit, fitCol = "darkgreen", confCol = "darkgreen")
+```
+
+## Overlay Models
+
+Multiple `rga` models can be overlaid on the same plot by passing a list
+of objects. Each model is rendered in a distinct color, and clicking a
+legend entry toggles all traces for that model.
+
+``` r
+times1 <- c(100, 200, 300, 400, 500)
+failures1 <- c(1, 2, 1, 3, 2)
+result1 <- rga(times1, failures1)
+
+times2 <- c(50, 150, 250, 350, 450)
+failures2 <- c(2, 1, 3, 1, 2)
+result2 <- rga(times2, failures2)
+
+plotly_rga(list(result1, result2), cols = c("steelblue", "tomato"))
+#> No trace type specified:
+#>   Based on info supplied, a 'scatter' trace seems appropriate.
+#>   Read more about this trace type -> https://plotly.com/r/reference/#scatter
+#> No trace type specified:
+#>   Based on info supplied, a 'scatter' trace seems appropriate.
+#>   Read more about this trace type -> https://plotly.com/r/reference/#scatter
+#> No trace type specified:
+#>   Based on info supplied, a 'scatter' trace seems appropriate.
+#>   Read more about this trace type -> https://plotly.com/r/reference/#scatter
+#> No trace type specified:
+#>   Based on info supplied, a 'scatter' trace seems appropriate.
+#>   Read more about this trace type -> https://plotly.com/r/reference/#scatter
+#> No trace type specified:
+#>   Based on info supplied, a 'scatter' trace seems appropriate.
+#>   Read more about this trace type -> https://plotly.com/r/reference/#scatter
+#> No trace type specified:
+#>   Based on info supplied, a 'scatter' trace seems appropriate.
+#>   Read more about this trace type -> https://plotly.com/r/reference/#scatter
 ```
