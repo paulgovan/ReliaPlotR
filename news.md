@@ -1,3 +1,41 @@
+# ReliaPlotR 0.5
+
+## New features
+
+- New
+  [`plotly_alt()`](https://paulgovan.github.io/ReliaPlotR/reference/plotly_alt.md)
+  function for Accelerated Life Testing (ALT) probability plots, with
+  one line per stress level.
+- New
+  [`plotly_rel()`](https://paulgovan.github.io/ReliaPlotR/reference/plotly_rel.md)
+  function for ALT life-stress relationship plots.
+- New
+  [`plotly_mcf()`](https://paulgovan.github.io/ReliaPlotR/reference/plotly_mcf.md)
+  function for Mean Cumulative Function (MCF) plots for repairable
+  systems.
+- New
+  [`plotly_nhpp()`](https://paulgovan.github.io/ReliaPlotR/reference/plotly_nhpp.md)
+  function for Non-Homogeneous Poisson Process (NHPP) reliability growth
+  plots.
+- New
+  [`plotly_exposure()`](https://paulgovan.github.io/ReliaPlotR/reference/plotly_exposure.md)
+  function for exposure plots.
+- [`plotly_wblr()`](https://paulgovan.github.io/ReliaPlotR/reference/plotly_wblr.md),
+  [`plotly_rga()`](https://paulgovan.github.io/ReliaPlotR/reference/plotly_rga.md),
+  and
+  [`plotly_contour()`](https://paulgovan.github.io/ReliaPlotR/reference/plotly_contour.md)
+  now accept a list of model objects for overlaying multiple fits on a
+  single plot.
+- New vignettes on ALT analysis and repairable systems analysis.
+
+## Minor improvements and bug fixes
+
+- Various improvements to
+  [`plotly_wblr()`](https://paulgovan.github.io/ReliaPlotR/reference/plotly_wblr.md)
+  and
+  [`plotly_rga()`](https://paulgovan.github.io/ReliaPlotR/reference/plotly_rga.md).
+- Other minor improvements and bug fixes.
+
 # ReliaPlotR 0.4.1
 
 ## Minor improvements
