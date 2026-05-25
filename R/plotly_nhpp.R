@@ -124,7 +124,7 @@ plotly_nhpp <- function(nhpp_obj,
     fillcolor <- plotly::toRGB(clrs$conf, 0.2)
 
     times <- obj$time
-    mcf   <- obj$mcf
+    mcf   <- obj$cum_events
     fitted <- obj$fitted_values
 
     label_suffix <- if (n > 1) paste0(" ", i) else ""
@@ -153,20 +153,20 @@ plotly_nhpp <- function(nhpp_obj,
     if (isTRUE(showConf)) {
       p <- p %>%
         add_trace(
-          type = "scatter", x = times, y = obj$lower_bounds, mode = "markers+lines",
-          marker = list(color = "transparent"), line = list(color = clrs$conf),
-          showlegend = FALSE,
-          legendgroup = as.character(i),
-          text = paste0("Lower: (", round(times, signif), ", ", round(obj$lower_bounds, signif), ")"),
-          hoverinfo = "text"
-        ) %>%
-        add_trace(
           type = "scatter", x = times, y = obj$upper_bounds, mode = "markers+lines",
-          fill = "tonexty", fillcolor = fillcolor,
           marker = list(color = "transparent"), line = list(color = clrs$conf),
           showlegend = FALSE,
           legendgroup = as.character(i),
           text = paste0("Upper: (", round(times, signif), ", ", round(obj$upper_bounds, signif), ")"),
+          hoverinfo = "text"
+        ) %>%
+        add_trace(
+          type = "scatter", x = times, y = obj$lower_bounds, mode = "markers+lines",
+          fill = "tonexty", fillcolor = fillcolor,
+          marker = list(color = "transparent"), line = list(color = clrs$conf),
+          showlegend = FALSE,
+          legendgroup = as.character(i),
+          text = paste0("Lower: (", round(times, signif), ", ", round(obj$lower_bounds, signif), ")"),
           hoverinfo = "text"
         )
     }
