@@ -8,10 +8,10 @@
 ## Citation
 
 Source:
-[`inst/CITATION`](https://github.com/paulgovan/ReliaPlotR/blob/v0.5/inst/CITATION)
+[`inst/CITATION`](https://github.com/paulgovan/ReliaPlotR/blob/main/inst/CITATION)
 
 Govan P (2025). *ReliaPlotR: Interactive Reliability Probability Plots*.
-[doi:10.32614/CRAN.package.ReliaPlotR](https://doi.org/10.32614/CRAN.package.ReliaPlotR),
+[doi:10.32614/CRAN.package.ReliaPlotR](https://doi.org/10.32614/CRAN.package.ReliaPlotR).
 R package version 0.4.0,
 <https://CRAN.R-project.org/package=ReliaPlotR>.
 

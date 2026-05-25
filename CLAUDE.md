@@ -14,6 +14,7 @@ plotly visualizations.
 ## Common Commands
 
 ``` r
+
 # Run all tests
 devtools::test()
 
@@ -40,14 +41,14 @@ spelling::spell_check_package()
 
 The package exports six functions, each in its own file under `R/`:
 
-| Function                                                                                 | File                 | Input type                    | Purpose                                          |
-|------------------------------------------------------------------------------------------|----------------------|-------------------------------|--------------------------------------------------|
-| [`plotly_wblr()`](https://paulgovan.github.io/ReliaPlotR/reference/plotly_wblr.md)       | `R/plotly_wblr.R`    | `wblr` object or list of them | Weibull/lognormal probability plot               |
-| [`plotly_contour()`](https://paulgovan.github.io/ReliaPlotR/reference/plotly_contour.md) | `R/plotly_contour.R` | `wblr` object or list of them | Parameter confidence contour plot                |
-| [`plotly_rga()`](https://paulgovan.github.io/ReliaPlotR/reference/plotly_rga.md)         | `R/plotly_rga.R`     | `rga` object or list of them  | Reliability growth (NHPP) plot                   |
-| [`plotly_duane()`](https://paulgovan.github.io/ReliaPlotR/reference/plotly_duane.md)     | `R/plotly_duane.R`   | `duane` object (ReliaGrowR)   | Duane MTBF plot (log-log scale)                  |
-| [`plotly_alt()`](https://paulgovan.github.io/ReliaPlotR/reference/plotly_alt.md)         | `R/plotly_alt.R`     | `alt` object (WeibullR.ALT)   | ALT probability plot (one line per stress level) |
-| [`plotly_rel()`](https://paulgovan.github.io/ReliaPlotR/reference/plotly_rel.md)         | `R/plotly_rel.R`     | `alt` object (WeibullR.ALT)   | ALT life-stress relationship plot                |
+| Function | File | Input type | Purpose |
+|----|----|----|----|
+| [`plotly_wblr()`](https://paulgovan.github.io/ReliaPlotR/reference/plotly_wblr.md) | `R/plotly_wblr.R` | `wblr` object or list of them | Weibull/lognormal probability plot |
+| [`plotly_contour()`](https://paulgovan.github.io/ReliaPlotR/reference/plotly_contour.md) | `R/plotly_contour.R` | `wblr` object or list of them | Parameter confidence contour plot |
+| [`plotly_rga()`](https://paulgovan.github.io/ReliaPlotR/reference/plotly_rga.md) | `R/plotly_rga.R` | `rga` object or list of them | Reliability growth (NHPP) plot |
+| [`plotly_duane()`](https://paulgovan.github.io/ReliaPlotR/reference/plotly_duane.md) | `R/plotly_duane.R` | `duane` object (ReliaGrowR) | Duane MTBF plot (log-log scale) |
+| [`plotly_alt()`](https://paulgovan.github.io/ReliaPlotR/reference/plotly_alt.md) | `R/plotly_alt.R` | `alt` object (WeibullR.ALT) | ALT probability plot (one line per stress level) |
+| [`plotly_rel()`](https://paulgovan.github.io/ReliaPlotR/reference/plotly_rel.md) | `R/plotly_rel.R` | `alt` object (WeibullR.ALT) | ALT life-stress relationship plot |
 
 All functions follow the same interface conventions: accept a model
 object, optional display flags (`showConf`, `showGrid`, `showSusp`),

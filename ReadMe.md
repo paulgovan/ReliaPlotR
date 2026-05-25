@@ -19,12 +19,14 @@ interactive web-based graphing library.
 To install `ReliaPlotR` in R:
 
 ``` r
+
 install.packages("ReliaPlotR")
 ```
 
 Or install the development version:
 
 ``` r
+
 devtools::install_github("paulgovan/ReliaPlotR")
 ```
 
@@ -34,6 +36,7 @@ To build a probability plot, first fit a `wblr` object using the
 `WeibullR` package and then use `plotly_wblr` to build the plot.
 
 ``` r
+
 library(WeibullR)
 library(ReliaPlotR)
 failures <- c(30, 49, 82, 90, 96)
@@ -48,6 +51,7 @@ contour plots are only available where `method.fit='mle'` and
 `method.conf='lrb'`.
 
 ``` r
+
 obj <- wblr.conf(wblr.fit(wblr(failures), method.fit = "mle"), method.conf = "lrb")
 plotly_contour(obj)
 ```
@@ -59,12 +63,14 @@ plotly_contour(obj)
 `ReliaPlotR` has several customization options.
 
 ``` r
+
 plotly_wblr(obj, main = "Weibull Probability Plot", xlab = "Years", ylab = "Failure Probability", confCol = "blue", signif = 4, grid = FALSE)
 ```
 
 ![](ReadMe_files/figure-gfm/unnamed-chunk-5-1.png)
 
 ``` r
+
 plotly_contour(obj, main = "Weibull Contour Plot", col = "red", signif = 4, grid = FALSE)
 ```
 

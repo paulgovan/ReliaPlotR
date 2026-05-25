@@ -1,6 +1,7 @@
 # Accelerated Life Testing (ALT)
 
 ``` r
+
 library(ReliaPlotR)
 library(WeibullR)
 library(WeibullR.ALT)
@@ -15,6 +16,7 @@ model.
 [`alt.data()`](https://rdrr.io/pkg/WeibullR.ALT/man/alt.data.html):
 
 ``` r
+
 d1 <- alt.data(c(248, 456, 528, 731, 813, 537), stress = 300)
 d2 <- alt.data(c(164, 176, 289), stress = 350)
 d3 <- alt.data(c(88, 112, 152), stress = 400)
@@ -25,6 +27,7 @@ d3 <- alt.data(c(88, 112, 152), stress = 400)
 [`alt.parallel()`](https://rdrr.io/pkg/WeibullR.ALT/man/alt.parallel.html):
 
 ``` r
+
 obj <- alt.parallel(
   alt.make(list(d1, d2, d3), dist = "weibull", alt.model = "arrhenius", view_dist_fits = FALSE),
   view_parallel_fits = FALSE
@@ -35,6 +38,7 @@ obj <- alt.parallel(
 [`alt.fit()`](https://rdrr.io/pkg/WeibullR.ALT/man/alt.fit.html):
 
 ``` r
+
 obj <- alt.fit(obj)
 ```
 
@@ -47,6 +51,7 @@ show empirical plotting positions; lines show the theoretical Weibull
 off.
 
 ``` r
+
 plotly_alt(obj)
 ```
 
@@ -55,6 +60,7 @@ plotly_alt(obj)
 The plot accepts several optional arguments:
 
 ``` r
+
 plotly_alt(
   obj,
   main    = "Reliability Test Results",
@@ -72,6 +78,7 @@ lognormal) changes with stress level, along with the fitted Arrhenius or
 Power Law relationship.
 
 ``` r
+
 plotly_rel(obj)
 ```
 
@@ -89,6 +96,7 @@ Use the `percentiles` argument to change which percentile bands are
 shown:
 
 ``` r
+
 plotly_rel(obj, percentiles = c(5, 50, 95))
 ```
 
@@ -97,12 +105,14 @@ plotly_rel(obj, percentiles = c(5, 50, 95))
 Set `showPerc = FALSE` to show only the fitted relationship line:
 
 ``` r
+
 plotly_rel(obj, showPerc = FALSE)
 ```
 
 ### Customization
 
 ``` r
+
 plotly_rel(
   obj,
   main    = "Arrhenius Life-Stress Relationship",
