@@ -70,7 +70,6 @@ times  <- c(120, 200, 310, 370, 430, 480, 490, 560)
 events <- c(  1,   1,   1,   1,   1,   1,   1,   1)
 fit_nhpp <- nhpp(time = times, event = events, model_type = "Power Law")
 plotly_nhpp(fit_nhpp)
-#> Warning: Can't display both discrete & non-discrete data on same axis
 ```
 
 ## NHPP — Piecewise Model
@@ -87,7 +86,6 @@ times2  <- c(30, 65, 105, 150, 200, 255, 315, 380, 450, 800, 1300, 1950, 2800)
 events2 <- rep(1, 13)
 fit_nhpp2 <- nhpp(time = times2, event = events2, breaks = 500, method = "LS")
 plotly_nhpp(fit_nhpp2, fitCol = "steelblue", confCol = "steelblue", breakCol = "red")
-#> Warning: Can't display both discrete & non-discrete data on same axis
 ```
 
 ## Overlay
