@@ -3,6 +3,7 @@ mock_nhpp_obj <- list(
   time          = c(100, 200, 300, 400, 500),
   event         = c(1, 2, 1, 3, 2),
   cum_events    = c(1, 3, 4, 7, 9),
+  mcf           = c(0.33, 1.0, 1.33, 2.33, 3.0),
   fitted_values = c(1.2, 3.1, 4.5, 7.2, 9.1),
   lower_bounds  = c(0.8, 2.5, 3.8, 6.1, 7.8),
   upper_bounds  = c(1.8, 4.0, 5.5, 8.6, 10.7),
@@ -17,6 +18,7 @@ mock_nhpp_bp <- list(
   time          = c(100, 200, 300, 400, 500),
   event         = c(1, 2, 1, 3, 2),
   cum_events    = c(1, 3, 4, 7, 9),
+  mcf           = c(0.33, 1.0, 1.33, 2.33, 3.0),
   fitted_values = c(1.2, 3.1, 4.5, 7.2, 9.1),
   lower_bounds  = c(0.8, 2.5, 3.8, 6.1, 7.8),
   upper_bounds  = c(1.8, 4.0, 5.5, 8.6, 10.7),
@@ -64,7 +66,7 @@ test_that("plotly_nhpp respects the showGrid parameter", {
 test_that("plotly_nhpp includes hover text for data points", {
   plot <- plotly_nhpp(mock_nhpp_obj)
   hover_data <- plot$x$data[[1]]$text
-  expect_true(all(grepl("Events: \\(", hover_data)))
+  expect_true(all(grepl("MCF: \\(", hover_data)))
 })
 
 test_that("plotly_nhpp respects showConf = FALSE", {

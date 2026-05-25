@@ -3,9 +3,9 @@
 #' The function creates an interactive Non-Homogeneous Poisson Process (NHPP)
 #' plot for one or more `nhpp` objects. When a list of objects is provided the
 #' models are overlaid on the same plot, each rendered in a distinct color.
-#' The plot includes cumulative events over time, the model fit, and optional
-#' confidence bounds. Vertical lines indicate change points if breakpoints are
-#' specified in the nhpp object.
+#' The plot shows the nonparametric Mean Cumulative Function (MCF) alongside
+#' the parametric model fit and optional confidence bounds. Vertical lines
+#' indicate change points if breakpoints are specified in the nhpp object.
 #'
 #' @param nhpp_obj An object of class 'nhpp', or a list of such objects. Each
 #' object is created using the `nhpp()` function from the `ReliaGrowR` package.
@@ -13,10 +13,10 @@
 #' @param showGrid Show grid (TRUE) or hide grid (FALSE). Default is TRUE.
 #' @param main Main title. Default is "NHPP Plot".
 #' @param xlab X-axis label. Default is "Cumulative Time".
-#' @param ylab Y-axis label. Default is "Cumulative Events".
-#' @param pointCol Color of the point values. Default is "black". Used only for
-#' a single nhpp object; ignored when `cols` is provided or multiple objects are
-#' supplied.
+#' @param ylab Y-axis label. Default is "Mean Cumulative Function".
+#' @param pointCol Color of the MCF data points. Default is "black". Used only
+#' for a single nhpp object; ignored when `cols` is provided or multiple objects
+#' are supplied.
 #' @param fitCol Color of the model fit. Default is "black". Used only for a
 #' single nhpp object; ignored when `cols` is provided or multiple objects are
 #' supplied.
@@ -60,7 +60,7 @@ plotly_nhpp <- function(nhpp_obj,
                         showGrid = TRUE,
                         main = "NHPP Plot",
                         xlab = "Cumulative Time",
-                        ylab = "Cumulative Events",
+                        ylab = "Mean Cumulative Function",
                         pointCol = "black",
                         fitCol = "black",
                         confCol = "black",
@@ -124,7 +124,7 @@ plotly_nhpp <- function(nhpp_obj,
     fillcolor <- plotly::toRGB(clrs$conf, 0.2)
 
     times <- obj$time
-    cum_events <- obj$cum_events
+    mcf   <- obj$mcf
     fitted <- obj$fitted_values
 
     label_suffix <- if (n > 1) paste0(" ", i) else ""
@@ -132,12 +132,12 @@ plotly_nhpp <- function(nhpp_obj,
 
     p <- p %>%
       add_trace(
-        x = times, y = cum_events, type = "scatter", mode = "markers",
+        x = times, y = mcf, type = "scatter", mode = "markers",
         marker = list(color = clrs$point),
         showlegend = show_in_legend,
         legendgroup = as.character(i),
-        name = paste0("Data", label_suffix),
-        text = paste0("Events: (", round(times, signif), ", ", round(cum_events, signif), ")"),
+        name = paste0("MCF", label_suffix),
+        text = paste0("MCF: (", round(times, signif), ", ", round(mcf, signif), ")"),
         hoverinfo = "text"
       ) %>%
       add_trace(
