@@ -1,3 +1,13 @@
+# ReliaPlotR 0.6
+
+## Minor improvements and bug fixes
+
+- [`plotly_nhpp()`](https://paulgovan.github.io/ReliaPlotR/reference/plotly_nhpp.md)
+  now plots the Mean Cumulative Function (MCF) instead of raw cumulative
+  failures.
+- Fixed confidence bounds rendering order in
+  [`plotly_nhpp()`](https://paulgovan.github.io/ReliaPlotR/reference/plotly_nhpp.md).
+
 # ReliaPlotR 0.5
 
 ## New features

@@ -3,9 +3,10 @@
 The function creates an interactive Non-Homogeneous Poisson Process
 (NHPP) plot for one or more \`nhpp\` objects. When a list of objects is
 provided the models are overlaid on the same plot, each rendered in a
-distinct color. The plot includes cumulative events over time, the model
-fit, and optional confidence bounds. Vertical lines indicate change
-points if breakpoints are specified in the nhpp object.
+distinct color. The plot shows the nonparametric Mean Cumulative
+Function (MCF) alongside the parametric model fit and optional
+confidence bounds. Vertical lines indicate change points if breakpoints
+are specified in the nhpp object.
 
 ## Usage
 
@@ -16,7 +17,7 @@ plotly_nhpp(
   showGrid = TRUE,
   main = "NHPP Plot",
   xlab = "Cumulative Time",
-  ylab = "Cumulative Events",
+  ylab = "Mean Cumulative Function",
   pointCol = "black",
   fitCol = "black",
   confCol = "black",
@@ -52,13 +53,13 @@ plotly_nhpp(
 
 - ylab:
 
-  Y-axis label. Default is "Cumulative Events".
+  Y-axis label. Default is "Mean Cumulative Function".
 
 - pointCol:
 
-  Color of the point values. Default is "black". Used only for a single
-  nhpp object; ignored when \`cols\` is provided or multiple objects are
-  supplied.
+  Color of the MCF data points. Default is "black". Used only for a
+  single nhpp object; ignored when \`cols\` is provided or multiple
+  objects are supplied.
 
 - fitCol:
 
