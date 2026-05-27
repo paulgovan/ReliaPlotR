@@ -10,7 +10,7 @@ plotly_nhpp(
   showGrid = TRUE,
   main = "NHPP Plot",
   xlab = "Cumulative Time",
-  ylab = "Cumulative Events",
+  ylab = "Mean Cumulative Function",
   pointCol = "black",
   fitCol = "black",
   confCol = "black",
@@ -32,11 +32,11 @@ object is created using the `nhpp()` function from the `ReliaGrowR` package.}
 
 \item{xlab}{X-axis label. Default is "Cumulative Time".}
 
-\item{ylab}{Y-axis label. Default is "Cumulative Events".}
+\item{ylab}{Y-axis label. Default is "Mean Cumulative Function".}
 
-\item{pointCol}{Color of the point values. Default is "black". Used only for
-a single nhpp object; ignored when `cols` is provided or multiple objects are
-supplied.}
+\item{pointCol}{Color of the MCF data points. Default is "black". Used only
+for a single nhpp object; ignored when `cols` is provided or multiple objects
+are supplied.}
 
 \item{fitCol}{Color of the model fit. Default is "black". Used only for a
 single nhpp object; ignored when `cols` is provided or multiple objects are
@@ -66,9 +66,9 @@ A `plotly` object representing the interactive NHPP plot.
 The function creates an interactive Non-Homogeneous Poisson Process (NHPP)
 plot for one or more `nhpp` objects. When a list of objects is provided the
 models are overlaid on the same plot, each rendered in a distinct color.
-The plot includes cumulative events over time, the model fit, and optional
-confidence bounds. Vertical lines indicate change points if breakpoints are
-specified in the nhpp object.
+The plot shows the nonparametric Mean Cumulative Function (MCF) alongside
+the parametric model fit and optional confidence bounds. Vertical lines
+indicate change points if breakpoints are specified in the nhpp object.
 }
 \examples{
 \dontrun{

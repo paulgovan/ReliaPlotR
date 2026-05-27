@@ -20,3 +20,5 @@
 
 ^codemeta\.json$
 ^CLAUDE\.md$
+^\.positai$
+^\.claude$
