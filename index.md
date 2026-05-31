@@ -52,7 +52,7 @@ obj <- wblr.conf(wblr.fit(wblr(failures)))
 plotly_wblr(obj)
 ```
 
-![](ReadMe_files/figure-gfm/unnamed-chunk-3-1.png)
+![](https://raw.githubusercontent.com/paulgovan/ReliaPlotR/main/ReadMe_files/figure-gfm/unnamed-chunk-3-1.png)
 
 To build a contour plot, use the `plotly_contour` function. Note that
 contour plots are only available where `method.fit='mle'` and
@@ -64,7 +64,7 @@ obj <- wblr.conf(wblr.fit(wblr(failures), method.fit = "mle"), method.conf = "lr
 plotly_contour(obj)
 ```
 
-![](ReadMe_files/figure-gfm/unnamed-chunk-4-1.png)
+![](https://raw.githubusercontent.com/paulgovan/ReliaPlotR/main/ReadMe_files/figure-gfm/unnamed-chunk-4-1.png)
 
 ## Customization
 
@@ -75,14 +75,14 @@ plotly_contour(obj)
 plotly_wblr(obj, main = "Weibull Probability Plot", xlab = "Years", ylab = "Failure Probability", confCol = "blue", signif = 4, grid = FALSE)
 ```
 
-![](ReadMe_files/figure-gfm/unnamed-chunk-5-1.png)
+![](https://raw.githubusercontent.com/paulgovan/ReliaPlotR/main/ReadMe_files/figure-gfm/unnamed-chunk-5-1.png)
 
 ``` r
 
 plotly_contour(obj, main = "Weibull Contour Plot", col = "red", signif = 4, grid = FALSE)
 ```
 
-![](ReadMe_files/figure-gfm/unnamed-chunk-6-1.png)
+![](https://raw.githubusercontent.com/paulgovan/ReliaPlotR/main/ReadMe_files/figure-gfm/unnamed-chunk-6-1.png)
 
 ## Vignettes
 
