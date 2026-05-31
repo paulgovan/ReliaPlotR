@@ -113,3 +113,9 @@ plotly_rel(
   signif  = 4
 )
 ```
+
+## See Also
+
+- [Life Data Analysis](weibull.html) — fit Weibull/lognormal models at a single stress level
+- [Reliability Growth Analysis](rga.html) — track reliability improvement over time
+- [Repairable Systems Analysis](repairable.html) — analyze recurrent events with MCF and NHPP models

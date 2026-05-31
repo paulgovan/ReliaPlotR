@@ -64,6 +64,15 @@ plot, each rendered in a distinct color.
 The plot includes cumulative failures over time, the model fit, and optional confidence bounds.
 Vertical lines indicate change points if breakpoints are specified in the rga object.
 }
+\details{
+The Crow-AMSAA (NHPP Power Law) model fits a Non-Homogeneous Poisson
+Process where the expected cumulative failures follow
+\eqn{E[N(t)] = \lambda t^\beta}. A \eqn{\beta < 1} indicates reliability
+growth (decreasing failure rate), \eqn{\beta > 1} indicates reliability
+degradation. For piecewise models, a separate set of parameters is fit
+within each interval defined by \code{breaks}, and vertical lines mark
+the change-point times.
+}
 \examples{
 library(ReliaGrowR)
 times <- c(100, 200, 300, 400, 500)
@@ -80,4 +89,7 @@ plotly_rga(rga2, fitCol = "blue", confCol = "blue", breakCol = "red")
 # Overlay two models
 rga3 <- rga(c(50, 150, 250, 350, 450), c(2, 1, 3, 1, 2))
 plotly_rga(list(rga, rga3))
+}
+\seealso{
+[plotly_duane()] for the Duane MTBF growth model on the same data.
 }

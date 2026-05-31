@@ -28,6 +28,15 @@
 #' each object's points, fit line, confidence bounds, and breakpoints are all drawn in
 #' the corresponding color. Recycled if shorter than the number of objects.
 #' @return A `plotly` object representing the interactive reliability growth plot.
+#' @details
+#' The Crow-AMSAA (NHPP Power Law) model fits a Non-Homogeneous Poisson
+#' Process where the expected cumulative failures follow
+#' \eqn{E[N(t)] = \lambda t^\beta}. A \eqn{\beta < 1} indicates reliability
+#' growth (decreasing failure rate), \eqn{\beta > 1} indicates reliability
+#' degradation. For piecewise models, a separate set of parameters is fit
+#' within each interval defined by \code{breaks}, and vertical lines mark
+#' the change-point times.
+#' @seealso [plotly_duane()] for the Duane MTBF growth model on the same data.
 #' @examples
 #' library(ReliaGrowR)
 #' times <- c(100, 200, 300, 400, 500)

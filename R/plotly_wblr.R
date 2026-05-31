@@ -31,6 +31,18 @@
 #' each object's data points, fit line, and confidence bounds are all drawn in the
 #' corresponding color. Recycled if shorter than the number of objects.
 #' @return A `plotly` object representing the interactive probability plot.
+#' @details
+#' For Weibull distributions the y-axis uses a double-log transformation
+#' (\code{log(-log(1 - F))}) so that a straight line represents a perfect
+#' Weibull fit. For lognormal distributions the y-axis uses the normal
+#' quantile transformation (\code{qnorm(F)}), i.e., standard normal probability
+#' paper. Three-parameter Weibull (\code{dist = 'weibull3p'}) shifts the x-axis
+#' by the estimated location (gamma) parameter before applying the same
+#' transformation.
+#'
+#' Goodness-of-fit is reported as R² for rank-regression fits or
+#' log-likelihood for MLE fits.
+#' @seealso [plotly_contour()] for MLE parameter confidence contours.
 #' @examples
 #' library(WeibullR)
 #' library(ReliaPlotR)

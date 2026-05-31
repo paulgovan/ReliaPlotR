@@ -1,8 +1,10 @@
 
 #' Interactive Duane Plot.
 #'
-#' This function creates an interactive Duane plot for a duane object. The plot
-#' includes options to customize the appearance, such as colors and grid visibility.
+#' This function creates an interactive Duane plot for a \code{duane} object.
+#' The plot displays observed cumulative MTBF against cumulative test time on
+#' a log-log scale alongside the fitted Duane line and optional confidence
+#' bounds. Positive slope on the log-log scale indicates reliability growth.
 #'
 #' @param duane_obj An object of class 'duane'. This object is created
 #' using the `duane` function from the ReliaGrowR package.
@@ -17,6 +19,13 @@
 #' @param gridCol Color of the grid. Default is "lightgray".
 #' @param signif Significant digits of results. Default is 3. Must be a positive integer.
 #' @return A `plotly` object representing the interactive Duane plot.
+#' @details
+#' The Duane model fits a power-law relationship between cumulative MTBF and
+#' cumulative test time: \eqn{\text{MTBF}_c = K \cdot T^\alpha}. On a
+#' log-log plot this appears as a straight line with slope \eqn{\alpha} (the
+#' growth rate) and intercept \eqn{\log(K)}. A slope near 0 indicates no
+#' growth; a slope near 0.5 is typical for a managed development program.
+#' @seealso [plotly_rga()] for the Crow-AMSAA NHPP growth model on the same data.
 #' @examples
 #' library(ReliaGrowR)
 #' times <- c(100, 200, 300, 400, 500)

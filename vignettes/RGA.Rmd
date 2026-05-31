@@ -82,3 +82,9 @@ result2 <- rga(times2, failures2)
 
 plotly_rga(list(result1, result2), cols = c("steelblue", "tomato"))
 ```
+
+## See Also
+
+- [Life Data Analysis](weibull.html) — fit Weibull/lognormal models to failure-time data
+- [Repairable Systems Analysis](repairable.html) — analyze recurrent events with MCF and NHPP models
+- [Accelerated Life Testing](alt.html) — extrapolate life from accelerated stress conditions

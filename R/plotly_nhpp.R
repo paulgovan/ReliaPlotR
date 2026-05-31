@@ -33,8 +33,16 @@
 #' are all drawn in the corresponding color. Recycled if shorter than the number
 #' of objects.
 #' @return A `plotly` object representing the interactive NHPP plot.
+#' @details
+#' The nonparametric MCF is overlaid with the fitted parametric Power Law
+#' NHPP model, \eqn{E[N(t)] = \lambda t^\beta}. Use this plot to assess
+#' whether the parametric model fits the observed event history and to
+#' identify change points. Confidence bounds are based on the Fisher matrix
+#' approximation of the fitted parameters. For piecewise models, vertical
+#' dotted lines mark each breakpoint.
+#' @seealso [plotly_mcf()] for the nonparametric MCF alone; [plotly_rga()] for
+#' a Crow-AMSAA cumulative-failures view.
 #' @examples
-#' \dontrun{
 #' library(ReliaGrowR)
 #' times <- c(100, 200, 300, 400, 500)
 #' events <- c(1, 2, 1, 3, 2)
@@ -44,12 +52,11 @@
 #' # Piecewise model with a breakpoint
 #' times2 <- c(100, 200, 300, 400, 500, 600, 700, 800, 900, 1000)
 #' events2 <- c(1, 2, 1, 1, 1, 2, 3, 1, 2, 4)
-#' fit2 <- nhpp(time = times2, event = events2, breaks = 500)
+#' fit2 <- nhpp(time = times2, event = events2, breaks = 500, method = "LS")
 #' plotly_nhpp(fit2, breakCol = "red")
 #'
 #' # Overlay two models
 #' plotly_nhpp(list(fit, fit2))
-#' }
 #' @import ReliaGrowR plotly
 #' @importFrom graphics text
 #' @importFrom stats runif qnorm

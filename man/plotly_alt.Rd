@@ -47,6 +47,20 @@ Weibull or lognormal fit line per stress level on a shared probability paper.
 The `alt` object must have been processed through [WeibullR.ALT::alt.parallel()]
 before passing to this function.
 }
+\details{
+Building an \code{alt} object requires three steps:
+\enumerate{
+  \item \code{alt.make()} — bundle the per-stress data sets and choose a
+    distribution (\code{"weibull"} or \code{"lognormal"}) and life-stress
+    model (\code{"arrhenius"} or \code{"power"}).
+  \item \code{alt.parallel()} — fit independent Weibull/lognormal models
+    at each stress level (required before calling \code{plotly_alt()}).
+  \item \code{alt.fit()} — fit the global life-stress relationship
+    (required for \code{plotly_rel()}).
+}
+The probability paper transformation (log y-axis for Weibull, normal
+quantile for lognormal) is the same as in [plotly_wblr()].
+}
 \examples{
 library(WeibullR.ALT)
 d1 <- alt.data(c(248, 456, 528, 731, 813, 537), stress = 300)
@@ -59,4 +73,7 @@ obj <- alt.fit(
   )
 )
 plotly_alt(obj)
+}
+\seealso{
+[plotly_rel()] for the life-stress relationship plot using the same \code{alt} object.
 }

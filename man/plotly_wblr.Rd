@@ -72,6 +72,18 @@ When a list of objects is provided the models are overlaid on the same plot, eac
 rendered in a distinct color. All objects must use the same distribution family.
 It can include confidence bounds, suspension data (single object only), and a results table.
 }
+\details{
+For Weibull distributions the y-axis uses a double-log transformation
+(\code{log(-log(1 - F))}) so that a straight line represents a perfect
+Weibull fit. For lognormal distributions the y-axis uses the normal
+quantile transformation (\code{qnorm(F)}), i.e., standard normal probability
+paper. Three-parameter Weibull (\code{dist = 'weibull3p'}) shifts the x-axis
+by the estimated location (gamma) parameter before applying the same
+transformation.
+
+Goodness-of-fit is reported as R² for rank-regression fits or
+log-likelihood for MLE fits.
+}
 \examples{
 library(WeibullR)
 library(ReliaPlotR)
@@ -111,4 +123,7 @@ obj3 <- wblr.conf(wblr.fit(wblr(c(10, 30, 50, 70, 90)), method.fit = "mle"),
                   method.conf = "lrb")
 plotly_wblr(list(obj2, obj3))
 
+}
+\seealso{
+[plotly_contour()] for MLE parameter confidence contours.
 }

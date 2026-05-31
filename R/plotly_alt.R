@@ -18,6 +18,20 @@
 #' @param cols Optional character vector of colors, one per stress level. Recycled
 #'   to match the number of stress levels. When NULL a 10-color default palette is used.
 #' @return A `plotly` object representing the interactive ALT probability plot.
+#' @details
+#' Building an \code{alt} object requires three steps:
+#' \enumerate{
+#'   \item \code{alt.make()} — bundle the per-stress data sets and choose a
+#'     distribution (\code{"weibull"} or \code{"lognormal"}) and life-stress
+#'     model (\code{"arrhenius"} or \code{"power"}).
+#'   \item \code{alt.parallel()} — fit independent Weibull/lognormal models
+#'     at each stress level (required before calling \code{plotly_alt()}).
+#'   \item \code{alt.fit()} — fit the global life-stress relationship
+#'     (required for \code{plotly_rel()}).
+#' }
+#' The probability paper transformation (log y-axis for Weibull, normal
+#' quantile for lognormal) is the same as in [plotly_wblr()].
+#' @seealso [plotly_rel()] for the life-stress relationship plot using the same \code{alt} object.
 #' @examples
 #' library(WeibullR.ALT)
 #' d1 <- alt.data(c(248, 456, 528, 731, 813, 537), stress = 300)

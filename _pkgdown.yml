@@ -2,3 +2,45 @@ url: https://paulgovan.github.io/ReliaPlotR/
 template:
   bootstrap: 5
 
+articles:
+  - title: "Tutorials"
+    navbar: ~
+    contents:
+      - weibull
+      - alt
+      - rga
+      - repairable
+
+reference:
+  - title: "Life Data Analysis"
+    desc: >
+      Weibull and lognormal probability plots and confidence contour plots
+      for fitting failure-time data.
+    contents:
+      - plotly_wblr
+      - plotly_contour
+
+  - title: "Accelerated Life Testing"
+    desc: >
+      Probability plots and life-stress relationship plots for multi-stress
+      ALT experiments.
+    contents:
+      - plotly_alt
+      - plotly_rel
+
+  - title: "Reliability Growth"
+    desc: >
+      Crow-AMSAA NHPP and Duane cumulative-failure / MTBF plots for
+      tracking improvement over development test time.
+    contents:
+      - plotly_rga
+      - plotly_duane
+
+  - title: "Repairable Systems"
+    desc: >
+      Nonparametric and parametric plots for repairable-system event data:
+      NHPP model fits, Mean Cumulative Function, and exposure rates.
+    contents:
+      - plotly_nhpp
+      - plotly_mcf
+      - plotly_exposure

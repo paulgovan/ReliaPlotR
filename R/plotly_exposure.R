@@ -1,9 +1,11 @@
 #' Interactive Exposure Plot.
 #'
-#' The function creates an interactive exposure plot for one or more `exposure`
+#' The function creates an interactive exposure plot for one or more \code{exposure}
 #' objects. When a list of objects is provided the estimates are overlaid on the
-#' same plot, each rendered in a distinct color.
-#' The plot shows the cumulative event rate over time as a step function.
+#' same plot, each rendered in a distinct color. The plot shows the instantaneous
+#' event rate (events per unit time per system at risk) as a step function,
+#' calculated from recurrence data by dividing the event count in each interval
+#' by the total system-time at risk during that interval.
 #'
 #' @param exposure_obj An object of class 'exposure', or a list of such objects.
 #' Each object is created using the `exposure()` function from the `ReliaGrowR`
@@ -21,8 +23,16 @@
 #' provided, each object's step function is drawn in the corresponding color.
 #' Recycled if shorter than the number of objects.
 #' @return A `plotly` object representing the interactive exposure plot.
+#' @details
+#' Unlike [plotly_mcf()] which shows cumulative events, the exposure plot
+#' shows the instantaneous event rate: the number of events per unit time
+#' per system at risk in each interval. A flat exposure plot suggests a
+#' constant event rate (homogeneous Poisson process); a declining rate
+#' suggests improvement; a rising rate suggests degradation. Use this plot
+#' alongside [plotly_mcf()] to diagnose time-dependence in the event process.
+#' @seealso [plotly_mcf()] for the cumulative view; [plotly_nhpp()] for a
+#' parametric NHPP model.
 #' @examples
-#' \dontrun{
 #' library(ReliaGrowR)
 #' ids <- c("A", "A", "A", "B", "B", "C", "C", "C", "C")
 #' times <- c(50, 150, 350, 100, 300, 80, 200, 320, 450)
@@ -32,7 +42,6 @@
 #' # Overlay two exposure objects
 #' fit2 <- exposure(id = c("X", "X", "Y"), time = c(60, 220, 180))
 #' plotly_exposure(list(fit, fit2), cols = c("steelblue", "tomato"))
-#' }
 #' @import ReliaGrowR plotly
 #' @importFrom graphics text
 #' @importFrom stats runif qnorm

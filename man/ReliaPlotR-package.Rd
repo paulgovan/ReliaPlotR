@@ -4,18 +4,32 @@
 \name{ReliaPlotR-package}
 \alias{ReliaPlotR}
 \alias{ReliaPlotR-package}
-\title{ReliaPlotR: Interactive Reliability Probability Plots}
+\title{ReliaPlotR: Interactive Reliability Plots with plotly}
 \description{
-Build interactive Reliability Probability Plots with 'plotly' by Carson Sievert (2020) \url{https://plotly.com/r/}, an interactive web-based graphing library.
+ReliaPlotR creates interactive reliability probability plots using
+\href{https://plotly.com/r/}{plotly}. It wraps the \pkg{WeibullR},
+\pkg{WeibullR.ALT}, and \pkg{ReliaGrowR} packages and provides a consistent
+interface for four reliability analysis domains:
 }
-\seealso{
-Useful links:
-\itemize{
-  \item \url{https://paulgovan.github.io/ReliaPlotR/}
-  \item \url{https://github.com/paulgovan/ReliaPlotR}
-  \item Report bugs at \url{https://github.com/paulgovan/ReliaPlotR/issues}
+\details{
+\describe{
+  \item{Life Data Analysis}{[plotly_wblr()], [plotly_contour()]}
+  \item{Accelerated Life Testing}{[plotly_alt()], [plotly_rel()]}
+  \item{Reliability Growth}{[plotly_rga()], [plotly_duane()]}
+  \item{Repairable Systems}{[plotly_nhpp()], [plotly_mcf()], [plotly_exposure()]}
 }
 
+All functions accept a single fitted model object or a list of objects
+(for overlay plots) and return a \code{plotly} object.
+}
+\seealso{
+Vignettes:
+\itemize{
+  \item \code{vignette("weibull", package = "ReliaPlotR")} — Life Data Analysis
+  \item \code{vignette("alt", package = "ReliaPlotR")} — Accelerated Life Testing
+  \item \code{vignette("rga", package = "ReliaPlotR")} — Reliability Growth Analysis
+  \item \code{vignette("repairable", package = "ReliaPlotR")} — Repairable Systems Analysis
+}
 }
 \author{
 \strong{Maintainer}: Paul Govan \email{paul.govan2@gmail.com} (\href{https://orcid.org/0000-0002-1821-8492}{ORCID}) [copyright holder]

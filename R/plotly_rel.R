@@ -26,6 +26,19 @@
 #'   with shading. Sorted internally; shading is filled between adjacent lines.
 #'   Default is `c(10, 90)`.
 #' @return A `plotly` object representing the interactive life-stress plot.
+#' @details
+#' Two life-stress models are supported:
+#' \itemize{
+#'   \item \strong{Arrhenius}: \eqn{\eta = A \exp(E_a / (k T))}, where stress is
+#'     temperature in Kelvin and the x-axis uses a reciprocal scale.
+#'   \item \strong{Power Law}: \eqn{\eta = A / S^n}, where the x-axis is
+#'     log-transformed.
+#' }
+#' The \code{percentiles} argument controls which quantile lines are drawn
+#' with shading between adjacent lines. The goal-condition marker
+#' (\code{showGoal}) is drawn when the \code{alt} object contains a
+#' \code{$goal} specification from \code{alt.make()}.
+#' @seealso [plotly_alt()] for the ALT probability plot using the same \code{alt} object.
 #' @examples
 #' library(WeibullR.ALT)
 #' d1 <- alt.data(c(248, 456, 528, 731, 813, 537), stress = 300)

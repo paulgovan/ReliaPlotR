@@ -44,6 +44,14 @@ This function creates an interactive contour plot for one or more
 `method.conf = 'lrb'`. The function overlays all contours in a single plot and displays
 their respective MLE point estimates.
 }
+\details{
+Confidence contours require a likelihood-ratio-based (\code{method.conf = 'lrb'})
+MLE fit (\code{method.fit = 'mle'}). The contour traces the locus of
+(\eqn{\eta}, \eqn{\beta}) pairs whose log-likelihood falls within a
+chi-squared critical value of the MLE peak, giving a joint confidence
+region for the two Weibull parameters. The MLE point estimate is shown as
+a marker at the center of each contour.
+}
 \examples{
 library(WeibullR)
 library(ReliaPlotR)
@@ -54,4 +62,7 @@ obj1 <- wblr.conf(wblr.fit(wblr(failures1), method.fit = "mle"), method.conf = "
 obj2 <- wblr.conf(wblr.fit(wblr(failures2), method.fit = "mle"), method.conf = "lrb")
 plotly_contour(list(obj1, obj2), main = "Overlayed Contours")
 
+}
+\seealso{
+[plotly_wblr()] for probability plots using the same \code{wblr} objects.
 }

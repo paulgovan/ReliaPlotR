@@ -70,8 +70,15 @@ The plot shows the nonparametric Mean Cumulative Function (MCF) alongside
 the parametric model fit and optional confidence bounds. Vertical lines
 indicate change points if breakpoints are specified in the nhpp object.
 }
+\details{
+The nonparametric MCF is overlaid with the fitted parametric Power Law
+NHPP model, \eqn{E[N(t)] = \lambda t^\beta}. Use this plot to assess
+whether the parametric model fits the observed event history and to
+identify change points. Confidence bounds are based on the Fisher matrix
+approximation of the fitted parameters. For piecewise models, vertical
+dotted lines mark each breakpoint.
+}
 \examples{
-\dontrun{
 library(ReliaGrowR)
 times <- c(100, 200, 300, 400, 500)
 events <- c(1, 2, 1, 3, 2)
@@ -81,10 +88,13 @@ plotly_nhpp(fit)
 # Piecewise model with a breakpoint
 times2 <- c(100, 200, 300, 400, 500, 600, 700, 800, 900, 1000)
 events2 <- c(1, 2, 1, 1, 1, 2, 3, 1, 2, 4)
-fit2 <- nhpp(time = times2, event = events2, breaks = 500)
+fit2 <- nhpp(time = times2, event = events2, breaks = 500, method = "LS")
 plotly_nhpp(fit2, breakCol = "red")
 
 # Overlay two models
 plotly_nhpp(list(fit, fit2))
 }
+\seealso{
+[plotly_mcf()] for the nonparametric MCF alone; [plotly_rga()] for
+a Crow-AMSAA cumulative-failures view.
 }

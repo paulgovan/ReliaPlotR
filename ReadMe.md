@@ -16,8 +16,27 @@ coverage](https://codecov.io/gh/paulgovan/ReliaPlotR/graph/badge.svg)](https://a
 
 <!-- badges: end -->
 
-Build interactive Reliability Probability Plots with `plotly`, an
-interactive web-based graphing library.
+Build interactive reliability plots with `plotly`, an interactive
+web-based graphing library. ReliaPlotR wraps the **WeibullR**,
+**WeibullR.ALT**, and **ReliaGrowR** packages to produce interactive
+visualizations across four reliability analysis domains.
+
+## Function Overview
+
+| Function | Analysis Domain | Purpose |
+|---|---|---|
+| `plotly_wblr()` | Life Data Analysis | Weibull/lognormal probability plot |
+| `plotly_contour()` | Life Data Analysis | MLE parameter confidence contour plot |
+| `plotly_alt()` | Accelerated Life Testing | ALT probability plot (one line per stress level) |
+| `plotly_rel()` | Accelerated Life Testing | ALT life-stress relationship plot |
+| `plotly_rga()` | Reliability Growth | Crow-AMSAA / NHPP cumulative failures plot |
+| `plotly_duane()` | Reliability Growth | Duane cumulative MTBF plot (log-log) |
+| `plotly_nhpp()` | Repairable Systems | NHPP MCF plot with parametric model overlay |
+| `plotly_mcf()` | Repairable Systems | Nonparametric Mean Cumulative Function plot |
+| `plotly_exposure()` | Repairable Systems | Cumulative event rate (exposure) plot |
+
+All functions accept a single model object or a **list** of objects for
+overlay plots, and return a `plotly` object for interactive use.
 
 ## Getting Started
 
@@ -74,6 +93,15 @@ plotly_contour(obj, main = "Weibull Contour Plot", col = "red", signif = 4, grid
 ```
 
 ![](ReadMe_files/figure-gfm/unnamed-chunk-6-1.png)<!-- -->
+
+## Vignettes
+
+For detailed worked examples see the package vignettes:
+
+- [Life Data Analysis](https://paulgovan.github.io/ReliaPlotR/articles/weibull.html)
+- [Accelerated Life Testing](https://paulgovan.github.io/ReliaPlotR/articles/alt.html)
+- [Reliability Growth Analysis](https://paulgovan.github.io/ReliaPlotR/articles/rga.html)
+- [Repairable Systems Analysis](https://paulgovan.github.io/ReliaPlotR/articles/repairable.html)
 
 ## Code of Conduct
 

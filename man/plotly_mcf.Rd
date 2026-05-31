@@ -58,8 +58,15 @@ overlaid on the same plot, each rendered in a distinct color.
 The MCF is rendered as a step function. Optional confidence bounds are shown
 as a shaded band around the estimate.
 }
+\details{
+The MCF is a nonparametric estimate of the expected cumulative number of
+events per system by time \eqn{t}. It is computed from recurrence data
+(multiple events per system) and rendered as a step function. The slope
+of the MCF at any point approximates the current event rate (repairs per
+unit time). Confidence bounds are computed using the Nelson variance
+estimator.
+}
 \examples{
-\dontrun{
 library(ReliaGrowR)
 ids <- c("A", "A", "A", "B", "B", "C", "C", "C", "C")
 times <- c(50, 150, 350, 100, 300, 80, 200, 320, 450)
@@ -70,4 +77,7 @@ plotly_mcf(fit)
 fit2 <- mcf(id = c("X", "X", "Y"), time = c(60, 220, 180))
 plotly_mcf(list(fit, fit2), cols = c("steelblue", "tomato"))
 }
+\seealso{
+[plotly_nhpp()] to overlay a parametric Power Law model on the MCF;
+[plotly_exposure()] for the cumulative event rate.
 }

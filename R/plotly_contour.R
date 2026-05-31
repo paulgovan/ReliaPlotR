@@ -17,6 +17,14 @@
 #' @param signif Number of significant digits to display for estimates and contour coordinates.
 #' Defaults to 3.
 #' @return A `plotly` object representing the interactive contour plot.
+#' @details
+#' Confidence contours require a likelihood-ratio-based (\code{method.conf = 'lrb'})
+#' MLE fit (\code{method.fit = 'mle'}). The contour traces the locus of
+#' (\eqn{\eta}, \eqn{\beta}) pairs whose log-likelihood falls within a
+#' chi-squared critical value of the MLE peak, giving a joint confidence
+#' region for the two Weibull parameters. The MLE point estimate is shown as
+#' a marker at the center of each contour.
+#' @seealso [plotly_wblr()] for probability plots using the same \code{wblr} objects.
 #'
 #' @examples
 #' library(WeibullR)
