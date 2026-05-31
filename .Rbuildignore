@@ -9,7 +9,6 @@
 ^pkgdown$
 ^\.github$
 ^index\.md$
-^vignettes$
 ^CRAN-SUBMISSION$
 ^cran-comments\.md$
 ^LICENSE$
