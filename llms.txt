@@ -74,36 +74,57 @@ By contributing to this project, you agree to abide by its terms.
 
 # Package index
 
-## All functions
+## Life Data Analysis
+
+Weibull and lognormal probability plots and confidence contour plots for
+fitting failure-time data.
+
+- [`plotly_wblr()`](https://paulgovan.github.io/ReliaPlotR/reference/plotly_wblr.md)
+  : Interactive Probability Plot.
+- [`plotly_contour()`](https://paulgovan.github.io/ReliaPlotR/reference/plotly_contour.md)
+  : Interactive Contour Plot
+
+## Accelerated Life Testing
+
+Probability plots and life-stress relationship plots for multi-stress
+ALT experiments.
 
 - [`plotly_alt()`](https://paulgovan.github.io/ReliaPlotR/reference/plotly_alt.md)
   : Interactive ALT Probability Plot.
-- [`plotly_contour()`](https://paulgovan.github.io/ReliaPlotR/reference/plotly_contour.md)
-  : Interactive Contour Plot
-- [`plotly_duane()`](https://paulgovan.github.io/ReliaPlotR/reference/plotly_duane.md)
-  : Interactive Duane Plot.
-- [`plotly_exposure()`](https://paulgovan.github.io/ReliaPlotR/reference/plotly_exposure.md)
-  : Interactive Exposure Plot.
-- [`plotly_mcf()`](https://paulgovan.github.io/ReliaPlotR/reference/plotly_mcf.md)
-  : Interactive Mean Cumulative Function Plot.
-- [`plotly_nhpp()`](https://paulgovan.github.io/ReliaPlotR/reference/plotly_nhpp.md)
-  : Interactive NHPP Plot.
 - [`plotly_rel()`](https://paulgovan.github.io/ReliaPlotR/reference/plotly_rel.md)
   : Interactive ALT Life-Stress Relationship Plot.
+
+## Reliability Growth
+
+Crow-AMSAA NHPP and Duane cumulative-failure / MTBF plots for tracking
+improvement over development test time.
+
 - [`plotly_rga()`](https://paulgovan.github.io/ReliaPlotR/reference/plotly_rga.md)
   : Interactive Reliability Growth Plot.
-- [`plotly_wblr()`](https://paulgovan.github.io/ReliaPlotR/reference/plotly_wblr.md)
-  : Interactive Probability Plot.
+- [`plotly_duane()`](https://paulgovan.github.io/ReliaPlotR/reference/plotly_duane.md)
+  : Interactive Duane Plot.
+
+## Repairable Systems
+
+Nonparametric and parametric plots for repairable-system event data:
+NHPP model fits, Mean Cumulative Function, and exposure rates.
+
+- [`plotly_nhpp()`](https://paulgovan.github.io/ReliaPlotR/reference/plotly_nhpp.md)
+  : Interactive NHPP Plot.
+- [`plotly_mcf()`](https://paulgovan.github.io/ReliaPlotR/reference/plotly_mcf.md)
+  : Interactive Mean Cumulative Function Plot.
+- [`plotly_exposure()`](https://paulgovan.github.io/ReliaPlotR/reference/plotly_exposure.md)
+  : Interactive Exposure Plot.
 
 # Articles
 
-### All vignettes
+### Tutorials
 
-- [Accelerated Life Testing
-  (ALT)](https://paulgovan.github.io/ReliaPlotR/articles/alt.md):
-- [Repairable Systems
-  Analysis](https://paulgovan.github.io/ReliaPlotR/articles/repairable.md):
-- [Reliability Growth
-  Analysis](https://paulgovan.github.io/ReliaPlotR/articles/RGA.md):
 - [Life Data
   Analysis](https://paulgovan.github.io/ReliaPlotR/articles/weibull.md):
+- [Accelerated Life Testing
+  (ALT)](https://paulgovan.github.io/ReliaPlotR/articles/alt.md):
+- [Reliability Growth
+  Analysis](https://paulgovan.github.io/ReliaPlotR/articles/rga.md):
+- [Repairable Systems
+  Analysis](https://paulgovan.github.io/ReliaPlotR/articles/repairable.md):

@@ -121,3 +121,15 @@ plotly_rel(
   signif  = 4
 )
 ```
+
+## See Also
+
+- [Life Data
+  Analysis](https://paulgovan.github.io/ReliaPlotR/articles/weibull.md)
+  — fit Weibull/lognormal models at a single stress level
+- [Reliability Growth
+  Analysis](https://paulgovan.github.io/ReliaPlotR/articles/rga.md) —
+  track reliability improvement over time
+- [Repairable Systems
+  Analysis](https://paulgovan.github.io/ReliaPlotR/articles/repairable.md)
+  — analyze recurrent events with MCF and NHPP models

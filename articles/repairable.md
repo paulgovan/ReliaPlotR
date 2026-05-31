@@ -103,3 +103,15 @@ fit_mcf2 <- mcf(id = id2, time = time2, end_time = end2)
 
 plotly_mcf(list(fit_mcf, fit_mcf2), cols = c("steelblue", "tomato"))
 ```
+
+## See Also
+
+- [Life Data
+  Analysis](https://paulgovan.github.io/ReliaPlotR/articles/weibull.md)
+  — fit Weibull/lognormal models to non-repairable failure-time data
+- [Reliability Growth
+  Analysis](https://paulgovan.github.io/ReliaPlotR/articles/rga.md) —
+  track cumulative failures over development test time
+- [Accelerated Life
+  Testing](https://paulgovan.github.io/ReliaPlotR/articles/alt.md) —
+  extrapolate life from accelerated stress conditions

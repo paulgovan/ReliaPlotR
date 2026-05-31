@@ -1,18 +1,46 @@
-# ReliaPlotR: Interactive Reliability Probability Plots
+# ReliaPlotR: Interactive Reliability Plots with plotly
 
-Build interactive Reliability Probability Plots with 'plotly' by Carson
-Sievert (2020) <https://plotly.com/r/>, an interactive web-based
-graphing library.
+ReliaPlotR creates interactive reliability probability plots using
+[plotly](https://plotly.com/r/). It wraps the WeibullR, WeibullR.ALT,
+and ReliaGrowR packages and provides a consistent interface for four
+reliability analysis domains:
+
+## Details
+
+- Life Data Analysis:
+
+  \[plotly_wblr()\], \[plotly_contour()\]
+
+- Accelerated Life Testing:
+
+  \[plotly_alt()\], \[plotly_rel()\]
+
+- Reliability Growth:
+
+  \[plotly_rga()\], \[plotly_duane()\]
+
+- Repairable Systems:
+
+  \[plotly_nhpp()\], \[plotly_mcf()\], \[plotly_exposure()\]
+
+All functions accept a single fitted model object or a list of objects
+(for overlay plots) and return a `plotly` object.
 
 ## See also
 
-Useful links:
+Vignettes:
 
-- <https://paulgovan.github.io/ReliaPlotR/>
+- [`vignette("weibull", package = "ReliaPlotR")`](https://paulgovan.github.io/ReliaPlotR/articles/weibull.md)
+  — Life Data Analysis
 
-- <https://github.com/paulgovan/ReliaPlotR>
+- [`vignette("alt", package = "ReliaPlotR")`](https://paulgovan.github.io/ReliaPlotR/articles/alt.md)
+  — Accelerated Life Testing
 
-- Report bugs at <https://github.com/paulgovan/ReliaPlotR/issues>
+- [`vignette("rga", package = "ReliaPlotR")`](https://paulgovan.github.io/ReliaPlotR/articles/rga.md)
+  — Reliability Growth Analysis
+
+- [`vignette("repairable", package = "ReliaPlotR")`](https://paulgovan.github.io/ReliaPlotR/articles/repairable.md)
+  — Repairable Systems Analysis
 
 ## Author
 

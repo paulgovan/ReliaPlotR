@@ -119,3 +119,15 @@ obj1 <- wblr.conf(wblr.fit(wblr(failures1), method.fit = "mle"), method.conf = "
 obj2 <- wblr.conf(wblr.fit(wblr(failures2), method.fit = "mle"), method.conf = "lrb")
 plotly_wblr(list(obj1, obj2), cols = c("steelblue", "tomato"))
 ```
+
+## See Also
+
+- [Accelerated Life
+  Testing](https://paulgovan.github.io/ReliaPlotR/articles/alt.md) —
+  apply Weibull/lognormal models across multiple stress levels
+- [Reliability Growth
+  Analysis](https://paulgovan.github.io/ReliaPlotR/articles/rga.md) —
+  track cumulative failures over development test time
+- [Repairable Systems
+  Analysis](https://paulgovan.github.io/ReliaPlotR/articles/repairable.md)
+  — analyze recurrent events with MCF and NHPP models
