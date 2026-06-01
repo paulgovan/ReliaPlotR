@@ -75,10 +75,10 @@
 </h2>
 <p>The <a href="https://modelcontextprotocol.io" class="external-link">Model Context
 Protocol</a> (MCP) is an open standard that lets AI assistants call
-external tools as part of a conversation.
-<code><a href="../reference/reliapltr_mcp_server.html">reliapltr_mcp_server()</a></code> launches a lightweight MCP server
-that exposes two reliability analysis tools to any MCP client, such as
-<a href="https://claude.ai/code" class="external-link">Claude Code</a> or Claude Desktop:</p>
+external tools as part of a conversation. Two MCP servers together cover
+the full ReliaPlotR analysis pipeline:</p>
+<p><strong>ReliaPlotR server</strong> —
+<code><a href="../reference/reliapltr_mcp_server.html">reliapltr_mcp_server()</a></code> — life data and ALT analysis:</p>
 <table class="table">
 <colgroup>
 <col width="50%">
@@ -96,15 +96,77 @@ return parameter estimates</td>
 </tr>
 <tr class="even">
 <td><code>fit_alt</code></td>
-<td>Fit an Accelerated Life Test (ALT) model across multiple stress
-levels and return life-stress relationship coefficients</td>
+<td>Fit an ALT model across multiple stress levels and return
+life-stress relationship coefficients</td>
+</tr>
+<tr class="odd">
+<td><code>plot_weibull</code></td>
+<td>Fit a distribution and return a Weibull probability plot as a plotly
+JSON string</td>
+</tr>
+<tr class="even">
+<td><code>plot_alt</code></td>
+<td>Fit an ALT model and return probability and life-stress plots as
+plotly JSON strings</td>
+</tr>
+<tr class="odd">
+<td><code>plot_rga</code></td>
+<td>Fit a Crow-AMSAA model and return a cumulative failure plot as a
+plotly JSON string</td>
 </tr>
 </tbody>
 </table>
-<p>These tools complement the reliability growth tools
-(<code>rga</code>, <code>nhpp</code>, <code>duane</code>,
-<code>mcf</code>) already provided by the <code>ReliaGrowR</code>
-package’s own MCP server.</p>
+<p><strong>ReliaGrowR server</strong> — <code><a href="https://paulgovan.github.io/ReliaGrowR/reference/rga_mcp_server.html" class="external-link">rga_mcp_server()</a></code> —
+reliability growth and repairable systems:</p>
+<table class="table">
+<colgroup>
+<col width="50%">
+<col width="50%">
+</colgroup>
+<thead><tr class="header">
+<th>Tool</th>
+<th>What it does</th>
+</tr></thead>
+<tbody>
+<tr class="odd">
+<td><code>rga</code></td>
+<td>Fit Crow-AMSAA reliability growth model; returns λ, β, and
+goodness-of-fit stats</td>
+</tr>
+<tr class="even">
+<td><code>nhpp</code></td>
+<td>Fit a Power Law or Log-Linear NHPP process; returns model
+parameters</td>
+</tr>
+<tr class="odd">
+<td><code>duane</code></td>
+<td>Fit a Duane log-log growth model; returns slope, intercept, and GOF
+stats</td>
+</tr>
+<tr class="even">
+<td><code>mcf</code></td>
+<td>Compute Nelson-Aalen MCF for repairable systems; returns time, MCF,
+and bounds</td>
+</tr>
+<tr class="odd">
+<td><code>predict_rga</code></td>
+<td>Forecast cumulative failures from a fitted Crow-AMSAA model</td>
+</tr>
+<tr class="even">
+<td><code>predict_duane</code></td>
+<td>Forecast MTBF from a fitted Duane model</td>
+</tr>
+<tr class="odd">
+<td><code>rdt</code></td>
+<td>Reliability demonstration test planning — solve for required sample
+size or test time</td>
+</tr>
+<tr class="even">
+<td><code>gof_rga</code></td>
+<td>Goodness-of-fit statistics (CvM, KS) for a Crow-AMSAA model</td>
+</tr>
+</tbody>
+</table>
 </div>
 <div class="section level2">
 <h2 id="installation">Installation<a class="anchor" aria-label="anchor" href="#installation"></a>
@@ -118,19 +180,23 @@ starting the server:</p>
 <div class="section level2">
 <h2 id="registering-with-claude-code">Registering with Claude Code<a class="anchor" aria-label="anchor" href="#registering-with-claude-code"></a>
 </h2>
-<p>Once the packages are installed, register the server in your Claude
-Code session. Two equivalent approaches are available:</p>
+<p>Once the packages are installed, register both servers in your Claude
+Code session.</p>
+<p><strong>ReliaPlotR server</strong> (life data and ALT analysis):</p>
 <div class="sourceCode" id="cb3"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb3-1"><a href="#cb3-1" tabindex="-1"></a><span class="co"># Option 1: inline (works with any R installation)</span></span>
 <span id="cb3-2"><a href="#cb3-2" tabindex="-1"></a><span class="ex">claude</span> mcp add <span class="at">-s</span> user reliapltr <span class="at">--</span> <span class="dt">\</span></span>
 <span id="cb3-3"><a href="#cb3-3" tabindex="-1"></a>  Rscript <span class="at">-e</span> <span class="st">"ReliaPlotR::reliapltr_mcp_server()"</span></span></code></pre></div>
 <div class="sourceCode" id="cb4"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb4-1"><a href="#cb4-1" tabindex="-1"></a><span class="co"># Option 2: bundled launcher script (after package installation)</span></span>
 <span id="cb4-2"><a href="#cb4-2" tabindex="-1"></a><span class="ex">claude</span> mcp add <span class="at">-s</span> user reliapltr <span class="at">--</span> <span class="dt">\</span></span>
 <span id="cb4-3"><a href="#cb4-3" tabindex="-1"></a>  Rscript <span class="va">$(</span><span class="ex">Rscript</span> <span class="at">-e</span> <span class="st">"cat(system.file('mcp/server.R', package='ReliaPlotR'))"</span><span class="va">)</span></span></code></pre></div>
-<p>Confirm the server is registered:</p>
-<div class="sourceCode" id="cb5"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb5-1"><a href="#cb5-1" tabindex="-1"></a><span class="ex">claude</span> mcp list</span></code></pre></div>
-<p>Once registered, Claude Code will offer the <code>fit_weibull</code>
-and <code>fit_alt</code> tools automatically whenever it detects a
-reliability analysis task.</p>
+<p><strong>ReliaGrowR server</strong> (reliability growth and repairable
+systems):</p>
+<div class="sourceCode" id="cb5"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb5-1"><a href="#cb5-1" tabindex="-1"></a><span class="ex">claude</span> mcp add <span class="at">-s</span> user reliagrowR <span class="at">--</span> <span class="dt">\</span></span>
+<span id="cb5-2"><a href="#cb5-2" tabindex="-1"></a>  Rscript <span class="at">-e</span> <span class="st">"ReliaGrowR::rga_mcp_server()"</span></span></code></pre></div>
+<p>Confirm both servers are registered:</p>
+<div class="sourceCode" id="cb6"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb6-1"><a href="#cb6-1" tabindex="-1"></a><span class="ex">claude</span> mcp list</span></code></pre></div>
+<p>Once registered, Claude Code will offer all tools automatically
+whenever it detects a reliability analysis task.</p>
 </div>
 <div class="section level2">
 <h2 id="the-fit_weibull-tool">The <code>fit_weibull</code> Tool<a class="anchor" aria-label="anchor" href="#the-fit_weibull-tool"></a>
@@ -198,7 +264,7 @@ MLE) or <code>"fm"</code> (Fisher-matrix). Automatically switches to
 </h3>
 <p>The following shows what the tool returns when called from an MCP
 client. The same function can be invoked directly in R for testing:</p>
-<div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># Five machines that failed at these times (hours)</span></span>
 <span><span class="va">tool</span> <span class="op">&lt;-</span> <span class="fu">ReliaPlotR</span><span class="fu">:::</span><span class="fu">.make_wblr_tool</span><span class="op">(</span><span class="op">)</span></span>
 <span><span class="va">result</span> <span class="op">&lt;-</span> <span class="fu">tool</span><span class="op">(</span>failures <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">30</span>, <span class="fl">49</span>, <span class="fl">82</span>, <span class="fl">90</span>, <span class="fl">96</span><span class="op">)</span><span class="op">)</span></span>
@@ -223,7 +289,7 @@ client. The same function can be invoked directly in R for testing:</p>
 <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>η</mi><annotation encoding="application/x-tex">\eta</annotation></semantics></math>.</p>
 <p>Adding right-censored suspensions shifts the estimates to account for
 units that did not fail:</p>
-<div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">result_susp</span> <span class="op">&lt;-</span> <span class="fu">tool</span><span class="op">(</span></span>
 <span>  failures    <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">30</span>, <span class="fl">49</span>, <span class="fl">82</span>, <span class="fl">90</span>, <span class="fl">96</span><span class="op">)</span>,</span>
 <span>  suspensions <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">100</span>, <span class="fl">120</span>, <span class="fl">150</span><span class="op">)</span></span>
@@ -296,7 +362,7 @@ Example: <code>'[[248,456,528],[164,176,289],[88,112,152]]'</code>
 <div class="section level3">
 <h3 id="example-1">Example<a class="anchor" aria-label="anchor" href="#example-1"></a>
 </h3>
-<div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">tool_alt</span> <span class="op">&lt;-</span> <span class="fu">ReliaPlotR</span><span class="fu">:::</span><span class="fu">.make_alt_tool</span><span class="op">(</span><span class="op">)</span></span>
 <span><span class="va">result_alt</span> <span class="op">&lt;-</span> <span class="fu">tool_alt</span><span class="op">(</span></span>
 <span>  stresses      <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">300</span>, <span class="fl">350</span>, <span class="fl">400</span><span class="op">)</span>,</span>
@@ -304,7 +370,7 @@ Example: <code>'[[248,456,528],[164,176,289],[88,112,152]]'</code>
 <span>  dist          <span class="op">=</span> <span class="st">"weibull"</span>,</span>
 <span>  alt_model     <span class="op">=</span> <span class="st">"arrhenius"</span></span>
 <span><span class="op">)</span></span></code></pre></div>
-<div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb10"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># Per-stress-level parameter estimates</span></span>
 <span><span class="va">result_alt</span><span class="op">$</span><span class="va">parallel</span></span>
 <span><span class="co">#&gt;   stress       P1       P2 wt n_failures</span></span>
@@ -335,18 +401,170 @@ constrained to be equal across stress levels. The
 </div>
 </div>
 <div class="section level2">
+<h2 id="plot-tools">Plot Tools<a class="anchor" aria-label="anchor" href="#plot-tools"></a>
+</h2>
+<p>The three <code>plot_*</code> tools run the full fitting pipeline and
+return an interactive plot as a <a href="https://plotly.com/r/" class="external-link">plotly</a> JSON string. Claude Code (or any
+MCP client) can save the string to an <code>.html</code> file that opens
+directly in a browser.</p>
+<div class="section level3">
+<h3 id="the-plot_weibull-tool">The <code>plot_weibull</code> Tool<a class="anchor" aria-label="anchor" href="#the-plot_weibull-tool"></a>
+</h3>
+<p><code>plot_weibull</code> accepts the same arguments as
+<code>fit_weibull</code> plus an optional <code>show_conf</code> flag,
+and returns the probability plot as a JSON string.</p>
+<div class="sourceCode" id="cb11"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">ptool</span> <span class="op">&lt;-</span> <span class="fu">ReliaPlotR</span><span class="fu">:::</span><span class="fu">.make_plot_wblr_tool</span><span class="op">(</span><span class="op">)</span></span>
+<span><span class="va">json_str</span> <span class="op">&lt;-</span> <span class="fu">ptool</span><span class="op">(</span>failures <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">30</span>, <span class="fl">49</span>, <span class="fl">82</span>, <span class="fl">90</span>, <span class="fl">96</span><span class="op">)</span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/nchar.html" class="external-link">nchar</a></span><span class="op">(</span><span class="va">json_str</span><span class="op">)</span>  <span class="co"># plotly JSON string length</span></span>
+<span><span class="co">#&gt; [1] 12765</span></span></code></pre></div>
+</div>
+<div class="section level3">
+<h3 id="the-plot_alt-tool">The <code>plot_alt</code> Tool<a class="anchor" aria-label="anchor" href="#the-plot_alt-tool"></a>
+</h3>
+<p><code>plot_alt</code> accepts the same arguments as
+<code>fit_alt</code> and returns a named list with two JSON strings:
+<code>probability_plot</code> (one fitted line per stress level) and
+<code>life_stress_plot</code> (Arrhenius or Power Law relationship).</p>
+<div class="sourceCode" id="cb12"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">ptool_alt</span> <span class="op">&lt;-</span> <span class="fu">ReliaPlotR</span><span class="fu">:::</span><span class="fu">.make_plot_alt_tool</span><span class="op">(</span><span class="op">)</span></span>
+<span><span class="va">result_plots</span> <span class="op">&lt;-</span> <span class="fu">ptool_alt</span><span class="op">(</span></span>
+<span>  stresses      <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">300</span>, <span class="fl">350</span>, <span class="fl">400</span><span class="op">)</span>,</span>
+<span>  failures_json <span class="op">=</span> <span class="st">"[[248,456,528,731,813,537],[164,176,289],[88,112,152]]"</span>,</span>
+<span>  dist          <span class="op">=</span> <span class="st">"weibull"</span>,</span>
+<span>  alt_model     <span class="op">=</span> <span class="st">"arrhenius"</span></span>
+<span><span class="op">)</span></span></code></pre></div>
+<div class="sourceCode" id="cb13"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/nchar.html" class="external-link">nchar</a></span><span class="op">(</span><span class="va">result_plots</span><span class="op">$</span><span class="va">probability_plot</span><span class="op">)</span></span>
+<span><span class="co">#&gt; [1] 74535</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/nchar.html" class="external-link">nchar</a></span><span class="op">(</span><span class="va">result_plots</span><span class="op">$</span><span class="va">life_stress_plot</span><span class="op">)</span></span>
+<span><span class="co">#&gt; [1] 95578</span></span></code></pre></div>
+</div>
+<div class="section level3">
+<h3 id="the-plot_rga-tool">The <code>plot_rga</code> Tool<a class="anchor" aria-label="anchor" href="#the-plot_rga-tool"></a>
+</h3>
+<p><code>plot_rga</code> fits a Crow-AMSAA model to failure count data
+and returns the cumulative failure plot.</p>
+<div class="sourceCode" id="cb14"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">ptool_rga</span> <span class="op">&lt;-</span> <span class="fu">ReliaPlotR</span><span class="fu">:::</span><span class="fu">.make_plot_rga_tool</span><span class="op">(</span><span class="op">)</span></span>
+<span><span class="va">json_rga</span> <span class="op">&lt;-</span> <span class="fu">ptool_rga</span><span class="op">(</span></span>
+<span>  times    <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">100</span>, <span class="fl">200</span>, <span class="fl">300</span>, <span class="fl">400</span>, <span class="fl">500</span><span class="op">)</span>,</span>
+<span>  failures <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span>  <span class="fl">2</span>,   <span class="fl">1</span>,   <span class="fl">3</span>,   <span class="fl">1</span>,   <span class="fl">2</span><span class="op">)</span></span>
+<span><span class="op">)</span></span>
+<span><span class="co">#&gt; No trace type specified:</span></span>
+<span><span class="co">#&gt;   Based on info supplied, a 'scatter' trace seems appropriate.</span></span>
+<span><span class="co">#&gt;   Read more about this trace type -&gt; https://plotly.com/r/reference/#scatter</span></span>
+<span><span class="co">#&gt; No trace type specified:</span></span>
+<span><span class="co">#&gt;   Based on info supplied, a 'scatter' trace seems appropriate.</span></span>
+<span><span class="co">#&gt;   Read more about this trace type -&gt; https://plotly.com/r/reference/#scatter</span></span>
+<span><span class="co">#&gt; No trace type specified:</span></span>
+<span><span class="co">#&gt;   Based on info supplied, a 'scatter' trace seems appropriate.</span></span>
+<span><span class="co">#&gt;   Read more about this trace type -&gt; https://plotly.com/r/reference/#scatter</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/nchar.html" class="external-link">nchar</a></span><span class="op">(</span><span class="va">json_rga</span><span class="op">)</span></span>
+<span><span class="co">#&gt; [1] 5244</span></span></code></pre></div>
+</div>
+</div>
+<div class="section level2">
 <h2 id="how-the-tools-work">How the Tools Work<a class="anchor" aria-label="anchor" href="#how-the-tools-work"></a>
 </h2>
 <p>Each MCP tool wraps the same fitting pipeline used by the
-corresponding <code>plotly_*</code> function, then formats results using
-the <code><a href="../reference/tidy_wblr.html">tidy_wblr()</a></code> and <code><a href="../reference/tidy_alt.html">tidy_alt()</a></code> accessor
-functions:</p>
-<pre><code>fit_weibull:   wblr() -&gt; wblr.fit() -&gt; wblr.conf() -&gt; tidy_wblr() -&gt; named list
-fit_alt:    alt.make() -&gt; alt.parallel() -&gt; alt.fit() -&gt; tidy_alt() -&gt; named list</code></pre>
+corresponding <code>plotly_*</code> function:</p>
+<pre><code>fit_weibull:    wblr() -&gt; wblr.fit() -&gt; wblr.conf() -&gt; tidy_wblr()    -&gt; named list
+fit_alt:     alt.make() -&gt; alt.parallel() -&gt; alt.fit() -&gt; tidy_alt()  -&gt; named list
+plot_weibull:   wblr() -&gt; wblr.fit() -&gt; wblr.conf() -&gt; plotly_wblr()  -&gt; plotly JSON
+plot_alt:    alt.make() -&gt; alt.parallel() -&gt; alt.fit() -&gt; plotly_alt()
+                                                       -&gt; plotly_rel() -&gt; plotly JSON × 2
+plot_rga:       rga()                                 -&gt; plotly_rga()  -&gt; plotly JSON</code></pre>
 <p>The accessor functions (<code><a href="../reference/tidy_wblr.html">tidy_wblr()</a></code>,
 <code><a href="../reference/tidy_alt.html">tidy_alt()</a></code>, <code><a href="../reference/tidy_rga.html">tidy_rga()</a></code>) can also be called
 directly from R to extract parameter estimates from already-fitted model
 objects without going through MCP.</p>
+</div>
+<div class="section level2">
+<h2 id="reliagrowr-mcp-tools">ReliaGrowR MCP Tools<a class="anchor" aria-label="anchor" href="#reliagrowr-mcp-tools"></a>
+</h2>
+<p>The ReliaGrowR server exposes eight tools for reliability growth
+analysis and repairable systems. Register it with
+<code>claude mcp add -s user reliagrowR -- Rscript -e "ReliaGrowR::rga_mcp_server()"</code>.</p>
+<table class="table">
+<colgroup>
+<col width="33%">
+<col width="33%">
+<col width="33%">
+</colgroup>
+<thead><tr class="header">
+<th>Tool</th>
+<th>Arguments</th>
+<th>Returns</th>
+</tr></thead>
+<tbody>
+<tr class="odd">
+<td><code>rga</code></td>
+<td>
+<code>times</code>, <code>failures</code>, <code>times_type</code>,
+<code>method</code>
+</td>
+<td>λ, β, growth rate, log-likelihood, AIC, BIC</td>
+</tr>
+<tr class="even">
+<td><code>nhpp</code></td>
+<td>
+<code>time</code>, <code>event</code>, <code>model_type</code>,
+<code>method</code>
+</td>
+<td>model type, method, fitted parameters, GOF stats</td>
+</tr>
+<tr class="odd">
+<td><code>duane</code></td>
+<td>
+<code>times</code>, <code>failures</code>,
+<code>conf_level</code>
+</td>
+<td>slope, intercept, GOF stats</td>
+</tr>
+<tr class="even">
+<td><code>mcf</code></td>
+<td>
+<code>id</code>, <code>time</code>, <code>event</code>,
+<code>conf_level</code>
+</td>
+<td>time points, MCF values, confidence bounds</td>
+</tr>
+<tr class="odd">
+<td><code>predict_rga</code></td>
+<td>
+<code>times</code>, <code>failures</code>,
+<code>forecast_times</code>, <code>method</code>,
+<code>conf_level</code>
+</td>
+<td>forecast cumulative failures with bounds</td>
+</tr>
+<tr class="even">
+<td><code>predict_duane</code></td>
+<td>
+<code>times</code>, <code>failures</code>,
+<code>forecast_times</code>, <code>conf_level</code>
+</td>
+<td>forecast MTBF with bounds</td>
+</tr>
+<tr class="odd">
+<td><code>rdt</code></td>
+<td>
+<code>target</code>, <code>mission_time</code>,
+<code>conf_level</code>, <code>beta</code>, <code>f</code>,
+<code>n</code>, <code>test_time</code>
+</td>
+<td>required sample size or test duration</td>
+</tr>
+<tr class="even">
+<td><code>gof_rga</code></td>
+<td>
+<code>times</code>, <code>failures</code>, <code>method</code>
+</td>
+<td>Cramér-von Mises (W²) and Kolmogorov-Smirnov (D) statistics</td>
+</tr>
+</tbody>
+</table>
 </div>
 <div class="section level2">
 <h2 id="references">References<a class="anchor" aria-label="anchor" href="#references"></a>
