@@ -44,3 +44,13 @@ reference:
       - plotly_nhpp
       - plotly_mcf
       - plotly_exposure
+
+  - title: "Accessor Functions"
+    desc: >
+      Extract tidy data frames of parameter estimates, confidence bounds, and
+      goodness-of-fit metrics from fitted model objects for use in
+      reproducible research workflows.
+    contents:
+      - tidy_wblr
+      - tidy_rga
+      - tidy_alt
