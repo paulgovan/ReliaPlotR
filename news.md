@@ -14,6 +14,12 @@
   [`tidy_alt()`](https://paulgovan.github.io/ReliaPlotR/reference/tidy_alt.md)
   function extracts per-stress-level parameter estimates and life-stress
   relationship coefficients from fitted `alt` objects.
+- New
+  [`reliapltr_mcp_server()`](https://paulgovan.github.io/ReliaPlotR/reference/reliapltr_mcp_server.md)
+  exposes `fit_weibull` and `fit_alt` as MCP tools for use with Claude
+  Code and Claude Desktop (requires `mcptools` and `ellmer`).
+- New vignette “MCP Tools” covers registering the server and using both
+  tools.
 - All four vignettes now include a **Statistical Background** section
   with equations, parameter interpretation, and references.
 - New `inst/REFERENCES.bib` with BibTeX entries for foundational

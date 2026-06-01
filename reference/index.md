@@ -54,3 +54,12 @@ reproducible research workflows.
   : Extract Tidy Fitted Values from an rga Object.
 - [`tidy_alt()`](https://paulgovan.github.io/ReliaPlotR/reference/tidy_alt.md)
   : Extract Tidy Parameter Estimates from an alt Object.
+
+## MCP Server
+
+Launch a Model Context Protocol server that exposes Weibull and ALT
+fitting as callable tools for AI assistants such as Claude Code and
+Claude Desktop.
+
+- [`reliapltr_mcp_server()`](https://paulgovan.github.io/ReliaPlotR/reference/reliapltr_mcp_server.md)
+  : Launch a ReliaPlotR MCP Server.

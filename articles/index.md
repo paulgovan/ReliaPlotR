@@ -10,3 +10,4 @@
   Analysis](https://paulgovan.github.io/ReliaPlotR/articles/rga.md):
 - [Repairable Systems
   Analysis](https://paulgovan.github.io/ReliaPlotR/articles/repairable.md):
+- [MCP Tools](https://paulgovan.github.io/ReliaPlotR/articles/mcp.md):
