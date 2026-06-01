@@ -25,14 +25,30 @@ library(ReliaPlotR)
 
 ## Overview
 
-The [Model Context Protocol](https://modelcontextprotocol.io) (MCP) is an open standard that lets AI assistants call external tools as part of a conversation. `reliapltr_mcp_server()` launches a lightweight MCP server that exposes two reliability analysis tools to any MCP client, such as [Claude Code](https://claude.ai/code) or Claude Desktop:
+The [Model Context Protocol](https://modelcontextprotocol.io) (MCP) is an open standard that lets AI assistants call external tools as part of a conversation. Two MCP servers together cover the full ReliaPlotR analysis pipeline:
+
+**ReliaPlotR server** — `reliapltr_mcp_server()` — life data and ALT analysis:
 
 | Tool | What it does |
 |---|---|
 | `fit_weibull` | Fit a Weibull or lognormal distribution to time-to-failure data and return parameter estimates |
-| `fit_alt` | Fit an Accelerated Life Test (ALT) model across multiple stress levels and return life-stress relationship coefficients |
+| `fit_alt` | Fit an ALT model across multiple stress levels and return life-stress relationship coefficients |
+| `plot_weibull` | Fit a distribution and return a Weibull probability plot as a plotly JSON string |
+| `plot_alt` | Fit an ALT model and return probability and life-stress plots as plotly JSON strings |
+| `plot_rga` | Fit a Crow-AMSAA model and return a cumulative failure plot as a plotly JSON string |
 
-These tools complement the reliability growth tools (`rga`, `nhpp`, `duane`, `mcf`) already provided by the `ReliaGrowR` package's own MCP server.
+**ReliaGrowR server** — `rga_mcp_server()` — reliability growth and repairable systems:
+
+| Tool | What it does |
+|---|---|
+| `rga` | Fit Crow-AMSAA reliability growth model; returns λ, β, and goodness-of-fit stats |
+| `nhpp` | Fit a Power Law or Log-Linear NHPP process; returns model parameters |
+| `duane` | Fit a Duane log-log growth model; returns slope, intercept, and GOF stats |
+| `mcf` | Compute Nelson-Aalen MCF for repairable systems; returns time, MCF, and bounds |
+| `predict_rga` | Forecast cumulative failures from a fitted Crow-AMSAA model |
+| `predict_duane` | Forecast MTBF from a fitted Duane model |
+| `rdt` | Reliability demonstration test planning — solve for required sample size or test time |
+| `gof_rga` | Goodness-of-fit statistics (CvM, KS) for a Crow-AMSAA model |
 
 ## Installation
 
@@ -44,7 +60,9 @@ pak::pak(c("mcptools", "ellmer"))
 
 ## Registering with Claude Code
 
-Once the packages are installed, register the server in your Claude Code session. Two equivalent approaches are available:
+Once the packages are installed, register both servers in your Claude Code session.
+
+**ReliaPlotR server** (life data and ALT analysis):
 
 ```{bash mcp-add-inline, eval = FALSE}
 # Option 1: inline (works with any R installation)
@@ -58,13 +76,20 @@ claude mcp add -s user reliapltr -- \
   Rscript $(Rscript -e "cat(system.file('mcp/server.R', package='ReliaPlotR'))")
 ```
 
-Confirm the server is registered:
+**ReliaGrowR server** (reliability growth and repairable systems):
+
+```{bash mcp-add-reliagrow, eval = FALSE}
+claude mcp add -s user reliagrowR -- \
+  Rscript -e "ReliaGrowR::rga_mcp_server()"
+```
+
+Confirm both servers are registered:
 
 ```{bash mcp-list, eval = FALSE}
 claude mcp list
 ```
 
-Once registered, Claude Code will offer the `fit_weibull` and `fit_alt` tools automatically whenever it detects a reliability analysis task.
+Once registered, Claude Code will offer all tools automatically whenever it detects a reliability analysis task.
 
 ## The `fit_weibull` Tool
 
@@ -139,16 +164,81 @@ result_alt$relationship
 
 The `P1` column in `$parallel` is the characteristic life $\eta$ at each stress level (for Weibull) or $\exp(\mu_{\log})$ (for lognormal). The `P2` column is the shape parameter $\beta$, constrained to be equal across stress levels. The `$relationship` coefficients `coef1` and `coef2` define the log-linear life-stress model [@Nelson1990].
 
+## Plot Tools
+
+The three `plot_*` tools run the full fitting pipeline and return an interactive plot as a [plotly](https://plotly.com/r/) JSON string. Claude Code (or any MCP client) can save the string to an `.html` file that opens directly in a browser.
+
+### The `plot_weibull` Tool
+
+`plot_weibull` accepts the same arguments as `fit_weibull` plus an optional `show_conf` flag, and returns the probability plot as a JSON string.
+
+```{r plot-wblr-example, eval = has_ellmer}
+ptool <- ReliaPlotR:::.make_plot_wblr_tool()
+json_str <- ptool(failures = c(30, 49, 82, 90, 96))
+nchar(json_str)  # plotly JSON string length
+```
+
+### The `plot_alt` Tool
+
+`plot_alt` accepts the same arguments as `fit_alt` and returns a named list with two JSON strings: `probability_plot` (one fitted line per stress level) and `life_stress_plot` (Arrhenius or Power Law relationship).
+
+```{r plot-alt-example, eval = has_ellmer, results = "hide"}
+ptool_alt <- ReliaPlotR:::.make_plot_alt_tool()
+result_plots <- ptool_alt(
+  stresses      = c(300, 350, 400),
+  failures_json = "[[248,456,528,731,813,537],[164,176,289],[88,112,152]]",
+  dist          = "weibull",
+  alt_model     = "arrhenius"
+)
+```
+
+```{r plot-alt-show, eval = has_ellmer}
+nchar(result_plots$probability_plot)
+nchar(result_plots$life_stress_plot)
+```
+
+### The `plot_rga` Tool
+
+`plot_rga` fits a Crow-AMSAA model to failure count data and returns the cumulative failure plot.
+
+```{r plot-rga-example, eval = has_ellmer}
+ptool_rga <- ReliaPlotR:::.make_plot_rga_tool()
+json_rga <- ptool_rga(
+  times    = c(100, 200, 300, 400, 500),
+  failures = c(  2,   1,   3,   1,   2)
+)
+nchar(json_rga)
+```
+
 ## How the Tools Work
 
-Each MCP tool wraps the same fitting pipeline used by the corresponding `plotly_*` function, then formats results using the `tidy_wblr()` and `tidy_alt()` accessor functions:
+Each MCP tool wraps the same fitting pipeline used by the corresponding `plotly_*` function:
 
 ```
-fit_weibull:   wblr() -> wblr.fit() -> wblr.conf() -> tidy_wblr() -> named list
-fit_alt:    alt.make() -> alt.parallel() -> alt.fit() -> tidy_alt() -> named list
+fit_weibull:    wblr() -> wblr.fit() -> wblr.conf() -> tidy_wblr()    -> named list
+fit_alt:     alt.make() -> alt.parallel() -> alt.fit() -> tidy_alt()  -> named list
+plot_weibull:   wblr() -> wblr.fit() -> wblr.conf() -> plotly_wblr()  -> plotly JSON
+plot_alt:    alt.make() -> alt.parallel() -> alt.fit() -> plotly_alt()
+                                                       -> plotly_rel() -> plotly JSON × 2
+plot_rga:       rga()                                 -> plotly_rga()  -> plotly JSON
 ```
 
 The accessor functions (`tidy_wblr()`, `tidy_alt()`, `tidy_rga()`) can also be called directly from R to extract parameter estimates from already-fitted model objects without going through MCP.
+
+## ReliaGrowR MCP Tools
+
+The ReliaGrowR server exposes eight tools for reliability growth analysis and repairable systems. Register it with `claude mcp add -s user reliagrowR -- Rscript -e "ReliaGrowR::rga_mcp_server()"`.
+
+| Tool | Arguments | Returns |
+|---|---|---|
+| `rga` | `times`, `failures`, `times_type`, `method` | λ, β, growth rate, log-likelihood, AIC, BIC |
+| `nhpp` | `time`, `event`, `model_type`, `method` | model type, method, fitted parameters, GOF stats |
+| `duane` | `times`, `failures`, `conf_level` | slope, intercept, GOF stats |
+| `mcf` | `id`, `time`, `event`, `conf_level` | time points, MCF values, confidence bounds |
+| `predict_rga` | `times`, `failures`, `forecast_times`, `method`, `conf_level` | forecast cumulative failures with bounds |
+| `predict_duane` | `times`, `failures`, `forecast_times`, `conf_level` | forecast MTBF with bounds |
+| `rdt` | `target`, `mission_time`, `conf_level`, `beta`, `f`, `n`, `test_time` | required sample size or test duration |
+| `gof_rga` | `times`, `failures`, `method` | Cramér-von Mises (W²) and Kolmogorov-Smirnov (D) statistics |
 
 ## References
 
