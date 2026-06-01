@@ -12,8 +12,11 @@ Imports:
   ReliaGrowR,
   WeibullR,
   WeibullR.ALT
-Suggests: 
+Suggests:
+    ellmer,
+    jsonlite,
     knitr,
+    mcptools,
     rmarkdown,
     spelling,
     testthat (>= 3.0.0)

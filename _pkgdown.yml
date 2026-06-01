@@ -10,6 +10,7 @@ articles:
       - alt
       - rga
       - repairable
+      - mcp
 
 reference:
   - title: "Life Data Analysis"
