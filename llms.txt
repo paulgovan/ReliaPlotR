@@ -148,6 +148,19 @@ NHPP model fits, Mean Cumulative Function, and exposure rates.
 - [`plotly_exposure()`](https://paulgovan.github.io/ReliaPlotR/reference/plotly_exposure.md)
   : Interactive Exposure Plot.
 
+## Accessor Functions
+
+Extract tidy data frames of parameter estimates, confidence bounds, and
+goodness-of-fit metrics from fitted model objects for use in
+reproducible research workflows.
+
+- [`tidy_wblr()`](https://paulgovan.github.io/ReliaPlotR/reference/tidy_wblr.md)
+  : Extract Tidy Parameter Estimates from a wblr Object.
+- [`tidy_rga()`](https://paulgovan.github.io/ReliaPlotR/reference/tidy_rga.md)
+  : Extract Tidy Fitted Values from an rga Object.
+- [`tidy_alt()`](https://paulgovan.github.io/ReliaPlotR/reference/tidy_alt.md)
+  : Extract Tidy Parameter Estimates from an alt Object.
+
 # Articles
 
 ### Tutorials

@@ -8,6 +8,41 @@ library(WeibullR)
 library(ReliaPlotR)
 ```
 
+## Statistical Background
+
+The two-parameter Weibull distribution has CDF
+
+``` math
+F(t) = 1 - \exp\!\left[-\left(\frac{t}{\eta}\right)^{\!\beta}\right], \quad t > 0,
+```
+
+where $`\beta > 0`$ is the shape (slope on probability paper) and
+$`\eta > 0`$ is the scale (characteristic life, the time at which 63.2%
+of units have failed). A shape $`\beta < 1`$ indicates infant-mortality
+failure (decreasing hazard rate); $`\beta = 1`$ reduces to the
+exponential distribution (constant hazard); $`\beta > 1`$ indicates
+wearout (increasing hazard). The three-parameter extension adds a
+location parameter $`\gamma`$ (failure-free period):
+$`F(t) = 1 - \exp[-((t - \gamma)/\eta)^\beta]`$.
+
+For the lognormal distribution,
+$`\ln(T) \sim \mathcal{N}(\mu_{\log}, \sigma_{\log}^2)`$; the
+probability paper transformation uses the standard normal quantile
+$`\Phi^{-1}(F)`$.
+
+**Fitting methods.** Rank regression (default in WeibullR,
+`method.fit = "rr-xony"`) linearizes the CDF on probability paper and
+minimizes squared deviations. Maximum likelihood estimation
+(`method.fit = "mle"`) maximizes the log-likelihood and is preferred for
+heavily censored data. Goodness-of-fit is reported as R² for rank
+regression and log-likelihood for MLE (Meeker and Escobar 1998).
+
+**Confidence intervals.** The Fisher matrix method
+(`method.conf = "fm"`) approximates confidence bounds via the asymptotic
+normal distribution of MLE estimates. Likelihood ratio bounds
+(`method.conf = "lrb"`) invert a chi-squared test and are generally more
+accurate for small samples (Meeker and Escobar 1998).
+
 ## A Basic Example
 
 Next, create some failure data for 5 different machines that fail at
@@ -120,6 +155,8 @@ obj2 <- wblr.conf(wblr.fit(wblr(failures2), method.fit = "mle"), method.conf = "
 plotly_wblr(list(obj1, obj2), cols = c("steelblue", "tomato"))
 ```
 
+## References
+
 ## See Also
 
 - [Accelerated Life
@@ -131,3 +168,6 @@ plotly_wblr(list(obj1, obj2), cols = c("steelblue", "tomato"))
 - [Repairable Systems
   Analysis](https://paulgovan.github.io/ReliaPlotR/articles/repairable.md)
   — analyze recurrent events with MCF and NHPP models
+
+Meeker, William Q., and Luis A. Escobar. 1998. *Statistical Methods for
+Reliability Data*. Wiley.

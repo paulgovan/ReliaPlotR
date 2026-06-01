@@ -9,6 +9,35 @@ library(ReliaGrowR)
 library(ReliaPlotR)
 ```
 
+## Statistical Background
+
+**Repairable systems** experience multiple failure events over their
+lifetime. Standard survival analysis (Kaplan-Meier, Weibull) applies to
+the *first* failure; repairable-systems methods model the entire
+*recurrence* process (Nelson 2003).
+
+The **Mean Cumulative Function (MCF)**, $`M(t) = E[N(t)]`$, is the
+expected cumulative number of repairs per system by time $`t`$. The
+nonparametric Nelson-Aalen estimator
+
+``` math
+\hat{M}(t) = \sum_{t_i \leq t} \frac{d_i}{r_i},
+```
+
+where $`d_i`$ is the number of events at time $`t_i`$ and $`r_i`$ is the
+number of systems at risk (still under observation), provides an
+unbiased estimate that properly accounts for systems observed only up to
+a censoring time (Nelson 2003). This differs fundamentally from the
+Kaplan-Meier estimator: Kaplan-Meier estimates survival to *first*
+event; MCF sums expected *recurrences* and can exceed 1.
+
+The **NHPP Power Law** (Crow-AMSAA) model fits a parametric intensity
+function $`\lambda(t) = \lambda \beta t^{\beta - 1}`$ to the recurrent
+process. It is the repairable-systems analog of the Crow-AMSAA model for
+development testing: $`\beta < 1`$ indicates improving reliability;
+$`\beta > 1`$ indicates deterioration; $`\beta = 1`$ is a homogeneous
+Poisson process (Crow 1974).
+
 The examples below use a fleet of five field units. Each row records
 which unit failed and when:
 
@@ -104,6 +133,8 @@ fit_mcf2 <- mcf(id = id2, time = time2, end_time = end2)
 plotly_mcf(list(fit_mcf, fit_mcf2), cols = c("steelblue", "tomato"))
 ```
 
+## References
+
 ## See Also
 
 - [Life Data
@@ -115,3 +146,10 @@ plotly_mcf(list(fit_mcf, fit_mcf2), cols = c("steelblue", "tomato"))
 - [Accelerated Life
   Testing](https://paulgovan.github.io/ReliaPlotR/articles/alt.md) —
   extrapolate life from accelerated stress conditions
+
+Crow, Larry H. 1974. “Reliability Analysis for Complex Repairable
+Systems.” In *Reliability and Biometry: Statistical Analysis of
+Lifelength*, edited by F. Proschan and R. J. Serfling. SIAM.
+
+Nelson, Wayne B. 2003. *Recurrent Events Data Analysis for Product
+Repairs, Disease Recurrences, and Other Applications*. ASA-SIAM.

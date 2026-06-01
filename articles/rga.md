@@ -9,6 +9,34 @@ library(ReliaGrowR)
 library(ReliaPlotR)
 ```
 
+## Statistical Background
+
+The **Crow-AMSAA** model (Non-Homogeneous Poisson Process, Power Law)
+describes the expected cumulative failures as
+
+``` math
+E[N(t)] = \lambda t^{\beta},
+```
+
+where $`\lambda > 0`$ is a scale parameter and $`\beta > 0`$ is the
+shape parameter. A value $`\beta < 1`$ indicates **reliability growth**
+(the failure rate $`\lambda\beta t^{\beta-1}`$ is decreasing over time);
+$`\beta > 1`$ indicates degradation; $`\beta = 1`$ gives a homogeneous
+Poisson process (constant rate). Parameters are estimated by fitting a
+log-log linear regression to cumulative failures versus cumulative test
+time (Crow 1974).
+
+The **Duane model** predates the NHPP formulation and postulates that
+the cumulative mean time between failures follows a power law in
+cumulative test time: $`\text{CMTBF}(T) = K T^\alpha`$, where $`\alpha`$
+is the growth rate. Empirically, managed reliability growth programs
+tend to achieve $`\alpha \approx 0.3`$–$`0.5`$(Duane 1964).
+
+**Piecewise NHPP.** When a design change or corrective action divides
+the test program into distinct phases, separate Power Law parameters are
+fit within each interval defined by the specified `breaks`. A vertical
+dotted line marks each change point.
+
 ## Crow-AMSAA Model
 
 To run a Crow-AMSAA model, first set up some cumulative time and failure
@@ -122,6 +150,8 @@ plotly_rga(list(result1, result2), cols = c("steelblue", "tomato"))
 #>   Read more about this trace type -> https://plotly.com/r/reference/#scatter
 ```
 
+## References
+
 ## See Also
 
 - [Life Data
@@ -133,3 +163,11 @@ plotly_rga(list(result1, result2), cols = c("steelblue", "tomato"))
 - [Accelerated Life
   Testing](https://paulgovan.github.io/ReliaPlotR/articles/alt.md) —
   extrapolate life from accelerated stress conditions
+
+Crow, Larry H. 1974. “Reliability Analysis for Complex Repairable
+Systems.” In *Reliability and Biometry: Statistical Analysis of
+Lifelength*, edited by F. Proschan and R. J. Serfling. SIAM.
+
+Duane, J. T. 1964. “Learning Curve Approach to Reliability Monitoring.”
+*IEEE Transactions on Aerospace* 2 (2): 563–66.
+<https://doi.org/10.1109/TA.1964.4319640>.

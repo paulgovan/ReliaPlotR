@@ -7,6 +7,40 @@ library(WeibullR)
 library(WeibullR.ALT)
 ```
 
+## Statistical Background
+
+**Accelerated Life Testing (ALT)** subjects units to stress levels
+(temperature, voltage, vibration, etc.) higher than use conditions in
+order to induce failures faster. Life data collected at multiple stress
+levels are then extrapolated to the use-condition stress using a
+physics-motivated life-stress model (Nelson 1990).
+
+**Life distributions.** At each stress level, failure times are modeled
+with a Weibull or lognormal distribution. The *shape* parameter
+($`\beta`$ for Weibull; $`\sigma_{\log}`$ for lognormal) is assumed
+constant across stress levels (the distributions are parallel on
+probability paper), while the *scale* parameter ($`\eta`$ for Weibull;
+$`\exp(\mu_{\log})`$ for lognormal) varies with stress according to the
+life-stress model.
+
+**Life-stress models.** Two models are supported:
+
+- **Arrhenius**: $`\eta(S) = A \exp(E_a / (k S))`$, where $`S`$ is
+  temperature in Kelvin and $`E_a / k`$ is the activation energy divided
+  by Boltzmann’s constant. The x-axis uses a reciprocal scale so the
+  relationship is linear.
+- **Power Law (Inverse Power)**: $`\eta(S) = A / S^n`$, where $`S`$ is a
+  non-thermal stress. Both axes are log-transformed so the relationship
+  is linear.
+
+**Fitting.**
+[`alt.parallel()`](https://rdrr.io/pkg/WeibullR.ALT/man/alt.parallel.html)
+fits independent Weibull/lognormal models at each stress level;
+[`alt.fit()`](https://rdrr.io/pkg/WeibullR.ALT/man/alt.fit.html) then
+fits the global life-stress relationship by constraining the shape
+parameter to be equal across stress levels (Nelson 1990; Meeker and
+Escobar 1998).
+
 ## Building an ALT Model
 
 The `WeibullR.ALT` package uses a three-step pipeline to create an ALT
@@ -122,6 +156,8 @@ plotly_rel(
 )
 ```
 
+## References
+
 ## See Also
 
 - [Life Data
@@ -133,3 +169,9 @@ plotly_rel(
 - [Repairable Systems
   Analysis](https://paulgovan.github.io/ReliaPlotR/articles/repairable.md)
   — analyze recurrent events with MCF and NHPP models
+
+Meeker, William Q., and Luis A. Escobar. 1998. *Statistical Methods for
+Reliability Data*. Wiley.
+
+Nelson, Wayne B. 1990. *Accelerated Testing: Statistical Models, Test
+Plans, and Data Analysis*. Wiley.
