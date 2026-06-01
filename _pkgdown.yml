@@ -55,3 +55,11 @@ reference:
       - tidy_wblr
       - tidy_rga
       - tidy_alt
+
+  - title: "MCP Server"
+    desc: >
+      Launch a Model Context Protocol server that exposes Weibull and ALT
+      fitting as callable tools for AI assistants such as Claude Code and
+      Claude Desktop.
+    contents:
+      - reliapltr_mcp_server
