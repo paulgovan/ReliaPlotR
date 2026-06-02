@@ -2,6 +2,11 @@ url: https://paulgovan.github.io/ReliaPlotR/
 template:
   bootstrap: 5
 
+navbar:
+  logo:
+    image: man/figures/logo.png
+    href: https://paulgovan.github.io/ReliaPlotR/
+
 articles:
   - title: "Tutorials"
     navbar: ~
