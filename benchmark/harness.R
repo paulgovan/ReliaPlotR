@@ -95,10 +95,13 @@ SYSTEM_PROMPT <- paste(
 )
 
 # Count tool-request contents across all assistant turns (version-robust:
-# matches any content class whose name mentions a tool request).
+# matches any content class whose name mentions a tool request). Also captures
+# the arguments of each call to build a verifiable audit trail (tool_trace):
+# the literal evidence of which distribution/method/units/censoring the agent
+# passed. ContentToolRequest exposes @name and @arguments (a named list).
 count_tool_calls <- function(chat) {
   turns <- tryCatch(chat$get_turns(), error = function(e) list())
-  n <- 0L; names_seen <- character(0)
+  n <- 0L; names_seen <- character(0); trace <- list()
   for (tn in turns) {
     contents <- tryCatch(tn@contents, error = function(e) NULL)
     if (is.null(contents)) next
@@ -107,11 +110,34 @@ count_tool_calls <- function(chat) {
       if (grepl("ToolRequest", cls)) {
         n <- n + 1L
         nm <- tryCatch(ct@name, error = function(e) NA_character_)
+        args <- tryCatch(ct@arguments, error = function(e) NULL)
         names_seen <- c(names_seen, nm)
+        trace[[length(trace) + 1L]] <- list(name = nm, arguments = args)
       }
     }
   }
-  list(n = n, names = names_seen)
+  list(n = n, names = names_seen, trace = trace)
+}
+
+# Reproducibility metadata stamped onto every run. A C3 (tool) result is
+# reproducible by construction because it carries this stamp + the tool_trace;
+# a C1 result carries none of it.
+.pkg_ver <- function(pkg) {
+  tryCatch(as.character(utils::packageVersion(pkg)), error = function(e) NA_character_)
+}
+provenance_stamp <- function(model) {
+  list(
+    model       = model,
+    r_version   = R.version.string,
+    pkg_versions = list(
+      ReliaPlotR   = .pkg_ver("ReliaPlotR"),
+      WeibullR     = .pkg_ver("WeibullR"),
+      WeibullR.ALT = .pkg_ver("WeibullR.ALT"),
+      ReliaGrowR   = .pkg_ver("ReliaGrowR"),
+      ellmer       = .pkg_ver("ellmer")
+    ),
+    timestamp = format(Sys.time(), "%Y-%m-%dT%H:%M:%S%z")
+  )
 }
 
 # ----- single run ------------------------------------------------------------
@@ -148,6 +174,8 @@ run_one <- function(problem, condition, provider, model) {
     response  = resp_text,
     n_tool_calls = tc$n,
     tool_names   = paste(tc$names, collapse = ";"),
+    tool_trace   = tc$trace,                 # ordered {name, arguments} audit trail
+    provenance   = provenance_stamp(model),  # model + pkg versions + timestamp
     error     = startsWith(resp_text, "__ERROR__")
   )
 }

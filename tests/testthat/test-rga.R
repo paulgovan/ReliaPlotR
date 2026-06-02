@@ -81,3 +81,17 @@ test_that("plotly_rga throws error for non-rga input in list", {
     "All inputs must be of class 'rga'."
   )
 })
+
+test_that("plotly_rga works when breakpoints is NULL", {
+  mock_no_bp <- mock_rga_obj
+  mock_no_bp$breakpoints <- NULL
+  plot <- plotly_rga(mock_no_bp)
+  expect_s3_class(plot, "plotly")
+})
+
+test_that("plotly_rga respects custom main, xlab, ylab", {
+  plot <- plotly_rga(mock_rga_obj, main = "My RGA", xlab = "Time", ylab = "Failures")
+  expect_equal(plot$x$layoutAttrs[[1]]$title, "My RGA")
+  expect_equal(plot$x$layoutAttrs[[1]]$xaxis$title, "Time")
+  expect_equal(plot$x$layoutAttrs[[1]]$yaxis$title, "Failures")
+})

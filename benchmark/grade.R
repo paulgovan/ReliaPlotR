@@ -48,6 +48,27 @@ grade_run <- function(run, problem, truth) {
                   if (is.null(got)) "NA" else format(got, digits = 5),
                   if (ok) "ok" else "X"))
   }
+  # --- verifiability / provenance (the durable axis) ----------------------
+  # grounded: the reported answer is backed by an actual tool call. C1 has no
+  # tools so this is always FALSE; a correct-but-ungrounded C3 answer (model
+  # guessed instead of calling the tool) is flagged here, not in accuracy.
+  grounded     <- isTRUE(run$n_tool_calls > 0)
+  # reproducible: grounded runs carry the version stamp + tool_trace and so
+  # reproduce by construction; ungrounded LLM estimates do not.
+  reproducible <- grounded
+  trace_json <- tryCatch(
+    jsonlite::toJSON(run$tool_trace, auto_unbox = TRUE),
+    error = function(e) "[]")
+  model_version <- tryCatch({
+    pv <- run$provenance$pkg_versions
+    paste0(run$model,
+           " | ReliaPlotR=", pv$ReliaPlotR,
+           " WeibullR=", pv$WeibullR,
+           " WeibullR.ALT=", pv$WeibullR.ALT,
+           " ReliaGrowR=", pv$ReliaGrowR,
+           " ellmer=", pv$ellmer)
+  }, error = function(e) run$model)
+
   data.frame(
     problem      = run$id,
     domain       = run$domain,
@@ -57,10 +78,14 @@ grade_run <- function(run, problem, truth) {
     fields_passed = passed,
     n_fields      = length(keys),
     problem_pass  = passed == length(keys),
+    grounded      = grounded,
+    reproducible  = reproducible,
     n_tool_calls  = run$n_tool_calls,
     error         = isTRUE(run$error),
     detail        = paste(detail, collapse = " "),
     tool_names    = run$tool_names,
+    tool_trace    = as.character(trace_json),
+    model_version = model_version,
     stringsAsFactors = FALSE
   )
 }

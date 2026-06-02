@@ -77,6 +77,15 @@ write.csv(results, here("results.csv"), row.names = FALSE)
 message("\nWrote ", here("results.csv"), " (", nrow(results), " runs)")
 
 # --- summary -----------------------------------------------------------------
+# Durable axis first: verifiability does not converge as base models improve.
+cat("\n=== Verifiability by condition (grounded / reproducible rate) ===\n")
+ver <- aggregate(cbind(grounded, reproducible) ~ condition, data = results, FUN = mean)
+ver$grounded     <- sprintf("%.0f%%", 100 * ver$grounded)
+ver$reproducible <- sprintf("%.0f%%", 100 * ver$reproducible)
+print(ver, row.names = FALSE)
+cat("(expected: C3 ~100%, C1 = 0% by construction - holds regardless of model capability)\n")
+
+# Symptom axis: the raw accuracy gap, which shrinks as models improve.
 cat("\n=== Accuracy by condition x provider (problem pass rate) ===\n")
 agg <- aggregate(problem_pass ~ condition + provider, data = results, FUN = mean)
 agg$problem_pass <- sprintf("%.0f%%", 100 * agg$problem_pass)

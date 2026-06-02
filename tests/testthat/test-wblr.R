@@ -131,6 +131,35 @@ test_that("plotly_wblr warns and ignores susp when multiple objects provided", {
   )
 })
 
+test_that("plotly_wblr works with lognormal distribution", {
+  failures <- c(30, 49, 82, 90, 96)
+  obj <- wblr.conf(wblr.fit(wblr(failures), method.fit = "mle", dist = "lognormal"),
+                   method.conf = "lrb")
+  p <- plotly_wblr(obj)
+  expect_s3_class(p, "plotly")
+})
+
+test_that("plotly_wblr works with weibull3p distribution", {
+  failures <- c(25, 30, 42, 49, 55, 67, 73, 82, 90, 96, 101, 110, 120, 132, 145)
+  obj <- wblr.conf(wblr.fit(wblr(failures), dist = "weibull3p"))
+  p <- plotly_wblr(obj)
+  expect_s3_class(p, "plotly")
+})
+
+test_that("plotly_wblr works with interval-censored data", {
+  inspection_data <- data.frame(
+    left  = c(0,    6.12, 19.92, 29.64, 35.4,  39.72, 45.32, 52.32),
+    right = c(6.12, 19.92, 29.64, 35.4, 39.72, 45.32, 52.32, 63.48),
+    qty   = c(5L, 16L, 12L, 18L, 18L, 2L, 6L, 17L)
+  )
+  suspensions <- data.frame(time = 63.48, event = 0, qty = 73)
+  obj <- wblr(suspensions, interval = inspection_data)
+  obj <- wblr.fit(obj, method.fit = "mle")
+  obj <- wblr.conf(obj, method.conf = "fm")
+  p <- plotly_wblr(obj)
+  expect_s3_class(p, "plotly")
+})
+
 test_that("plotly_wblr hover text labels are correct for confidence bounds", {
   failures <- c(30, 49, 82, 90, 96)
   obj <- wblr.conf(wblr.fit(wblr(failures), method.fit = "mle"), method.conf = "lrb")

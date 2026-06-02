@@ -1,14 +1,30 @@
 # Agentic Reliability Pilot
 
-A weekend-scale pilot testing a falsifiable thesis:
+A weekend-scale pilot testing a thesis framed around **verifiability**, not raw
+accuracy:
 
-> **Tool-augmented LLMs produce statistically correct reliability analyses where unaugmented LLMs do not.**
+> **Tool-augmented reliability analysis is verifiable, reproducible, and
+> auditable by construction; unaugmented LLM analysis is not — regardless of how
+> capable the base model becomes.**
+
+Why this framing: a raw accuracy gap between tool-augmented (C3) and LLM-alone
+(C1) conditions shrinks as base models improve, so a finding pinned to it has a
+short shelf life. The durable contrast is that a C3 answer is *provably* the
+canonical `WeibullR`/`WeibullR.ALT`/`ReliaGrowR` output, carries a full
+tool-call audit trail (which distribution, which units, which censoring), and
+reproduces deterministically — whereas a C1 answer is unverifiable and
+unreproducible even when it happens to be numerically right. In certification /
+safety-critical contexts (aerospace, medical, nuclear) an unverifiable
+computation is disqualifying, so this contrast strengthens rather than decays as
+models improve.
+
+Accuracy is still measured — as a secondary, capability-dependent *symptom* —
+but the headline is the verifiability axis.
 
 The "correct" answer for each problem is whatever the canonical R packages
-(`WeibullR`, `WeibullR.ALT`, `ReliaGrowR`) produce when driven correctly. We
-compute it once and freeze it as an answer key (`ground_truth.json`). The
-research question is whether the *agent* picks the right tool, passes correct
-arguments (distribution, units, censoring), and reports the right numbers — not
+produce when driven correctly. We compute it once and freeze it as an answer key
+(`ground_truth.json`). The research question is whether the *agent* picks the
+right tool, passes correct arguments, and reports a *traceable* number — not
 whether the underlying statistics are right.
 
 This directory is `.Rbuildignore`d and never ships in the package or affects
@@ -100,18 +116,38 @@ PILOT_PROVIDERS=anthropic PILOT_CONDITIONS=C1,C2,C3 PILOT_ENABLE_C2=1 \
 
 ## Grading
 
-A field passes if `abs(got - truth) / max(abs(truth), 1e-8) < tol`
-(`DEFAULT_TOL = 0.05`; looser per-field overrides set in `problems.R`). A
-problem passes only if **all** its fields pass. The grader extracts the last
-parseable JSON object from the agent's reply, so the model is instructed to end
-with a single JSON line such as `{"beta": 2.5, "eta": 80.0}`.
+Two axes per run.
+
+**Accuracy (symptom).** A field passes if
+`abs(got - truth) / max(abs(truth), 1e-8) < tol` (`DEFAULT_TOL = 0.05`; looser
+per-field overrides set in `problems.R`). A problem passes only if **all** its
+fields pass. The grader extracts the last parseable JSON object from the agent's
+reply, so the model is instructed to end with a single JSON line such as
+`{"beta": 2.5, "eta": 80.0}`.
+
+**Verifiability (durable).** Each row also records:
+
+- `grounded` — the reported answer is backed by an actual tool call
+  (`n_tool_calls > 0`). Always `FALSE` for C1 (no tools); a correct-but-ungrounded
+  C3 answer (model guessed instead of calling the tool) is flagged here.
+- `reproducible` — `TRUE` for grounded runs, which carry the version stamp +
+  `tool_trace` and reproduce by construction.
+- `tool_trace` — the ordered `{name, arguments}` audit trail (the evidence of
+  which distribution / method / units / censoring the agent passed).
+- `model_version` — model id plus pinned `WeibullR` / `WeibullR.ALT` /
+  `ReliaGrowR` / `ReliaPlotR` / `ellmer` versions, for provenance.
+
+`run_pilot.R` prints the verifiability table first (grounded/reproducible rate
+by condition), then the accuracy table.
 
 ## What "pilot succeeded" means
 
 - `ground_truth.json` reproduces known canonical values.
 - `run_pilot.R` completes for C1 and C3 across both providers with no harness
-  crashes.
-- `results.csv` shows a **directional accuracy gap** (C3 > C1), plus visible
-  recurring C1 error modes (wrong distribution, ignored censoring, the
-  Arrhenius–Kelvin units trap, fabricated numbers instead of a tool call) —
-  enough to decide whether the full benchmark study is worth building.
+  crashes; every C3 row is `grounded`/`reproducible`, every C1 row is not.
+- The **verifiability table** shows the structural contrast (C3 ≈ 100%
+  reproducible vs C1 = 0%) that holds independent of model capability; the
+  accuracy gap (C3 > C1) is reported as a secondary symptom, with recurring C1
+  error modes visible in the `tool_trace` (wrong distribution, ignored
+  censoring, the Arrhenius–Kelvin units trap, fabricated numbers instead of a
+  tool call) — enough to decide whether the full study is worth building.

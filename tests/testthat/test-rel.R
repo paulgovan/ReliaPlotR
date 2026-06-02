@@ -120,3 +120,20 @@ test_that("plotly_rel respects showGrid = FALSE", {
   expect_equal(p$x$layoutAttrs[[1]]$xaxis$showgrid, FALSE)
   expect_equal(p$x$layoutAttrs[[1]]$yaxis$showgrid, FALSE)
 })
+
+test_that("plotly_rel respects custom main, xlab, ylab", {
+  p <- plotly_rel(mock_alt_rel, main = "My Rel", xlab = "Stress", ylab = "Life")
+  expect_equal(p$x$layoutAttrs[[1]]$title, "My Rel")
+  expect_equal(p$x$layoutAttrs[[1]]$xaxis$title, "Stress")
+  expect_equal(p$x$layoutAttrs[[1]]$yaxis$title, "Life")
+})
+
+test_that("plotly_rel accepts custom color parameters", {
+  p <- plotly_rel(mock_alt_rel,
+                  fitCol  = "steelblue",
+                  ptCol   = "tomato",
+                  percCol = "forestgreen",
+                  goalCol = "purple",
+                  gridCol = "lightblue")
+  expect_s3_class(p, "plotly")
+})

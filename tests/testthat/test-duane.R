@@ -61,3 +61,23 @@ test_that("plotly_duane signif parameter affects hover text precision", {
   # With signif=1, values should be rounded to 1 significant digit
   expect_true(all(grepl("MTBF: \\(", hover_data)))
 })
+
+test_that("plotly_duane respects custom main, xlab, ylab", {
+  plot <- plotly_duane(mock_duane_obj, main = "My Duane", xlab = "Time", ylab = "MTBF")
+  expect_equal(plot$x$layoutAttrs[[1]]$title, "My Duane")
+  expect_equal(plot$x$layoutAttrs[[1]]$xaxis$title, "Time")
+  expect_equal(plot$x$layoutAttrs[[1]]$yaxis$title, "MTBF")
+})
+
+test_that("plotly_duane accepts confCol parameter", {
+  plot <- plotly_duane(mock_duane_obj, confCol = "orange")
+  expect_s3_class(plot, "plotly")
+})
+
+test_that("plotly_duane signif rounds hover text values", {
+  plot <- plotly_duane(mock_duane_obj, signif = 2)
+  built <- plotly::plotly_build(plot)
+  hover_data <- built$x$data[[1]]$text
+  # signif=2 applied to Cumulative_Time (100,200,...) and MTBF (10,20,...)
+  expect_true(all(grepl("MTBF: \\(1e\\+02|MTBF: \\(100", hover_data[1])))
+})

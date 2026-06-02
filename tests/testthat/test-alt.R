@@ -89,6 +89,13 @@ test_that("plotly_alt works for lognormal distribution", {
   expect_s3_class(p, "plotly")
 })
 
+test_that("plotly_alt respects custom main, xlab, ylab", {
+  p <- plotly_alt(mock_alt_prob, main = "My ALT", xlab = "Time", ylab = "Probability")
+  expect_equal(p$x$layoutAttrs[[1]]$title, "My ALT")
+  expect_equal(p$x$layoutAttrs[[1]]$xaxis$title, "Time")
+  expect_equal(p$x$layoutAttrs[[1]]$yaxis$title, "Probability")
+})
+
 test_that("plotly_alt data scatter has correct hover text prefix", {
   p     <- plotly_alt(mock_alt_prob)
   built <- plotly::plotly_build(p)
