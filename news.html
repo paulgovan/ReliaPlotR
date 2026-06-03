@@ -7,7 +7,7 @@
 
     <a class="navbar-brand me-2" href="index.html">ReliaPlotR</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.6</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.7</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -46,8 +46,10 @@
 <ul><li>New <code><a href="reference/tidy_wblr.html">tidy_wblr()</a></code> function extracts parameter estimates, goodness-of-fit metrics, and confidence bounds from fitted <code>wblr</code> objects as tidy data frames.</li>
 <li>New <code><a href="reference/tidy_rga.html">tidy_rga()</a></code> function extracts fitted cumulative failure counts, confidence bounds, and Crow-AMSAA model coefficients from <code>rga</code> objects.</li>
 <li>New <code><a href="reference/tidy_alt.html">tidy_alt()</a></code> function extracts per-stress-level parameter estimates and life-stress relationship coefficients from fitted <code>alt</code> objects.</li>
-<li>New <code><a href="reference/reliapltr_mcp_server.html">reliapltr_mcp_server()</a></code> exposes <code>fit_weibull</code> and <code>fit_alt</code> as MCP tools for use with Claude Code and Claude Desktop (requires <code>mcptools</code> and <code>ellmer</code>).</li>
-<li>New vignette “MCP Tools” covers registering the server and using both tools.</li>
+<li>New <code><a href="reference/reliapltr_mcp_server.html">reliapltr_mcp_server()</a></code> exposes five MCP tools for use with Claude Code and Claude Desktop (requires <code>mcptools</code> and <code>ellmer</code>): <code>fit_weibull</code>, <code>fit_alt</code>, <code>plot_weibull</code>, <code>plot_alt</code>, and <code>plot_rga</code>.</li>
+<li>New <code>inst/mcp/server.R</code> launcher script for easy MCP server registration.</li>
+<li>New vignette “MCP Tools” covers registering the server and using the tools.</li>
+<li>New package logo (hex sticker) in <code>man/figures/logo.png</code>.</li>
 <li>All four vignettes now include a <strong>Statistical Background</strong> section with equations, parameter interpretation, and references.</li>
 <li>New <code>inst/REFERENCES.bib</code> with BibTeX entries for foundational reliability engineering references.</li>
 </ul></div>

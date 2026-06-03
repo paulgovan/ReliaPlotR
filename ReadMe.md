@@ -11,27 +11,8 @@ coverage](https://codecov.io/gh/paulgovan/ReliaPlotR/graph/badge.svg)](https://a
 [![](http://cranlogs.r-pkg.org/badges/last-month/ReliaPlotR)](https://cran.r-project.org/package=ReliaPlotR)
 [![](http://cranlogs.r-pkg.org/badges/grand-total/ReliaPlotR)](https://cran.r-project.org/package=ReliaPlotR)
 
-Build interactive reliability plots with `plotly`, an interactive
-web-based graphing library. ReliaPlotR wraps the **WeibullR**,
-**WeibullR.ALT**, and **ReliaGrowR** packages to produce interactive
-visualizations across four reliability analysis domains.
-
-## Function Overview
-
-| Function | Analysis Domain | Purpose |
-|----|----|----|
-| [`plotly_wblr()`](https://paulgovan.github.io/ReliaPlotR/reference/plotly_wblr.md) | Life Data Analysis | Weibull/lognormal probability plot |
-| [`plotly_contour()`](https://paulgovan.github.io/ReliaPlotR/reference/plotly_contour.md) | Life Data Analysis | MLE parameter confidence contour plot |
-| [`plotly_alt()`](https://paulgovan.github.io/ReliaPlotR/reference/plotly_alt.md) | Accelerated Life Testing | ALT probability plot (one line per stress level) |
-| [`plotly_rel()`](https://paulgovan.github.io/ReliaPlotR/reference/plotly_rel.md) | Accelerated Life Testing | ALT life-stress relationship plot |
-| [`plotly_rga()`](https://paulgovan.github.io/ReliaPlotR/reference/plotly_rga.md) | Reliability Growth | Crow-AMSAA / NHPP cumulative failures plot |
-| [`plotly_duane()`](https://paulgovan.github.io/ReliaPlotR/reference/plotly_duane.md) | Reliability Growth | Duane cumulative MTBF plot (log-log) |
-| [`plotly_nhpp()`](https://paulgovan.github.io/ReliaPlotR/reference/plotly_nhpp.md) | Repairable Systems | NHPP MCF plot with parametric model overlay |
-| [`plotly_mcf()`](https://paulgovan.github.io/ReliaPlotR/reference/plotly_mcf.md) | Repairable Systems | Nonparametric Mean Cumulative Function plot |
-| [`plotly_exposure()`](https://paulgovan.github.io/ReliaPlotR/reference/plotly_exposure.md) | Repairable Systems | Cumulative event rate (exposure) plot |
-
-All functions accept a single model object or a **list** of objects for
-overlay plots, and return a `plotly` object for interactive use.
+Build interactive Reliability Probability Plots with `plotly`, an
+interactive web-based graphing library.
 
 ## Getting Started
 
@@ -94,19 +75,6 @@ plotly_contour(obj, main = "Weibull Contour Plot", col = "red", signif = 4, grid
 ```
 
 ![](ReadMe_files/figure-gfm/unnamed-chunk-6-1.png)
-
-## Vignettes
-
-For detailed worked examples see the package vignettes:
-
-- [Life Data
-  Analysis](https://paulgovan.github.io/ReliaPlotR/articles/weibull.html)
-- [Accelerated Life
-  Testing](https://paulgovan.github.io/ReliaPlotR/articles/alt.html)
-- [Reliability Growth
-  Analysis](https://paulgovan.github.io/ReliaPlotR/articles/rga.html)
-- [Repairable Systems
-  Analysis](https://paulgovan.github.io/ReliaPlotR/articles/repairable.html)
 
 ## Code of Conduct
 

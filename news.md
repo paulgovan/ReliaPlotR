@@ -16,10 +16,14 @@
   relationship coefficients from fitted `alt` objects.
 - New
   [`reliapltr_mcp_server()`](https://paulgovan.github.io/ReliaPlotR/reference/reliapltr_mcp_server.md)
-  exposes `fit_weibull` and `fit_alt` as MCP tools for use with Claude
-  Code and Claude Desktop (requires `mcptools` and `ellmer`).
-- New vignette “MCP Tools” covers registering the server and using both
+  exposes five MCP tools for use with Claude Code and Claude Desktop
+  (requires `mcptools` and `ellmer`): `fit_weibull`, `fit_alt`,
+  `plot_weibull`, `plot_alt`, and `plot_rga`.
+- New `inst/mcp/server.R` launcher script for easy MCP server
+  registration.
+- New vignette “MCP Tools” covers registering the server and using the
   tools.
+- New package logo (hex sticker) in `man/figures/logo.png`.
 - All four vignettes now include a **Statistical Background** section
   with equations, parameter interpretation, and references.
 - New `inst/REFERENCES.bib` with BibTeX entries for foundational

@@ -218,7 +218,7 @@ string.
 ptool <- ReliaPlotR:::.make_plot_wblr_tool()
 json_str <- ptool(failures = c(30, 49, 82, 90, 96))
 nchar(json_str)  # plotly JSON string length
-#> [1] 12759
+#> [1] 12765
 ```
 
 ### The `plot_alt` Tool
