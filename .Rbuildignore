@@ -22,3 +22,5 @@
 ^\.positai$
 ^\.claude$
 ^benchmark$
+^inst/create_stickers\.R$
+^inst/softwarex-paper\.docx$

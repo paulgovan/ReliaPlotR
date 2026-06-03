@@ -241,7 +241,9 @@ reliapltr_mcp_server <- function(...) {
       )
 
       fig <- plotly_wblr(obj, showConf = show_conf)
-      plotly:::to_JSON(plotly::plotly_build(fig)$x)
+      jsonlite::toJSON(plotly::plotly_build(fig)$x, digits = 50,
+                       auto_unbox = TRUE, force = TRUE, null = "null",
+                       na = "null", time_format = "%Y-%m-%d %H:%M:%OS6")
     },
     name = "plot_weibull",
     description = paste(
@@ -324,7 +326,9 @@ reliapltr_mcp_server <- function(...) {
       fig_rel  <- plotly_rel(obj)
 
       to_json <- function(fig) {
-        plotly:::to_JSON(plotly::plotly_build(fig)$x)
+        jsonlite::toJSON(plotly::plotly_build(fig)$x, digits = 50,
+                       auto_unbox = TRUE, force = TRUE, null = "null",
+                       na = "null", time_format = "%Y-%m-%d %H:%M:%OS6")
       }
 
       list(
@@ -380,7 +384,9 @@ reliapltr_mcp_server <- function(...) {
                               times_type = times_type,
                               method     = method)
       fig <- plotly_rga(obj, showConf = show_conf)
-      plotly:::to_JSON(plotly::plotly_build(fig)$x)
+      jsonlite::toJSON(plotly::plotly_build(fig)$x, digits = 50,
+                       auto_unbox = TRUE, force = TRUE, null = "null",
+                       na = "null", time_format = "%Y-%m-%d %H:%M:%OS6")
     },
     name = "plot_rga",
     description = paste(

@@ -4,6 +4,7 @@ output:
   rmarkdown::html_vignette:
     fig_width: 7
     fig_height: 5
+    self_contained: false
 bibliography: ../inst/REFERENCES.bib
 vignette: >
   %\VignetteIndexEntry{repairable}
