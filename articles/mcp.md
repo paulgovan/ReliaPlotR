@@ -218,7 +218,7 @@ string.
 ptool <- ReliaPlotR:::.make_plot_wblr_tool()
 json_str <- ptool(failures = c(30, 49, 82, 90, 96))
 nchar(json_str)  # plotly JSON string length
-#> [1] 12759
+#> [1] 12765
 ```
 
 ### The `plot_alt` Tool
@@ -242,9 +242,9 @@ result_plots <- ptool_alt(
 ``` r
 
 nchar(result_plots$probability_plot)
-#> [1] 74578
+#> [1] 74535
 nchar(result_plots$life_stress_plot)
-#> [1] 95564
+#> [1] 95578
 ```
 
 ### The `plot_rga` Tool
@@ -269,7 +269,7 @@ json_rga <- ptool_rga(
 #>   Based on info supplied, a 'scatter' trace seems appropriate.
 #>   Read more about this trace type -> https://plotly.com/r/reference/#scatter
 nchar(json_rga)
-#> [1] 5240
+#> [1] 5244
 ```
 
 ## How the Tools Work
